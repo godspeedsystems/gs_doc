@@ -1,0 +1,1140 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ARV",
+    "description": "Examples and documentation of the AUTH component of ARV Core.",
+    "contact": {
+      "name": "Ayush Ghai",
+      "email": "ayush.ghai@srijan.net"
+    },
+    "version": "1.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/mastersilv3r/ARV-CORE/1.0.0",
+      "description": "ARV-CORE API Auto Mocking"
+    }
+  ],
+  "paths": {
+    "/pilots/{pilotId}": {
+      "summary": "Path used to manage a single Pilot.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `Pilot`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "summary": "Get a Pilot",
+        "description": "Gets the details of a single instance of a `Pilot`.",
+        "operationId": "getPilot",
+        "parameters": [
+          {
+            "name": "pilotId",
+            "in": "path",
+            "description": "A unique identifier for a `Pilot`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response - returns a single `Pilot`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pilot"
+                },
+                "examples": {
+                  "Sample pilot get": {
+                    "value": {
+                      "id": 1213232323,
+                      "user_id": 1213213231,
+                      "email": "ayush.ghai@srijan.net",
+                      "password": "password",
+                      "first_name": "Ayush",
+                      "last_name": "Ghai",
+                      "phone_number": 9882883272,
+                      "profile_pic": "http://someUrl.com/profilePic",
+                      "pilot_type": "drone warrior",
+                      "qualifications": "Loved by farmers for the great job done",
+                      "license_number": "2GH243",
+                      "license_image": "img_blob",
+                      "license_approval": true,
+                      "certification_number": "AKJPG76GF",
+                      "certification_image": "img_blob",
+                      "list_of_drones": [
+                        "Drone A",
+                        "Drone B"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a Pilot",
+        "description": "Updates an existing `Pilot`.",
+        "operationId": "updatePilot",
+        "parameters": [
+          {
+            "name": "pilotId",
+            "in": "path",
+            "description": "A unique identifier for a `Pilot`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated `Pilot` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pilot"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful response."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Pilot",
+        "description": "Deletes an existing `Pilot`.",
+        "operationId": "deletePilot",
+        "parameters": [
+          {
+            "name": "pilotId",
+            "in": "path",
+            "description": "A unique identifier for a `Pilot`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        }
+      }
+    },
+    "/customers": {
+      "summary": "Path used to manage the list of customers.",
+      "description": "The REST endpoint/path used to list and create zero or more `Customer` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "summary": "List All customers",
+        "description": "Gets a list of all `Customer` entities.",
+        "operationId": "getcustomers",
+        "responses": {
+          "200": {
+            "description": "Successful response - returns an array of `Customer` entities.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Register a Customer",
+        "description": "Creates a new instance of a `Customer`.",
+        "operationId": "createCustomer",
+        "requestBody": {
+          "description": "A new `Customer` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              },
+              "examples": {
+                "Customer registration request": {
+                  "value": {
+                    "email": "ayush.ghai@srijan.net",
+                    "password": "simple_unhashed_password",
+                    "name": "Srijan Technologies",
+                    "sector": "Oil",
+                    "user_id": 132343434,
+                    "type": "company"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "registration response": {
+                    "value": {
+                      "status": 201,
+                      "id": 1231231
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerId}": {
+      "summary": "Path used to manage a single Customer.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `Customer`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "summary": "Get a Customer",
+        "description": "Gets the details of a single instance of a `Customer`.",
+        "operationId": "getCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "A unique identifier for a `Customer`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response - returns a single `Customer`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Customer",
+        "description": "Updates an existing `Customer`.",
+        "operationId": "updateCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "A unique identifier for a `Customer`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated `Customer` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful response."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Customer",
+        "description": "Deletes an existing `Customer`.",
+        "operationId": "deleteCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "A unique identifier for a `Customer`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        }
+      }
+    },
+    "/pilots": {
+      "summary": "Path used to manage the list of pilots.",
+      "description": "The REST endpoint/path used to list and create zero or more `Pilot` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "summary": "List All pilots",
+        "description": "Gets a list of all `Pilot` entities.",
+        "operationId": "getpilots",
+        "responses": {
+          "200": {
+            "description": "Successful response - returns an array of `Pilot` entities.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pilot"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Register a Pilot",
+        "description": "REGISTER: Creates a new instance of a `Pilot`.",
+        "operationId": "createPilot",
+        "requestBody": {
+          "description": "Register a pilot. The [User + Pilot] object that needs to be saved in the DB. The client should send plain password. The server needs to convert this to or match this with \"password_hash\", which is the encrypted field stored in the database. Returns id of the newly registered user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pilot"
+              },
+              "examples": {
+                "Sample registration data": {
+                  "value": {
+                    "email": "ayush.ghai@srijan.net",
+                    "password": "string_password_unhashed",
+                    "first_name": "Ayush",
+                    "last_name": "Ghai",
+                    "phone_number": 9882883272,
+                    "profile_pic": "http://someUrl.com/profilePic",
+                    "pilot_type": "drone warrior",
+                    "qualifications": "Loved by farmers for the great job done",
+                    "license_number": "2GH243",
+                    "license_image": "img_blob",
+                    "license_approval": true,
+                    "certification_number": "AKJPG76GF",
+                    "certification_image": "img_blob",
+                    "list_of_drones": [
+                      "Drone A",
+                      "Drone B"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Pilot creation response": {
+                    "value": {
+                      "status": 201,
+                      "id": 1233123
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When any of the supplied fields are of wrong type or are missing. "
+          },
+          "409": {
+            "description": "User by given email already exists."
+          }
+        }
+      }
+    },
+    "/pilots/{pilotId}/myjobs": {
+      "summary": "List all the jobs approved for this pilot, whether finished or not finished.",
+      "get": {
+        "summary": "Jobs by pilot, by status.",
+        "description": "Get the jobs for current logged in pilot, whether status = applied, approved, started, complete.",
+        "operationId": "getMyJobsPilot",
+        "parameters": [
+          {
+            "name": "pilotId",
+            "in": "path",
+            "description": "The id from the pilot table",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status = applied, approved, started, closed.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "applied",
+                "approved",
+                "started",
+                "closed"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/customers/{customerId}/myJobs": {
+      "get": {
+        "summary": "Jobs by customer, by status.",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "If of the customer as per the customer table.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status = posted, started, complete, cancel\n",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "posted",
+                "started",
+                "complete",
+                "cancel"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List all the jobs created by this customer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/jobs/": {
+      "summary": "Path used to manage the list of jobs.",
+      "description": "The REST endpoint/path used to list and create zero or more `Job` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+      "get": {
+        "summary": "List All jobs",
+        "description": "Gets a list of all `Job` entities.",
+        "operationId": "getjobs",
+        "responses": {
+          "200": {
+            "description": "Successful response - returns an array of `Job` entities.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a Job",
+        "description": "Creates a new instance of a `Job`.",
+        "operationId": "createJob",
+        "requestBody": {
+          "description": "A new `Job` to be created.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Job"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response."
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "put": {
+        "summary": "user login",
+        "description": "Login for the user. ",
+        "operationId": "userlogin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/users_login_body"
+              },
+              "examples": {
+                "sample login": {
+                  "value": {
+                    "email": "ayush.ghai@srijan.net",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request. Check if all parameters are present or some are missing in the url or request body."
+          },
+          "404": {
+            "description": "User not found."
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "summary": "Logout the current user.",
+      "put": {
+        "summary": "user logout",
+        "description": "Logout for the user.",
+        "operationId": "userlogout",
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "404": {
+            "description": "User not found."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/jobs/vacant": {
+      "summary": "Vacant jobs",
+      "get": {
+        "summary": "Show all the jobs posted on the platform, but not picked up.",
+        "responses": {
+          "200": {
+            "description": "All the jobs which are posted but not approved. ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/jobs/{jobId}": {
+      "summary": "Path used to manage a single Job.",
+      "description": "The REST endpoint/path used to get, update, and delete single instances of an `Job`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+      "get": {
+        "summary": "Get a Job",
+        "description": "Gets the details of a single instance of a `Job`.",
+        "operationId": "getJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "A unique identifier for a `Job`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response - returns a single `Job`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a Job",
+        "description": "Updates an existing `Job`.",
+        "operationId": "updateJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "A unique identifier for a `Job`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated `Job` information.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Job"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful response."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Job",
+        "description": "Deletes an existing `Job`.",
+        "operationId": "deleteJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "A unique identifier for a `Job`.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/jobs/{jobId}/uploadFlightPath": {
+      "summary": "Upload flight path data.",
+      "post": {
+        "summary": "Upload the JSON file.",
+        "operationId": "uploadFlightPath",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully uploaded. "
+          },
+          "400": {
+            "description": "Incorrect or incomplete JSON in flight log. "
+          },
+          "404": {
+            "description": "Job not found in the database, or is not owned by current pilot or its status is closed. "
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/jobs/{jobId}/externalUploadDone": {
+      "description": "When S3 upload is done, the pilot clicks on a button to tell the platform. ",
+      "put": {
+        "summary": "External upload (on S3)  of images and videoes etc is complete.",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Customer": {
+        "title": "Root Type for Customer",
+        "type": "object",
+        "description": "Customer which can be farmer, company, organization",
+        "example": {
+          "id": 12312321312,
+          "name": "Srijan Technologies",
+          "sector": "Oil",
+          "user_id": 132343434,
+          "type": "company"
+        },
+        "allOf": [
+          {
+            "required": [
+              "name",
+              "sector",
+              "type"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "name": {
+                "type": "string"
+              },
+              "sector": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "type": {
+                "type": "string",
+                "example": "farmer",
+                "enum": [
+                  "farmer",
+                  "company",
+                  "organization"
+                ]
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/User"
+          }
+        ]
+      },
+      "User": {
+        "required": [
+          "email",
+          "name",
+          "password",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string",
+            "example": "ayush.ghai@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "This is plain password. The server needs to convert this to or match this with \"password_hash\", which is the field stored in the database."
+          }
+        }
+      },
+      "Pilot": {
+        "title": "Root Type for Pilot",
+        "type": "object",
+        "description": "",
+        "example": {
+          "user_id": 1213213231,
+          "first_name": "Ayush",
+          "last_name": "Ghai",
+          "phone_number": 9882883272,
+          "profile_pic": "http://someUrl.com/profilePic",
+          "pilot_type": "drone warrior",
+          "qualifications": "Loved by farmers for the great job done",
+          "license_number": "2GH243",
+          "license_image": "img_blob",
+          "license_approval": true,
+          "certification_number": "AKJPG76GF",
+          "certification_image": "img_blob",
+          "list_of_drones": [
+            "Drone A",
+            "Drone B"
+          ]
+        },
+        "allOf": [
+          {
+            "required": [
+              "certification_image",
+              "certification_number",
+              "first_name",
+              "last_name",
+              "license_approval",
+              "license_image",
+              "license_number",
+              "list_of_drones",
+              "phone_number",
+              "pilot_type",
+              "profile_pic",
+              "qualifications"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "user_id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "profile_pic": {
+                "type": "string",
+                "format": "binary"
+              },
+              "pilot_type": {
+                "type": "string"
+              },
+              "qualifications": {
+                "type": "string"
+              },
+              "license_number": {
+                "type": "string"
+              },
+              "license_image": {
+                "type": "string",
+                "format": "binary"
+              },
+              "license_approval": {
+                "type": "boolean"
+              },
+              "certifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "certification_image": {
+                "type": "string"
+              },
+              "list_of_drones": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/User"
+          }
+        ]
+      },
+      "Job": {
+        "title": "Root Type for Job",
+        "required": [
+          "Latitude",
+          "Longitude",
+          "certifications",
+          "exp_month",
+          "exp_year",
+          "is_certification_required",
+          "job_date",
+          "location",
+          "price",
+          "title",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the job",
+            "example": "Spraying job in village Saalig, Dharamsala, H.P., India"
+          },
+          "description": {
+            "type": "string",
+            "description": "A detailed description of the work to be done"
+          },
+          "type": {
+            "type": "string",
+            "example": "spray",
+            "enum": [
+              "spray",
+              "corrosion detection",
+              "other"
+            ]
+          },
+          "exp_year": {
+            "type": "integer"
+          },
+          "exp_month": {
+            "type": "integer"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "is_valid": {
+            "type": "boolean",
+            "default": true
+          },
+          "status": {
+            "type": "string",
+            "description": "current job status or progress",
+            "enum": [
+              "posted",
+              "started",
+              "complete",
+              "cancel"
+            ]
+          },
+          "is_certification_required": {
+            "type": "boolean",
+            "default": true
+          },
+          "location": {
+            "type": "string",
+            "description": "The location of the job, in text."
+          },
+          "Latitude": {
+            "type": "number",
+            "description": "Float point value of latitude"
+          },
+          "Longitude": {
+            "type": "number",
+            "description": "Longitude as a float point value"
+          },
+          "certifications": {
+            "type": "array",
+            "description": "List of certifications required",
+            "items": {
+              "type": "string"
+            }
+          },
+          "job_date": {
+            "type": "integer",
+            "description": "job start-date (scope needs to be discussed)",
+            "format": "int32"
+          }
+        },
+        "description": "",
+        "example": {
+          "title": "some text",
+          "description": "some text",
+          "type": "other",
+          "exp_year": 55,
+          "exp_month": 18,
+          "price": 68,
+          "is_valid": true,
+          "status": "complete",
+          "is_certification_required": true,
+          "location": "bangkok, Thailand",
+          "Latitude": 80.99,
+          "Longitude": 78.75,
+          "certifications": [
+            "Drone expert level 1",
+            "Level Mastery Drone flying"
+          ],
+          "job_date": "2020-07-14T18:30:00.000Z"
+        }
+      },
+      "users_login_body": {
+        "required": [
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "example": "samplePassword"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

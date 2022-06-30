@@ -1,0 +1,545 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "http://{host}",
+            "description": "",
+            "variables": {
+                "host": {
+                    "default": "DefaultParameterValue"
+                }
+            }
+        }
+    ],
+    "info": {
+        "version": "b925fb8b-a360-9add-c0fe-3265c3067ab9",
+        "title": "kunbah",
+        "description": "",
+        "termsOfService": "",
+        "contact": {},
+        "license": {
+            "name": ""
+        }
+    },
+    "paths": {
+        "/{9200}/auth_users/_doc/1": {
+            "post": {
+                "summary": "Create_User",
+                "description": "",
+                "operationId": "Create_User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Content-Type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/9200"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "lastName": "Ghai",
+                                    "firstName": "Ayush",
+                                    "email": "ayush.ghai@gmail.com",
+                                    "accountConfirmed": true,
+                                    "confirmationToken": "aac885efed52f26cf6602e633eb8d479ab9cea30",
+                                    "password": "$2a$10$RgM/2EwXxXLQ9e0x3gzPLuvT/xFeqk67qkUufLHQARTpNr27HhJfi",
+                                    "type": "auth_user",
+                                    "_updatedAt": "2021-03-18T04:31:35.591Z",
+                                    "_createdAt": "2021-03-18T04:31:35.585Z"
+                                }
+                            },
+                            "example": " {\n                    \"lastName\": \"Ghai\",\n                    \"firstName\": \"Ayush\",\n                    \"email\": \"ayush.ghai@gmail.com\",\n                    \"accountConfirmed\": true,\n                    \"confirmationToken\": \"aac885efed52f26cf6602e633eb8d479ab9cea30\",\n                    \"password\": \"$2a$10$RgM/2EwXxXLQ9e0x3gzPLuvT/xFeqk67qkUufLHQARTpNr27HhJfi\",\n                    \"type\": \"auth_user\",\n                    \"_updatedAt\": \"2021-03-18T04:31:35.591Z\",\n                    \"_createdAt\": \"2021-03-18T04:31:35.585Z\"\n                }"
+                        }
+                    }
+                },
+                "tags": [
+                    "users"
+                ]
+            }
+        },
+        "/api/v1/users/login": {
+            "post": {
+                "summary": "Login",
+                "description": "",
+                "operationId": "Login",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "email": "ayush.ghai@gmail.com",
+                                    "password": "stonecold"
+                                }
+                            },
+                            "example": "{\n\t\"email\": \"ayush.ghai@gmail.com\",\n\t\"password\": \"stonecold\"\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "users"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/entity/multiquery": {
+            "post": {
+                "summary": "Multi Query With Search",
+                "description": "",
+                "operationId": "MultiQueryWithSearch",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    },
+                    {
+                        "$ref": "#/components/parameters/Authorization"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "queries": [
+                                        {
+                                            "queryType": "search",
+                                            "params": {
+                                                "_index": "films",
+                                                "_type": "film",
+                                                "joins": {
+                                                    "vote_average": 1
+                                                },
+                                                "size": 20,
+                                                "query": {
+                                                    "exists": {
+                                                        "field": "vote_average"
+                                                    }
+                                                },
+                                                "sort": [
+                                                    {
+                                                        "vote_average": "desc"
+                                                    },
+                                                    "_score"
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "example": "{\n    \"queries\": [\n        {\n            \"queryType\": \"search\",\n            \"params\": {\n                \"_index\": \"films\",\n                \"_type\": \"film\",\n                \"joins\": null,\n                \"size\": 20,\n                \"query\": {\n                    \"exists\": {\n                        \"field\": \"vote_average\"\n                    }\n                },\n            \t\"sort\": [{\n            \t\t\"vote_average\": \"desc\"\n            \t}, \"_score\"],\n                \"joins\": {\"vote_average\":1}\n            }\n        }\n    ]\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "CRUD"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/entity/read": {
+            "post": {
+                "summary": "Update Entity",
+                "description": "",
+                "operationId": "UpdateEntity",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer {{token}}"
+                        },
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "_type": "film",
+                                    "_id": "a0afdce1af582efa1cc8c15e419f4c10d50ca2b4"
+                                }
+                            },
+                            "example": "{\n\t\"_type\": \"film\",\n\t\"_id\": \"a0afdce1af582efa1cc8c15e419f4c10d50ca2b4\"\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "CRUD"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/entity/create": {
+            "post": {
+                "summary": "Create Entity",
+                "description": " (Ex. Provider)",
+                "operationId": "CreateEntity",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer {{token}}"
+                        },
+                        "description": ""
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": " (Ex. Provider)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "body": {
+                                        "name": "Netflix"
+                                    },
+                                    "_type": "provider",
+                                    "_id": 8
+                                }
+                            },
+                            "example": "{\n\t\"body\": {\n\t\t\"name\": \"Netflix\"\n\t},\n\t\"_type\": \"provider\",\n\t\"_id\": 8\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "CRUD"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/entity/link": {
+            "post": {
+                "summary": "Link entities",
+                "description": "",
+                "operationId": "Linkentities",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer {{token}}"
+                        },
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "e1": {
+                                        "_type": "film",
+                                        "_id": "a0afdce1af582efa1cc8c15e419f4c10d50ca2b4"
+                                    },
+                                    "e2Entities": [
+                                        {
+                                            "_type": "provider",
+                                            "_id": "8"
+                                        }
+                                    ],
+                                    "e1ToE2Relation": "providers"
+                                }
+                            },
+                            "example": "{\n\t\"e1\": {\n\t\t\"_type\": \"film\",\n\t\t\"_id\": \"a0afdce1af582efa1cc8c15e419f4c10d50ca2b4\"\n\t},\n\t\"e2Entities\": [{\n\t\t\"_type\": \"provider\",\n\t\t\"_id\": \"8\"\n\t}],\n\t\"e1ToE2Relation\": \"providers\"\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "CRUD"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/entity/subscribe": {
+            "post": {
+                "summary": "Subscribe Entity",
+                "description": "",
+                "operationId": "SubscribeEntity",
+                "parameters": [
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "application/json"
+                        },
+                        "description": ""
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer {{token}}"
+                        },
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "email": "vivkdedhhwdfd@gmail.com"
+                                }
+                            },
+                            "example": "{\n\"email\":\"vivkdedhhwdfd@gmail.com\"\n}"
+                        }
+                    }
+                },
+                "tags": [
+                    "CRUD"
+                ],
+                "servers": [
+                    {
+                        "url": "http://{host}",
+                        "variables": {
+                            "host": {
+                                "default": "DefaultParameterValue"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "summary": "TMDB Upcoming",
+                "description": "",
+                "operationId": "TMDBUpcoming",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "headers": {}
+                    }
+                },
+                "tags": [
+                    "tdb"
+                ]
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "9200": {
+                "name": "9200",
+                "in": "path",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                    "type": "number"
+                }
+            },
+            "Content-Type": {
+                "name": "Content-Type",
+                "in": "header",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                    "type": "string",
+                    "example": "application/json"
+                }
+            },
+            "Authorization": {
+                "name": "Authorization",
+                "in": "header",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                    "type": "string",
+                    "example": "Bearer {{token}}"
+                },
+                "description": ""
+            }
+        }
+    },
+    "security": [],
+    "tags": [],
+    "externalDocs": {
+        "url": "",
+        "description": ""
+    },
+    "warnings": [
+        "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttp://{{host}}/api/v1/entity/read",
+        "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttp://{{host}}/api/v1/entity/read",
+        "Two GET or two POST methods for the same path are not allowed in OpenAPI specification : posthttp://{{host}}/api/v1/entity/link"
+    ]
+}

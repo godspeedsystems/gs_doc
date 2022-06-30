@@ -1,0 +1,427 @@
+---
+sidebar_position: 3
+title: Workflows
+---
+
+# Workflows
+
+Workflows is where the actual computation and flow orchestration happens. The framework supports a YAML based DSL to write workflows and tasks containing the business logic. These workflows can be attached to the events as their handlers, or called from within another workflow. 
+
+> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions for evaluation of dynamic variables or transformation of data from `inputs` of event, or `outputs` of previous tasks. 
+
+> Default language for transformations (coffee/js) can be configured in [environmental variables](./setup/environment-variables.md/#defaultyaml)
+
+## The structure of workflows
+
+A workflow has the following attributes
+- **summary** - the title
+- **description** - more details
+- **id** - Recommended for better logging visibility
+- **tasks** - the tasks (workflows or sub-workflows) to be run in series (sequence, or one by one). The tasks invoke other workflows written in YAML or JS/TS. Other languages support is planned.
+
+```yaml
+summary: Hello world
+description: Hello world example which invokes the com.gs.return workflow
+id: hello_world # needed for better logging visibility
+tasks: # tasks to be run in sequence (default is sequence)
+  - id: step1 ## id of this task. Its output will be accessible 
+  # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
+    fn: com.gs.return
+    args: 'Hello World!' # com.gs.return takes its return value as `args`. Hence the args key.
+```
+
+### The tasks within workflows
+A workflow has one or more tasks associated with it.
+A task has the following attributes
+- **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#example-of-multiple-task-with-own-params).
+- **summary** - the title
+- **description** - more details
+- **fn** - The handler to be run in this task. It can be one of the [framework functions](#inbuilt-functions), [control functions](#comgsseries) (like parallel, sequential, switch), [developer written functions](#developer-written-functions), or another workflow.
+- **args** - Every handler `fn` has its own argument structure, which is kept in the `args` key. For example,
+  ```yaml
+    fn: com.gs.http
+        args:
+          datasource: growth_source_wrapper
+          config:
+            url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
+            method: post
+            headers: <% inputs.headers %>
+  ```
+- **on_error** - What to do if this task fails?
+  ```yaml
+    on_error: #You can find sample usage of this in the examples below. Just search on_error in this page.
+      continue: false # Whether the next task should be executed, in case this task fails. by default continue is true. 
+      response: <%Coffee/JS expression%> | String # If specified, the output of `response` is returned as the output of this task. If not specified, the error output is the default output of the failed task.
+  ```
+The only exception to this is [control functions](#comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
+- **retry** - Retry logic with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
+  ```yaml
+    retry:
+      maxAttempt: 5
+      type: constant
+      interval: PT15M
+  ```
+
+#### Example of multiple task with arguments
+
+```yaml
+summary: Workflow with switch-case and transform task
+id: example_switch_functionality_id
+description: |
+  Run two tasks in series. Both take different arguments. First one is switch case task. 
+  Second is transform task which consumes the output of step1 and shapes the final output of this workflow. 
+tasks: # tasks to be run in sequence (default is sequence)
+  - id: step1_switch ## id of this switch task. Its output will be accessible 
+    # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
+    fn: com.gs.switch # Switch workflow takes `value` and `cases` as arguments. The cases object specifies another task for every case. 
+    value: <%inputs.body.condition%> # Evaluation of dynamic values happens via <% %>
+    cases:
+      FIRST:
+        id: 1st
+        fn: com.gs.return
+        args: "'case - 1'"
+      SECOND:
+        id: 2nd
+        fn: com.gs.return
+        args: "'case - 2'"
+      THIRD:
+        id: 3rd
+        fn: com.gs.return
+        args: "'case - 3'"
+    defaults:
+      id: default
+      fn: com.gs.return
+      args: <%inputs.body.default_return_val%> #coffee/js script for dyanmic evaluation. Wrapped in <% %>. Same as that used elsewhere in workflows for dynamic calculations and variable substitutions. For ex. as used in com.gs.transform and com.gs.return 
+  - id: step2
+    fn: com.gs.transform
+    args: | #coffee for dyanmic evaluation. Wrapped in <% %>
+        <coffee% { 
+          code: 200,
+          data: outputs['1st']
+        } %>    
+```
+
+### Location and fully qualified name (id) of workflows and functions
+All the workflows and functions are to be kept in the `src/functions` folder. Their directory tree path, followed by the file name becomes the workflow's fully qualified name or id, by which it can be referenced in the events or within other workflows.
+
+> The JS function shown below will be available in workflows under the F.Q.N. `com.biz.custom_function`. Similarly, `com.biz.create_hdfc_account`, `com.biz.create_parallel` etc. are accessible as handlers from within other [workflow tasks](#the-tasks-within-workflows) or events.
+
+  ![function_folder](/img/function_folder.jpeg)
+
+### Referencing a workflow within an event or another workflow
+A workflow task references and invokes other workflows written in either YAML or JS/TS, via the `fn` key. In future, other languages will also be supported. 
+An [event definition](./events#example-spec-for-http-event) references the handler yaml workflows by their fully qualified name, via the same `fn` key.
+
+### Use of Coffee/JS for scripting
+
+The framework provides coffee/js for 
+
+- Transformations in [`com.gs.transform`](#comgstransform) and [`com.gs.return`](#comgsreturn)
+- Dynamic evaluation or workflow or task variables, event variables, datasource variables.
+
+You will find its code in <% %> within various examples in this page below.
+
+#### Define language at global level
+Default language for transformations (coffee/js) is configured in [environmental variables](./setup/environment-variables.md/#defaultyaml)
+
+#### Define language at workflow level
+Global configuration for language is overridden by defining specific language inside <coffee/js% %>. For example,
+```
+    - id: httpbinCof_step2
+      fn: com.gs.transform
+      args: |
+          <coffee% if outputs.httpbinCof_step1.data.json.code == 200 then {
+              code: 200,
+              success: true,
+              data: outputs.httpbinCof_step1.data.json,
+              headers: outputs.httpbinCof_step1.data.headers
+          } else {
+              code: 500,
+              success: false,
+              message: 'error in httpbinCof_step1'
+          } %>
+```
+
+```
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: upload documents
+      fn: com.gs.http
+      args:
+        datasource: growth_source_wrapper
+        params:
+        data: |
+          <js% { 
+            [inputs.body.entity_type + 'id']: inputs.body.entity_id, 
+            _.omit(inputs.body, ['entity_type', 'entity_id'])} 
+          %>
+```
+
+### Inbuilt functions
+
+The framework provides the following inbuilt functions 
+
+#### com.gs.http
+
+Send HTTP events to other APIs in Axios compatible format.
+
+**Example 1**
+```yaml
+  summary: agreement esign
+  id: agreement_esign
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: agreement esign
+      fn: com.gs.http
+      args:
+        datasource: growth_source_wrapper
+        config:
+          url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
+          method: post
+
+      retry: 
+        maxAttempt: 5
+        type: constant
+        interval: PT15M
+
+      on_error:
+        continue: true
+
+    - id: step2
+      fn: com.gs.transform
+      args: |
+          <%if outputs.step1.data.success then outputs.step1.data else {
+              code: outputs.step1.code,
+              success : false,
+              data: {
+                error_data: outputs.step1.data['error'],
+                uuid: outputs.step1.data.uuid,
+                status_code_error: outputs.step1.data.status_code_error,
+                event: outputs.step1.data.event
+              }
+          }%> 
+```
+**Example 2**
+```yaml
+  summary: upload documents
+  id: upload_documents
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: upload documents
+      fn: com.gs.http
+      args:
+        datasource: growth_source_wrapper
+        params:
+        data: |
+          <js% { 
+            [inputs.body.entity_type + 'id']: inputs.body.entity_id, 
+            _.omit(inputs.body, ['entity_type', 'entity_id'])} 
+          %>
+        file_key: files
+        files: <% inputs.files %>
+        config:
+          url : /v1/documents
+          method: post
+
+      retry:
+        maxAttempt: 5
+        type: constant
+        interval: PT15M
+
+      on_error:
+        continue: false
+        response: <%'Some error happened in saving' + inputs.body.entity_type%>
+
+    - id: step2
+      fn: com.gs.transform
+      args: <% delete outputs.step1.headers; outputs.step1 %>
+
+```
+
+#### com.gs.kafka
+
+Publish events on Kafka.
+
+```yaml
+  summary: Publishing incoming event data to a Kafka topic
+  id: push_to_kafka
+  tasks:
+    - id: step1
+      summary: Publish an event with input event's data, adding to_process = true
+      fn: com.gs.kafka
+      args: # similar to Axios format
+        config:
+          method: publish
+          topic: kyc_initiate_recieved
+          group_id: kyc_domain
+        data: <% inputs.body + {"to_process": true} %> # Evaluation of dynamic values happens via <% %>. The type of scripting is coffee. 
+```
+
+#### com.gs.datastore
+
+The datastore function allows CRUD access to any supported [datastore](./datasources/datastore) in a format extending [Prisma API](http://prisma.io).
+
+```yaml
+summary: Create and read data
+tasks:
+  - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+    description: Create entity from REST input data (POST request)
+    fn: com.gs.datastore
+    args: # Similar format as Axios request
+      datasource: mongo # Which ds to use.
+      data: <% inputs.body + {extra_field: its_value} %> 
+      config: 
+        method: <% inputs.params.entity_type %>.create
+  - id: step2 # the response of this will be accessible within the parent step key, under the step1 sub key
+    description: test again
+    fn: com.gs.datastore
+    args:
+      datasource: mongo # Adding this knows which ds/model we are talking about here.
+      config: # Similar approach as Axios
+        method: <% inputs.params.entity_type %>.findMany
+
+```
+
+#### com.gs.transform
+
+This function allows to transform data from one format to another using coffee/js scripting.
+
+```yaml
+  summary: Parallel Multiplexing create loan for hdfc api calls
+  tasks:
+    - id: parallel
+      fn: com.gs.parallel
+      tasks:
+        - id: 1st
+          fn: com.gs.return
+          args: |
+            'parallel task1' 
+        
+        - id: 2nd
+          fn: com.gs.return
+          args: |
+            'parallel task2'  
+    - id: step2
+      fn: com.gs.transform
+      args:
+        code: 200
+        data: <% outputs.step1_switch.data %>
+```
+#### com.gs.series
+:::tip control flow function
+Executes the tasks in series. 
+:::
+
+By default every top level workflow executes its task in series. But when invoking subworkflows if you need, you can explicitly use series workflow. Its syntax is same as parallel.
+```yaml
+  summary: Parallel Multiplexing create loan for hdfc api calls
+  tasks:
+    - id: parallel
+      fn: com.gs.series
+      tasks:
+        - id: 1st
+          fn: com.gs.return
+          args: |
+            'parallel task1' 
+        
+        - id: 2nd
+          fn: com.gs.return
+          args: |
+            'parallel task2'  
+    - id: step2
+      fn: com.gs.transform
+      args: |
+        <coffee% { 
+          code: 200,
+          data: outputs['1st']
+        } %>
+```
+
+#### com.gs.parallel
+:::tip control flow function
+Executes the child tasks in parallel.
+:::
+
+Syntax is same as [com.gs.series](#comgsseries)
+
+```yaml
+  summary: Parallel Multiplexing create loan for hdfc api calls
+  tasks:
+    - id: parallel
+      fn: com.gs.parallel
+      tasks:
+        - id: 1st
+          fn: com.gs.return
+          args: |
+            'parallel task1' 
+        
+        - id: 2nd
+          fn: com.gs.return
+          args: |
+            'parallel task2'  
+        
+        - id: 3rd
+          fn: com.gs.return
+          args: |
+            'parallel task3'
+
+    - id: step2
+      fn: com.gs.transform
+      args: |
+        <coffee% { 
+        code: 200,
+        data: outputs['1st']
+        } %>
+```
+#### com.gs.switch
+:::tip control flow function
+The classic switch-case flow execution
+:::
+The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expression to be evaluated during runtime. Every case has a task associated with it. The task can invoke another function or a workflow.
+```yaml
+  summary: create loan application for lender
+  tasks:
+      - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+        description: create account in the bank
+        fn: com.gs.switch
+        value: <%inputs.headers['pl-lender']%>
+        cases:
+          growth_source:
+            - id: 1st
+              fn: com.biz.loan_application.growth_source_create_loan_application
+              args: <%inputs%>
+
+```
+#### com.gs.return
+
+Just an alias for [transform](#comgstransform), for more readbility. It transforms data and returns the value of the transformation.
+
+```yaml
+  summary: Multiplexing create loan for hdfc api calls
+  id: helloworld
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: create account in the bank
+      fn: com.gs.return
+      args: |
+        <coffee% 'Hello ' + inputs.query.name %>
+```
+
+### Developer written functions
+Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
+
+![function_folder](/img/function_folder.jpeg)
+
+```yaml
+  summary: Custom workflow invocation
+  id: custom_function
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: custom_fn
+      fn: com.biz.custom_function # Can be yaml or JS/TS workflow in src/com/xyz directory with filename being custom.{yaml|js|ts}
+      args:
+        arg1: 'hello world'
+        arg2: 'hello again'
+```
+
+### Headers defined at workflow level
+Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#the-tasks-within-workflows)
