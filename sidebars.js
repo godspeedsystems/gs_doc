@@ -113,11 +113,11 @@ const sidebars = {
     //   ],
     // },
 
-    {
-      type: 'category',
-      label: 'Communication',
-      items: ['communication/intro']//, 'communication/technology-used/intro'],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'Communication',
+    //   items: ['communication/intro']//, 'communication/technology-used/intro'],
+    // },
 
     // {
     //   type: 'category',
@@ -138,11 +138,11 @@ const sidebars = {
     //   ],
     // },
 
-    {
-      type: 'category',
-      label: 'Security',
-      items: ['security/intro']//, 'security/Auth/intro'],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'Security',
+    //   items: ['security/intro']//, 'security/Auth/intro'],
+    // },
 
     // {
     //   type: 'category',
@@ -178,11 +178,11 @@ const sidebars = {
     //   items: ['scaffolding/intro', 'scaffolding/config-loading'],
     // },
 
-    {
-      type: 'doc',
-      label: 'Tech Stack',
-      id: 'tech-stack',
-    },
+    // {
+    //   type: 'doc',
+    //   label: 'Tech Stack',
+    //   id: 'tech-stack',
+    // },
 
     {
       type: 'doc',
