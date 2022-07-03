@@ -20,26 +20,26 @@ const sidebars = {
 
   tutorialSidebar: [
     {
-      type: 'category',
+      type: 'doc',
+      label: 'Preface',
+      id: 'intro',
+    },
+
+    // {
+    //   type: 'category',
+    //   label: 'Infra and System',
+    //   items: [
+    //     'infra-and-system/intro',
+    //     'infra-and-system/technology-used/intro',
+    //     //'infra-and-system/Application',
+    //   ],
+    // },
+    {
+      type: 'doc',
       label: 'Introduction',
-      items: ['intro'],
-    },
-
+      id: 'microservices/intro',
+    },    
     {
-      type: 'category',
-      label: 'Infra and System',
-      items: [
-        'infra-and-system/intro',
-        'infra-and-system/technology-used/intro',
-        //'infra-and-system/Application',
-      ],
-    },
-
-    {
-      type: 'category',
-      label: 'Modern Microservices Framework',
-      items: [
-        {
           type: 'category',
           label: 'Setup',
           items: [
@@ -49,9 +49,16 @@ const sidebars = {
             'microservices/setup/environment-variables'
           ],
         },
-        'microservices/intro',
-        'microservices/events', 
-        'microservices/workflows', 
+        {
+          type: 'doc',
+          label: 'Events',
+          id: 'microservices/events',
+        },  
+        {
+          type: 'doc',
+          label: 'Workflows',
+          id: 'microservices/workflows',
+        },                    
         {
           type: 'category',
           label: 'Datasources',
@@ -61,9 +68,41 @@ const sidebars = {
             'microservices/datasources/datastore'
           ],
         },
-        'microservices/authen-author', 
-      ]// 'microservices/technology-used/intro'],
-    },
+        {
+          type: 'doc',
+          label: 'Authentication & Authorization',
+          id: 'microservices/authen-author',
+        }, 
+
+    // {
+    //   type: 'category',
+    //   label: 'Modern Microservices Framework',
+    //   items: [
+    //     {
+    //       type: 'category',
+    //       label: 'Setup',
+    //       items: [
+    //         'microservices/setup/getting-started',
+    //         'microservices/setup/introduction-cli',
+    //         'microservices/setup/scaffolding',
+    //         'microservices/setup/environment-variables'
+    //       ],
+    //     },
+    //     'microservices/intro',
+    //     'microservices/events', 
+    //     'microservices/workflows', 
+    //     {
+    //       type: 'category',
+    //       label: 'Datasources',
+    //       items: [
+    //         'microservices/datasources/intro',
+    //         'microservices/datasources/api',
+    //         'microservices/datasources/datastore'
+    //       ],
+    //     },
+    //     'microservices/authen-author', 
+    //   ]// 'microservices/technology-used/intro'],
+    // },
 
     // {
     //   type: 'category',

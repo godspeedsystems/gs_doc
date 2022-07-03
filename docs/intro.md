@@ -1,9 +1,9 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 title: About Godspeed
 ---
 
-# GodSpeed – A Microservice platform
+# GodSpeed – A Microservice framework
 
 **This document is intended for stakeholders, tech leaders, architects & developers. It will provide high level goals, tenets, design principles, components & features of the platform for the intended audience.
 **
