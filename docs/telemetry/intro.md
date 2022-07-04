@@ -50,3 +50,33 @@ Every signal, whether log, metric or trace will have some common information for
 ## Common model for telemetry
 
 Please find the [draft documentation here](https://docs.google.com/document/d/12V0oaqj81G8nDuCeD46_mHovv6uwaguwd4kVpBC2J6Q/edit#heading=h.zerkjmn66eyq). It will be soon brought to this website.
+
+## Visualization
+You can use any APM tool to visualize metrics, traces and logging such as [SigNoz](https://signoz.io/), [DataDog](https://www.datadoghq.com/), [NewRelic](https://newrelic.com/) etc. In the below section, we have used SigNoz as reference.
+
+## Configuration
+### OTEL export interval
+It can be configured in [configuration variables](../microservices/setup/environment-variables.md/#telemetryindexyaml). The interval is in milliseconds. For example,
+```
+metrics:
+  export:
+    interval: 3000
+```
+
+### OTEL environment variables
+You can configure the following [OTEL environment variables](https://opentelemetry.io/docs/reference/specification/sdk-environment-variables/) in your terminal to see the exported metrics and traces.
+
+#### OTEL_EXPORTER_OTLP_ENDPOINT
+Specify the IP address of your OTEL collector. Refer [OTEL Exporter](https://opentelemetry.io/docs/reference/specification/protocol/exporter/#endpoint-urls-for-otlphttp) for more information.
+```
+$ export OTEL_EXPORTER_OTLP_ENDPOINT=<IP of OTEL collector>:4317
+```
+#### OTEL_SERVICE_NAME
+Specify the service name which you want to use for your project.
+```
+$ export OTEL_SERVICE_NAME=sample_proj1
+```
+
+After exporting these variables, see below a sample in SigNoz: 
+![Metrics](/img/Metrics.png)
+![Traces](/img/Traces.png)
