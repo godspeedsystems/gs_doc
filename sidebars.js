@@ -22,7 +22,7 @@ const sidebars = {
     {
       type: 'doc',
       label: 'Preface',
-      id: 'intro',
+      id: 'preface',
     },
 
     // {
@@ -46,7 +46,14 @@ const sidebars = {
             'microservices/setup/getting-started',
             'microservices/setup/introduction-cli',
             'microservices/setup/scaffolding',
-            'microservices/setup/environment-variables'
+            {
+              type: 'category',
+              label: 'Configuration',
+              items: [
+                'microservices/setup/configuration/env-vars',
+                'microservices/setup/configuration/static-vars'
+              ]
+            }
           ],
         },
         {
@@ -196,11 +203,11 @@ const sidebars = {
       id: 'faq',
     },
 
-    {
-      type: 'doc',
-      label: 'Development Process',
-      id: 'development-process',
-    },
+    // {
+    //   type: 'doc',
+    //   label: 'Development Process',
+    //   id: 'development-process',
+    // },
 
     // {
     // type: 'category',

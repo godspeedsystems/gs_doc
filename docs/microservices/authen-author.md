@@ -11,7 +11,7 @@ Authorization: Bearer <token>
 ```
 
 ### JWT Configuration
-JWT can be configured in [environmental variables](./setup/environment-variables.md/#defaultyaml). For example,
+JWT can be configured in [configuration](./setup/configuration/env-vars.md/#environment-variables). For example,
 ```
 jwt:
   issuer: ms.sample.com
