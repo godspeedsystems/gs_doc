@@ -4,9 +4,29 @@ title: Introduction to Godspeed CLI
 ---
 
 # Godspeed CLI
-CLI to create any microservice using Godspeed framework. It creates the project structure for the microservice. Follwing section describes the commands and options available in CLI.
+The CLI is the primary way to interact with your Godspeed project from the command line. It provides a bunch of useful functionalities during the project development lifecycle.
 
-## godspeed
+## Functionality
+### Outside the dev container
+- Creating a new project environment with dev container setup, which includes the folder structure, all the databases, message bus, cache, etc. 
+- Open up an existing project in the dev container.
+- Change the version of gs_service.
+- Add/update a container in the dev environment, based on updated settings.
+
+### Inside the dev container
+- All Prisma commands including DB push, pull or migration.
+- Running test suite. Coming soon.
+
+### Inside/Outside the dev container
+- Test suite generation. Coming soon.
+- OAS 3 documentation file generation. Coming soon.
+- Postman collection generation. Coming soon.
+
+## Installation
+```sh
+npm install -g @mindgrep/godspeed
+```
+
 Once Godspeed CLI is installed, the `godspeed` command can be called from command line. When called without arguments, it displays its help and command usage.
 
 ```
@@ -130,8 +150,17 @@ Usage: godspeed create [options] <projectName>
 
 Options:
   -n, --noexamples                      create blank project without examples
-  -d, --directory <projectTemplateDir>  local project template dir
+  -d, --directory <existing_project_directory>  existing project template dir
   -h, --help                            display help for command
+```
+
+### update
+The update command reloads the containers with updated project settings. Details are coming soon.
+
+### prisma
+You can run all the prisma commands inside your project root directory. This command is useful for db migration and introspection. [Read more here](https://www.prisma.io/docs/concepts/components/prisma-cli). 
+```
+$ godspeed prisma <prisma command with args>
 ```
 
 ### versions
@@ -183,7 +212,7 @@ Environment variables loaded from .env
 . . . . . . . . . .
 ```
 
-### prepare
+<!-- ### prepare
 The prepare command prepares the containers, before launch or after cleaning the containers. Execute the command from inside the project root directory.
 ```
 $ godspeed prepare
@@ -200,7 +229,7 @@ Creating test1_devcontainer_node_run   ...
 Creating test1_devcontainer_node_run   ... done
 Environment variables loaded from .env
 . . . . . . . . . .
-```
+``` -->
 
 ### help
 The help command displays help and usage for any command.

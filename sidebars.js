@@ -38,13 +38,17 @@ const sidebars = {
       type: 'doc',
       label: 'Introduction',
       id: 'microservices/intro',
-    },    
+    },
+    {
+      type: 'doc',
+      label: 'CLI',
+      id: 'microservices/introduction-cli',
+    }, 
     {
           type: 'category',
           label: 'Setup',
           items: [
             'microservices/setup/getting-started',
-            'microservices/setup/introduction-cli',
             'microservices/setup/scaffolding',
             {
               type: 'category',

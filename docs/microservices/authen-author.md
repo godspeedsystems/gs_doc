@@ -21,7 +21,7 @@ jwt:
 You can also configure the same in [environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml)
 
 ### Generate JWT
-Generally, you will get JWT from your authorized server. For testing purposes, you can generate JWT at [https://jwt.io/](https://jwt.io/) by providing the `iss`, `aud` and `secretOrKey` to verify signature. Use the encoded token as JWT authentication token. For example,
+Generally, you will get JWT from your authentication service. For testing purposes, you can generate JWT at [https://jwt.io/](https://jwt.io/) by providing the `iss`, `aud` and `secretOrKey` to verify signature. Use the encoded token as JWT authentication token. For example,
 ![JWT](/img/JWT.png)
 
 In the above case, the Authorization header should look like:

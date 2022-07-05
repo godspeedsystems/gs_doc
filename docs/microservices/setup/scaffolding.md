@@ -6,12 +6,12 @@ title: Project structure
 # Introduction
 The project root folder gets created in current folder under the `projectName` which is used in `godspeed create` command using godspeed CLI. The project contains two folders: `src/` and `config/`. 
 
-Click [here](./introduction-cli.md#create) for more information on `godspeed create` command.
+Click [here](../introduction-cli.md#create) for more information on `godspeed create` command.
 
 ## Project structure
 
 ### Project Structure with no examples
-The project contains blank structure with no examples/templates when it is created using `godspeed create -n` command option. Refer [command here](./introduction-cli.md#options-1) for more information.  
+The project contains blank structure with no examples/templates when it is created using `godspeed create -n` command option. Refer [command here](../introduction-cli.md#options-1) for more information.  
 
 ```
 .
@@ -29,7 +29,7 @@ The project contains blank structure with no examples/templates when it is creat
 ```
 
 ### Project Structure with examples
-The project contains following heirarchy with examples when it is created without using `godspeed create -n` command option. Refer [command here](./introduction-cli.md#create) for more information.  
+The project contains following heirarchy with examples when it is created without using `godspeed create -n` command option. Refer [command here](../introduction-cli.md#create) for more information.  
 
 ```
 .

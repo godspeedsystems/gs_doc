@@ -24,30 +24,12 @@ It supports multiple kinds of SQL and NoSQL datastores. The developer only needs
 
 ## Schema specification
 
-The framework extends [Prisma specification](http://prisma.io) for specifying the schema of any datastore. This can be generated from an existing database or manually created by the developer. The schema is present as `{datastore_name}.prisma` file in the `src/datasources` folder.
+The framework extends [Prisma specification](http://prisma.io) for specifying the schema of any datastore. This can be generated from an [existing database](#cli-commands) or manually created by the developer. The schema is present as `{datastore_name}.prisma` file in the `src/datasources` folder.
 
 ![datasources](/img/datastore-datasource.jpeg)
 
 ## CLI Commands
 Any [Prisma CLI command](https://www.prisma.io/docs/concepts/components/prisma-cli) can be executed from godspeed CLI using `godspeed prisma <command>`. For example,
-```
-$ godspeed prisma generate --schema=./src/datasources/mongo2.prisma 
-                      _                                   _ 
-   __ _    ___     __| |  ___   _ __     ___    ___    __| |
-  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
- | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
-  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
-  |___/                        |_|                          
-Environment variables loaded from .env
-Prisma schema loaded from src/datasources/mongo2.prisma
-
-✔ Generated Prisma Client (3.15.2 | library) to ./src/datasources/generated-clients/mongo2 in 111ms
-You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
-
-import { PrismaClient } from './src/datasources/generated-clients/mongo2'
-const prisma = new PrismaClient()
-```
-
 ```
 $ godspeed prisma db pull --schema=./src/datasources/mongo_pull.prisma 
                       _                                   _ 
@@ -78,6 +60,8 @@ Please make sure that `godspeed prisma <command>` is executed inside from devcon
 
 ## Prisma Datastore Setup
 The framework has inbuilt feature of setting up datastore automatically whenever a new `{datastore_name}.prisma` file is created in the `src/datasources` folder. In case, you are getting any error in the datastore setup, then you can refer to below section for manual setup: 
+
+> During the project setup, if you have not specified the type of datastore you just added, then you will have to execute `godspeed update` in project root directory, outside the dev container. This will deploy the container for this datastore in the dev container environment.
 
 ### Model setup
 Prisma model setup is done using prisma generate and db push commands.
