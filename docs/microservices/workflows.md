@@ -9,7 +9,7 @@ Workflows is where the actual computation and flow orchestration happens. The fr
 
 > The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions for evaluation of dynamic variables or transformation of data from `inputs` of event, or `outputs` of previous tasks. 
 
-> Default language for transformations (coffee/js) can be configured in [environmental variables](./setup/environment-variables.md/#defaultyaml)
+> Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
 ## The structure of workflows
 
@@ -122,7 +122,7 @@ The framework provides coffee/js for
 You will find its code in <% %> within various examples in this page below.
 
 #### Define language at global level
-Default language for transformations (coffee/js) is configured in [environmental variables](./setup/environment-variables.md/#defaultyaml)
+Default language for transformations (coffee/js) is configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
 #### Define language at workflow level
 Global configuration for language is overridden by defining specific language inside <coffee/js% %>. For example,
