@@ -11,16 +11,17 @@ Authorization: Bearer <token>
 ```
 
 ### JWT Configuration
-JWT can be configured in [configuration](./setup/configuration/env-vars.md/#environment-variables). For example,
+You can do JWT configuration in [configuration](./setup/configuration/static-vars.md/#defaultyaml). For example, this is the sample static configuration:
 ```
 jwt:
   issuer: ms.sample.com
   audience: sample.com
   secretOrKey: sampleKey
 ```
+You can also configure the same in [environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml)
 
 ### Generate JWT
-You can generate JWT at [https://jwt.io/](https://jwt.io/) by providing the `iss`, `aud` and `secretOrKey` to verify signature. Use the encoded token as JWT authentication token. For example,
+Generally, you will get JWT from your authorized server. For testing purposes, you can generate JWT at [https://jwt.io/](https://jwt.io/) by providing the `iss`, `aud` and `secretOrKey` to verify signature. Use the encoded token as JWT authentication token. For example,
 ![JWT](/img/JWT.png)
 
 In the above case, the Authorization header should look like:
