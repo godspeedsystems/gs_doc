@@ -12,7 +12,7 @@ Any kind of entity which provides read and write mechanism for data is considere
 
 **Currently supported types**
 - [API](./api)
-- Datastores (SQL/NoSQL)
+- [Datastores](./datastore.md) (SQL/NoSQL)
   - Postgres
   - Mysql
   - Mongodb

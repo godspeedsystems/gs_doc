@@ -7,7 +7,7 @@ title: Workflows
 
 Workflows is where the actual computation and flow orchestration happens. The framework supports a YAML based DSL to write workflows and tasks containing the business logic. These workflows can be attached to the events as their handlers, or called from within another workflow. 
 
-> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions for evaluation of dynamic variables or transformation of data from `inputs` of event, or `outputs` of previous tasks. 
+> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions [for evaluation of dynamic variables or transformation](./workflows/#use-of-coffeejs-for-scripting) of data from `inputs` of event, or `outputs` of previous tasks. 
 
 > Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
@@ -40,12 +40,12 @@ A task has the following attributes
 - **args** - Every handler `fn` has its own argument structure, which is kept in the `args` key. For example,
   ```yaml
     fn: com.gs.http
-        args:
-          datasource: growth_source_wrapper
-          config:
-            url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
-            method: post
-            headers: <% inputs.headers %>
+    args:
+      datasource: httpbin
+      config:
+        url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
+        method: post
+        headers: <% inputs.headers %>
   ```
 - **on_error** - What to do if this task fails?
   ```yaml
@@ -54,12 +54,27 @@ A task has the following attributes
       response: <%Coffee/JS expression%> | String # If specified, the output of `response` is returned as the output of this task. If not specified, the error output is the default output of the failed task.
   ```
 The only exception to this is [control functions](#comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
-- **retry** - Retry logic with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
+- **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
   ```yaml
     retry:
       maxAttempt: 5
       type: constant
       interval: PT15M
+  ```
+
+  ```yaml
+    retry:
+      maxAttempt: 5
+      type: exponential
+      interval: PT15S
+  ```
+
+  ```yaml
+    retry:
+      maxAttempt: 5
+      type: random
+      minInterval: PT5S
+      maxInterval: PT10S
   ```
 
 #### Example of multiple task with arguments
@@ -147,7 +162,7 @@ Global configuration for language is overridden by defining specific language in
       description: upload documents
       fn: com.gs.http
       args:
-        datasource: growth_source_wrapper
+        datasource: httpbin
         params:
         data: |
           <js% { 
@@ -173,7 +188,7 @@ Send HTTP events to other APIs in Axios compatible format.
       description: agreement esign
       fn: com.gs.http
       args:
-        datasource: growth_source_wrapper
+        datasource: httpbin
         config:
           url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
           method: post
@@ -209,7 +224,7 @@ Send HTTP events to other APIs in Axios compatible format.
       description: upload documents
       fn: com.gs.http
       args:
-        datasource: growth_source_wrapper
+        datasource: httpbin
         params:
         data: |
           <js% { 
@@ -266,7 +281,7 @@ tasks:
   - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
     description: Create entity from REST input data (POST request)
     fn: com.gs.datastore
-    args: # Similar format as Axios request
+    args:
       datasource: mongo # Which ds to use.
       data: <% inputs.body + {extra_field: its_value} %> 
       config: 
@@ -383,11 +398,11 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
       - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
         description: create account in the bank
         fn: com.gs.switch
-        value: <%inputs.headers['pl-lender']%>
+        value: <%inputs.headers['lender']%>
         cases:
-          growth_source:
+          httpbin:
             - id: 1st
-              fn: com.biz.loan_application.growth_source_create_loan_application
+              fn: com.biz.loan_application.httpbin_create_loan_application
               args: <%inputs%>
 
 ```
@@ -417,7 +432,7 @@ Developer can write functions in JS/TS and [kept in src/functions folder](#locat
   tasks:
     - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
       description: custom_fn
-      fn: com.biz.custom_function # Can be yaml or JS/TS workflow in src/com/xyz directory with filename being custom.{yaml|js|ts}
+      fn: com.biz.custom_function # Can be JS/TS workflow in src/com/xyz directory with filename being custom.{js|ts}
       args:
         arg1: 'hello world'
         arg2: 'hello again'

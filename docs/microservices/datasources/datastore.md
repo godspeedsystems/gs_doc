@@ -7,12 +7,12 @@ title: Datastore as datasource
 The framework takes the approach of schema driven development. 
 It supports multiple kinds of SQL and NoSQL datastores. The developer only needs to specify or generate the schema for a datastore, with authorization policies. The CRUD events and workflows are automatically generated from the schema itself. Shall the developer need to use these within other workflows, they can do that as well.
 
-**Currently supported datastores**
+**Currently supported datastores** 
 
 - Postgres (via Prisma)
 - Mysql (via Prisma)
 - Mongodb (via Prisma)
-- Elasticsearch (via Elasticgraph, our inhouse implementation providing bunch of exciting features over Elasticsearch, including relationship management and joins.)
+- Elasticsearch (via Elasticgraph, our inhouse implementation providing bunch of exciting features over Elasticsearch, including relationship management and joins.)( <Highlight color="#D0F9E5">Planned</Highlight> )
 
 **The integration supports**
 - Model declaration (For both relational and non-relational stores)
@@ -105,3 +105,18 @@ The database is already in sync with the Prisma schema.
 
 ## Sample datastore CRUD task
 Please find an [example here](../workflows#comgsdatastore)
+
+
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '0px',
+      color: 'black',
+      padding: '5px',
+      cursor: 'pointer',
+    }}
+   >
+    {children}
+  </span>
+);

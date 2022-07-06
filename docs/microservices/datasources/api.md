@@ -26,10 +26,10 @@ If there is no OpenAPI spec available for an API, then developer needs to provid
 ```yaml
 type: api
 schema:
-base_url: <% config.growthsource.base_url %>
+base_url: <% config.httpbin.base_url %>
 security:
-  - ApiKey: plpinelabs
-  - ApiToken: <% config.growthsource.api_token %>
+  - ApiKey: sample-app
+  - ApiToken: <% config.httpbin.api_token %>
 
 securitySchemes:
   ApiKey:
@@ -55,8 +55,8 @@ headers:
   title: <% inputs.headers['title'] %>
 ```
 
-### Headers defined at workflow level
-Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](../workflows#the-tasks-within-workflows)
+### Headers defined at task level
+Headers defined at task level are applicable for a single task only. You can find the [example usage here](../workflows#the-tasks-within-workflows)
 
 ### Example usage
 You can find the [example usage here](../workflows#comgshttp)

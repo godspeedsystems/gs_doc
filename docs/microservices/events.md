@@ -12,7 +12,7 @@ A microservice can be configured to consume events from variety of [event source
 - Validation (input and output)
 - Examples of input and output
 
-The response of the event by default follows [Google's JSON format](https://google.github.io/styleguide/jsoncstyleguide.xml), but is flexible for the developer to change as per the requirement. 
+The response of the event is flexible for the developer to change as per the requirement. 
 
 ## Event types
 
@@ -23,7 +23,8 @@ The response of the event by default follows [Google's JSON format](https://goog
 **Planned**
 - Webhook
 - S3
-- gRpc
+- gRPC
+- GraphQL
 - Websocket
 
 ## Event schema & examples for supported sources
