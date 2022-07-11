@@ -256,12 +256,45 @@ $ godspeed prisma <prisma command with args>
 You can get OAS 3 documentation generated automatically by executing this command in your project root directory inside the dev container.
 ```
 $ godspeed gen-apiDocs
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+
+> proj_upd@1.0.0 gen-apiDocs
+> node ../gs_service/dist/api-specs/api-spec.js | pino-pretty
+
+[1657529346164] INFO (GS-logger/7684 on 4c20ee3c4c38): Loading events from /workspace/development/app/src/events
+[1657529346190] DEBUG (GS-logger/7684 on 4c20ee3c4c38): parsing files: /workspace/development/app/src/events/call_another_workflow.yaml,/workspace/development/app/src/events/create_user_then_show_all.yaml,/workspace/development/app/src/events/cross_db_join.yaml,/workspace/development/app/src/events/document.yaml,/workspace/development/app/src/events/helloworld.yaml,/workspace/development/app/src/events/httpbin_anything_coffee.yaml,/workspace/development/app/src/events/httpbin_anything.yaml,/workspace/development/app/src/events/run_tasks_in_parallel.yaml,/workspace/development/app/src/events/sum.yaml,/workspace/development/app/src/events/switch_case.yaml
+[1657529346289] INFO (GS-logger/7684 on 4c20ee3c4c38): /workspace/development/app/docs/api-doc.yaml file is saved!
 ```
 
 ### gen-testSuite
 You can get test suite/postman collection generated automatically by executing this command in your project root directory inside the dev container. Now, you can import the collection in postman directly.
 ```
-$ godspeed gen-testSuite
+ godspeed gen-testSuite
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+
+> proj_upd@1.0.0 gen-testSuite
+> npm run gen-apiDocs && mkdir -p tests && openapi2postmanv2 -s docs/api-doc.yaml -o tests/testSuite.json -p -O folderStrategy=Tags,includeAuthInfoInExample=false
+
+
+> proj_upd@1.0.0 gen-apiDocs
+> node ../gs_service/dist/api-specs/api-spec.js | pino-pretty
+
+[1657529443249] INFO (GS-logger/8145 on 4c20ee3c4c38): Loading events from /workspace/development/app/src/events
+[1657529443273] DEBUG (GS-logger/8145 on 4c20ee3c4c38): parsing files: /workspace/development/app/src/events/call_another_workflow.yaml,/workspace/development/app/src/events/create_user_then_show_all.yaml,/workspace/development/app/src/events/cross_db_join.yaml,/workspace/development/app/src/events/document.yaml,/workspace/development/app/src/events/helloworld.yaml,/workspace/development/app/src/events/httpbin_anything_coffee.yaml,/workspace/development/app/src/events/httpbin_anything.yaml,/workspace/development/app/src/events/run_tasks_in_parallel.yaml,/workspace/development/app/src/events/sum.yaml,/workspace/development/app/src/events/switch_case.yaml
+[1657529443374] INFO (GS-logger/8145 on 4c20ee3c4c38): /workspace/development/app/docs/api-doc.yaml file is saved!
+Input file:  /workspace/development/app/docs/api-doc.yaml
+Writing to file:  true /workspace/development/app/tests/testSuite.json { result: true, output: [ { type: 'collection', data: [Object] } ] }
+Conversion successful, collection written to file
 ```
 
 ### test
@@ -272,7 +305,24 @@ You can run the test suite generated in above command from the following two way
 > Please make sure your service is up and running before running the test suite.
 
 ```
-$ godspeed test
+ godspeed test
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+
+> proj_upd@1.0.0 test
+> newman run tests/testSuite.json
+
+newman
+
+Godspeed: Sample Microservice
+
+→ Call another (sub) workflow from main workflow
+  POST http://localhost:3000/another_workflow?bank_id=<string> [200 OK, 630B, 2.6s]
+. . . . . . . . 
 ```
 
 ### help
