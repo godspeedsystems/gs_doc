@@ -8,19 +8,17 @@ The CLI is the primary way to interact with your Godspeed project from the comma
 
 ## Functionality
 ### Outside the dev container
-- Creating a new project environment with dev container setup, which includes the folder structure, all the databases, message bus, cache, etc. 
-- Open up an existing project in the dev container.
+- Creating a new project environment with dev container setup, which includes the folder structure, all the databases, message bus, cache, etc.
+- Open up an existing project in the dev container and prepare the dev container.
+- List the versions of gs_service.
 - Change the version of gs_service.
 - Add/update a container in the dev environment, based on updated settings.
 
 ### Inside the dev container
 - All Prisma commands including DB push, pull or migration.
-- Running test suite. Coming soon.
-
-### Inside/Outside the dev container
-- Test suite generation. Coming soon.
-- OAS 3 documentation file generation. Coming soon.
-- Postman collection generation. Coming soon.
+- OAS 3 documentation file generation.
+- Test suite/Postman collection generation.
+- Running test suite.
 
 ## Installation
 ```sh
@@ -92,7 +90,7 @@ Commands:
   help [command]                  display help for command
 ```
 
-## Commands
+## Commands: Outside the dev container
 
 ### create
 The create command creates project structure for any microservice. When called without arguments, it creates project structure with examples.
@@ -154,13 +152,26 @@ Options:
   -h, --help                            display help for command
 ```
 
-### update
-The update command reloads the containers with updated project settings. Details are coming soon.
+### prepare
+The prepare command prepares the containers, before launch or after cleaning the containers. If you want to launch an existing project (i.e. copied from local/cloned from repo) instead of creating a new one, then execute `prepare` command before launching the project. Execute the command from inside the project root directory.
 
-### prisma
-You can run all the prisma commands inside your project root directory. This command is useful for db migration and introspection. [Read more here](https://www.prisma.io/docs/concepts/components/prisma-cli). 
+> Please note that `prepare containers` only needs to be done once if you are going to open a project for the first time on your machine. 
+
 ```
-$ godspeed prisma <prisma command with args>
+$ godspeed prepare
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+Generating prisma modules
+Starting test1_devcontainer_postgres_1 ... 
+Starting test1_devcontainer_postgres_1 ... done
+Creating test1_devcontainer_node_run   ... 
+Creating test1_devcontainer_node_run   ... done
+Environment variables loaded from .env
+. . . . . . . . . .
 ```
 
 ### versions
@@ -212,24 +223,8 @@ Environment variables loaded from .env
 . . . . . . . . . .
 ```
 
-<!-- ### prepare
-The prepare command prepares the containers, before launch or after cleaning the containers. Execute the command from inside the project root directory.
-```
-$ godspeed prepare
-                      _                                   _ 
-   __ _    ___     __| |  ___   _ __     ___    ___    __| |
-  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
- | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
-  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
-  |___/                        |_|                          
-Generating prisma modules
-Starting test1_devcontainer_postgres_1 ... 
-Starting test1_devcontainer_postgres_1 ... done
-Creating test1_devcontainer_node_run   ... 
-Creating test1_devcontainer_node_run   ... done
-Environment variables loaded from .env
-. . . . . . . . . .
-``` -->
+### update
+The update command reloads the containers with updated project settings. Details are coming soon.
 
 ### help
 The help command displays help and usage for any command.
@@ -248,3 +243,37 @@ Options:
   -d, --directory <projectTemplateDir>  local project template dir
   -h, --help                            display help for command
 ```
+
+## Commands: Inside the dev container
+
+### prisma
+You can run all the prisma commands in your project root directory inside the dev container. This command is useful for db migration and introspection. [Read more here](https://www.prisma.io/docs/concepts/components/prisma-cli). 
+```
+$ godspeed prisma <prisma command with args>
+```
+
+### gen-apiDocs
+You can get OAS 3 documentation generated automatically by executing this command in your project root directory inside the dev container.
+```
+$ godspeed gen-apiDocs
+```
+
+### gen-testSuite
+You can get test suite/postman collection generated automatically by executing this command in your project root directory inside the dev container. Now, you can import the collection in postman directly.
+```
+$ godspeed gen-testSuite
+```
+
+### test
+You can run the test suite generated in above command from the following two ways:
+1. Postman: Import the collection in postman and run the test suite.
+2. CLI: You can use below command to run the test suite from CLI.
+
+> Please make sure your service is up and running before running the test suite.
+
+```
+$ godspeed test
+```
+
+### help
+The help command displays help and usage for any command. [Click here to know more](#help)

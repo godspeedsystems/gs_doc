@@ -40,11 +40,6 @@ const sidebars = {
       id: 'microservices/intro',
     },
     {
-      type: 'doc',
-      label: 'CLI',
-      id: 'microservices/introduction-cli',
-    }, 
-    {
           type: 'category',
           label: 'Setup',
           items: [
@@ -57,33 +52,40 @@ const sidebars = {
                 'microservices/setup/configuration/env-vars',
                 'microservices/setup/configuration/static-vars'
               ]
-            }
+            },
+            'microservices/setup/documentation',
+            'microservices/setup/tests'
           ],
-        },
-        {
-          type: 'doc',
-          label: 'Events',
-          id: 'microservices/events',
-        },  
-        {
-          type: 'doc',
-          label: 'Workflows',
-          id: 'microservices/workflows',
-        },                    
-        {
-          type: 'category',
-          label: 'Datasources',
-          items: [
-            'microservices/datasources/intro',
-            'microservices/datasources/api',
-            'microservices/datasources/datastore'
-          ],
-        },
-        {
-          type: 'doc',
-          label: 'Authentication & Authorization',
-          id: 'microservices/authen-author',
-        }, 
+    },
+    {
+      type: 'doc',
+      label: 'CLI',
+      id: 'microservices/introduction-cli',
+    }, 
+    {
+      type: 'doc',
+      label: 'Events',
+      id: 'microservices/events',
+    },  
+    {
+      type: 'doc',
+      label: 'Workflows',
+      id: 'microservices/workflows',
+    },                    
+    {
+      type: 'category',
+      label: 'Datasources',
+      items: [
+        'microservices/datasources/intro',
+        'microservices/datasources/api',
+        'microservices/datasources/datastore'
+      ],
+    },
+    {
+      type: 'doc',
+      label: 'Authentication & Authorization',
+      id: 'microservices/authen-author',
+    }, 
 
     // {
     //   type: 'category',
