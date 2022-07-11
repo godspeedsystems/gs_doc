@@ -421,6 +421,32 @@ Just an alias for [transform](#comgstransform), for more readbility. It transfor
         <coffee% 'Hello ' + inputs.query.name %>
 ```
 
+#### com.gs.log
+
+It logs the intermediate inputs/outputs during the workflow execution in pino logging format. The args are `level` and `data`. `level` takes any value from the [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) and `data` takes a coffee/js expression to be evaluated during runtime or anything (like string, number, etc.) which you want to get logged during the workflow execution.
+
+```yaml
+  summary: Summing x + y
+  description: Here we sum two hardcoded x and y values. Feel free to try using API inputs from body or params!
+  tasks:
+    - id: sum_step1
+      description: add two numbers
+      fn: com.jfs.sum
+      args:
+        x: 1
+        y: 2
+    - id: sum_step2
+      description: log the output in logs
+      fn: com.gs.log
+      args:
+        level: info # log levels: info, debug, error, warn, fatal, silent, trace
+        data: <% outputs.sum_step1 %>
+    - id: sum_step3
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.sum_step1 %>
+```
+
 ### Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
