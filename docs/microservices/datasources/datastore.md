@@ -103,6 +103,15 @@ The database is already in sync with the Prisma schema.
 ✔ Generated Prisma Client (3.15.2 | library) to ./src/datasources/generated-clients/mongo in 149ms
 ```
 
+## Auto generating CRUD APIs from data store models
+Developer can generate CRUD APIs for all the models in a datastore. `Events` and `Workflows` will be auto generated for `Create`, `Read`, `Update` and `Delete` operations for each model in respective datastore.
+
+ Auto-generated events and workflows will be stored in `/events/{datasourceName}/{modelName}` and `/functions/com/gs/{datasourceName}/{modelName}` folders respectively.
+
+```
+npm run gen-crud-api
+```
+
 ## Sample datastore CRUD task
 Please find an [example here](../workflows#comgsdatastore)
 
