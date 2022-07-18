@@ -271,6 +271,26 @@ Publish events on Kafka.
         data: <% inputs.body + {"to_process": true} %> # Evaluation of dynamic values happens via <% %>. The type of scripting is coffee. 
 ```
 
+#### com.gs.message_bus
+
+Publish events on message bus.
+
+```yaml
+  summary: Handle message bus event
+  id: some_unique_id
+  tasks:
+    - id: step1
+      summary: Publish an event with this data
+      fn: com.gs.message_bus
+      args: # similar to Axios format
+        datasource: kafka1
+        config:
+          method: publish
+          topic: publish-producer1 
+        data: <% inputs.body %>
+      # Here we are publishing an event data to another topic
+```
+
 #### com.gs.datastore
 
 The datastore function allows CRUD access to any supported [datastore](./datasources/datastore) in a format extending [Prisma API](http://prisma.io).

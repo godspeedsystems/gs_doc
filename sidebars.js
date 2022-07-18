@@ -73,12 +73,18 @@ const sidebars = {
       id: 'microservices/workflows',
     },                    
     {
+      type: 'doc',
+      label: 'Mappings',
+      id: 'microservices/mappings',
+    },                    
+    {
       type: 'category',
       label: 'Datasources',
       items: [
         'microservices/datasources/intro',
         'microservices/datasources/api',
-        'microservices/datasources/datastore'
+        'microservices/datasources/datastore',
+        'microservices/datasources/message-bus'
       ],
     },
     {
