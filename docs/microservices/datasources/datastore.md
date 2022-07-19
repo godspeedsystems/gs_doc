@@ -109,7 +109,7 @@ Developer can generate CRUD APIs for all the models in a datastore. `Events` and
  Auto-generated events and workflows will be stored in `/events/{datasourceName}/{modelName}` and `/functions/com/gs/{datasourceName}/{modelName}` folders respectively.
 
 ```
-npm run gen-crud-api
+godspeed gen-crud-api
 ```
 
 ## Sample datastore CRUD task
