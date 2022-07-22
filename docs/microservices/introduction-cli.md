@@ -155,7 +155,7 @@ Options:
 The update can be executed in the following cases:
 1. If you want to launch an existing project (i.e. copied from local/cloned from repo) instead of creating a new one, then execute `godspeed update` command before launching the project.
 2. If you want to reloads the containers with updated project settings. For example, if you have not selected any database during the project creation and you want to include any database in the project later on, then execute `godspeed update` with the required settings.
-3. If you want to pull the latest code for gs_service, without changing the version/tag of the docker image, then execute `godspeed update`command. It fetches the new docker images itself, if there is any change in the image with same version/tag.
+3. If there is any change in gs_service image of standard tags (e.g. latest, stable) and you want to fetch the latest code for the same tag, then execute `godspeed update`command. It fetches the new docker image itself.
 
 > Please note that the command should be executed from inside the project root directory.
 
