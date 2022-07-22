@@ -9,10 +9,9 @@ The CLI is the primary way to interact with your Godspeed project from the comma
 ## Functionality
 ### Outside the dev container
 - Creating a new project environment with dev container setup, which includes the folder structure, all the databases, message bus, cache, etc.
-- Open up an existing project in the dev container and prepare the dev container.
+- Open up an existing project in the dev container, add/update a container in the dev environment, based on updated settings.
 - List the versions of gs_service.
 - Change the version of gs_service.
-- Add/update a container in the dev environment, based on updated settings.
 
 ### Inside the dev container
 - All Prisma commands including DB push, pull or migration.
@@ -152,26 +151,94 @@ Options:
   -h, --help                            display help for command
 ```
 
-### prepare
-The prepare command prepares the containers, before launch or after cleaning the containers. If you want to launch an existing project (i.e. copied from local/cloned from repo) instead of creating a new one, then execute `prepare` command before launching the project. Execute the command from inside the project root directory.
+### update
+The update can be executed in the following cases:
+1. If you want to launch an existing project (i.e. copied from local/cloned from repo) instead of creating a new one, then execute `godspeed update` command before launching the project.
+2. If you want to reloads the containers with updated project settings. For example, if you have not selected any database during the project creation and you want to include any database in the project later on, then execute `godspeed update` with the required settings.
+3. If you want to pull the latest code for gs_service, without changing the version/tag of the docker image, then execute `godspeed update`command. It fetches the new docker images itself, if there is any change in the image with same version/tag.
 
-> Please note that `prepare containers` only needs to be done once if you are going to open a project for the first time on your machine. 
+> Please note that the command should be executed from inside the project root directory.
 
 ```
-$ godspeed prepare
+$ godspeed update
                       _                                   _ 
    __ _    ___     __| |  ___   _ __     ___    ___    __| |
   / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
  | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
   \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
   |___/                        |_|                          
-Generating prisma modules
-Starting test1_devcontainer_postgres_1 ... 
-Starting test1_devcontainer_postgres_1 ... done
-Creating test1_devcontainer_node_run   ... 
-Creating test1_devcontainer_node_run   ... done
-Environment variables loaded from .env
+Do you need postgresdb? [y/n] [default: n] 
+Do you need kafka? [y/n] [default: n] 
+Do you need elastisearch? [y/n] [default: n] 
+Please enter host port on which you want to run your service [default: 3000] 
+Fetching release version information...
+Please select release version of gs_service from the available list:
+latest
+1.0.0
+1.0.1
+1.0.2
+1.0.3
+1.0.4
+dev
+stable
+Enter your version [default: latest] 
+Selected version latest
+Removing dev_test_devcontainer_node_1                ... 
 . . . . . . . . . .
+Step 1/9 : FROM adminmindgrep/gs_service:latest
+latest: Pulling from adminmindgrep/gs_service
+824b15f81d65: Already exists
+325d38bcb229: Already exists
+d6d638bf61bf: Already exists
+55daac95cedf: Already exists
+4c701498752d: Already exists
+a48b0ae49665: Pulling fs layer
+4c393fb6deac: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+8992963a9530: Pulling fs layer
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+4c393fb6deac: Verifying Checksum
+4c393fb6deac: Download complete
+8992963a9530: Verifying Checksum
+8992963a9530: Download complete
+a48b0ae49665: Verifying Checksum
+a48b0ae49665: Download complete
+a48b0ae49665: Pull complete
+4c393fb6deac: Pull complete
+4f4fb700ef54: Pull complete
+8992963a9530: Pull complete
+Digest: sha256:7195b3c921f1278153c911e6e77cbcfb385a84c435bfcb7b8272ffcf9a3278ee
+Status: Downloaded newer image for adminmindgrep/gs_service:latest
+ ---> 988917710d1a
+Step 2/9 : ARG USERNAME=node
+ ---> Running in c70404bb4f3e
+Removing intermediate container c70404bb4f3e
+ ---> 47a7406b2473
+Step 3/9 : ARG USER_UID=1000
+ ---> Running in 51e68336d8d8
+Removing intermediate container 51e68336d8d8
+ ---> ce913f6898bb
+Step 4/9 : ARG USER_GID=$USER_UID
+ ---> Running in 7cf1c1f2a3ec
+Removing intermediate container 7cf1c1f2a3ec
+ ---> 91f045b32e0f
+Step 5/9 : USER root
+ ---> Running in f338d755a032
+Removing intermediate container f338d755a032
+ ---> fa9898eb4c23
+Step 6/9 : RUN sudo groupmod --gid $USER_GID $USERNAME     && usermod --uid $USER_UID --gid $USER_GID $USERNAME     && chown -R $USER_UID:$USER_GID /workspace/development
+ ---> Running in eba3659fb919
+Removing intermediate container eba3659fb919
+ ---> 414f34560b0d
+Step 7/9 : USER node
+ ---> Running in 23818c5f4882
+Removing intermediate container 23818c5f4882
+ ---> 1bd65323ae91
+Step 8/9 : RUN sudo npm i -g @mindgrep/godspeed
+ ---> Running in a66cb062390d
+. . . . . . . . . .
+ godspeed update dev_test is done.
 ```
 
 ### versions
@@ -223,8 +290,6 @@ Environment variables loaded from .env
 . . . . . . . . . .
 ```
 
-### update
-The update command reloads the containers with updated project settings. Details are coming soon.
 
 ### help
 The help command displays help and usage for any command.
