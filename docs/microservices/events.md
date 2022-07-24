@@ -18,7 +18,7 @@ The response of the event is flexible for the developer to change as per the req
 
 **Currently supported**
 - http.{method_type} For example, post or get
-- Message Bus
+- Kafka
 
 **Planned**
 - Webhook
@@ -130,37 +130,38 @@ For an HTTP event, the headers, query, params and body data are captured in a st
         # Here we are returning the body of the HTTP post event.
   ```
 
-### Message Bus event
+### Kafka event
 
-> A Message bus event is specified as `{topic_name}.message_bus.{datasourceName}.{group_id}` in [the message bus event specification](#example-spec-for-message-bus-event). The framework only supports Kafka as a message bus right now.
+> A kafka event is specified as `{topic_name}.{datasourceName}.{group_id}` in [the kafka event specification](#example-spec-for-kafka-event).
 
 The `group_id` represents identifier for all the consumers of the group. Only one consumer of the group will consume a message. This is useful for microservices, when a single services runs in multiple K8s pods. Each pod is part of the same group. This ensures the message is eventually consumed by any one of the pods.
 
-The message body of a message bus event is captured and represented as `inputs.body` for [consumption in the handler workflow](#example-workflow-consuming-a-message-bus-event).
+The message body of a kafka event is captured and represented as `inputs.body` for [consumption in the handler workflow](#example-workflow-consuming-a-message-bus-event).
 
-#### Datasource for message bus
-The datasources for message bus are defined in `src/datasources`. [Refer Message Bus as datasource](./datasources/message-bus.md/#example-spec) for more information.
+#### Datasource for kafka
+The datasources for kafka are defined in `src/datasources`. [Refer Kafka as datasource](./datasources/kafka.md/#example-spec) for more information.
 
-#### Example spec for message bus event
+#### Example spec for kafka event
 
 ``` yaml
-{topic_name}.message_bus.{datasourceName}.{group_id}: # This event will be triggered whenever
+kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
   # a new message arrives on the topic_name
-  fn: com.coffee.pub_message_bus #The event handler written in pub_message_bus.yml, and 
-  # kept in src/workflows/com/coffee folder (in this example)
-  data: #Input data defined as per the OpenAPI spec
-    schema:
-      body: # The message body
-        required: true
-        content:
-          application/json:
-            schema:
-              type: 'object'
-              required: []
-              properties:
-                name:  { type : 'string' }
+  id: /kafkaWebhook
+  fn: com.jfs.publish_kafka #The event handler written in publish_kafka.yml, and 
+  # kept in src/workflows/com/jfs folder (in this example)
+  body: 
+    description: The body of the query
+    required: true
+    content:
+      application/json: # For ex. application/json application/xml
+        schema: 
+          type: object
+          properties:
+            name: 
+              type: string
+          required: [name]
+```
 
- ```
 #### Example workflow consuming a message bus event
 ```yaml
   summary: Handle message bus event
@@ -168,16 +169,17 @@ The datasources for message bus are defined in `src/datasources`. [Refer Message
   tasks:
     - id: step1
       summary: Publish an event with this data
-      fn: com.gs.message_bus
+      fn: com.gs.kafka
       args: # similar to Axios format
         datasource: kafka1
         config:
           method: publish
           topic: publish-producer1 
-        data: <% inputs.body %>
+        data: <% inputs %>
       # Here we are publishing an event data to another topic
 ```
-Refer [com.gs.message_bus](./workflows.md/#comgsmessagebus) native function to publish an event on message bus
+
+Refer [com.gs.kafka](./workflows.md/#comgskafka) native function to publish an event on kafka.
 
 <!--
 export const Highlight = ({children, color}) => (

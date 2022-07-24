@@ -84,7 +84,7 @@ const sidebars = {
         'microservices/datasources/intro',
         'microservices/datasources/api',
         'microservices/datasources/datastore',
-        'microservices/datasources/message-bus'
+        'microservices/datasources/kafka'
       ],
     },
     {
