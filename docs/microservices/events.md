@@ -162,9 +162,9 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
           required: [name]
 ```
 
-#### Example workflow consuming a message bus event
+#### Example workflow consuming a kafka event
 ```yaml
-  summary: Handle message bus event
+  summary: Handle kafka event
   id: some_unique_id
   tasks:
     - id: step1
