@@ -50,7 +50,9 @@ For an HTTP event, the headers, query, params and body data are captured in a st
  /v1/loan-application/:lender_loan_application_id/kyc/ckyc/initiate.http.post: #Adding .http.post after 
   #the endpoint exposes the endpoint as REST via the POST method (in this example)
   fn: com.biz.kyc.ckyc.ckyc_initiate #The event handler written in ckyc_initiate.yml, and 
-  # kept in src/workflows/com/biz/kyc folder (in this example)
+  # kept in src/workflows/com/biz/kyc/ckyc folder (in this example)
+  on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
+  # kept in src/workflows/com/jfs/ folder (in this example)
   data: #Input data defined as per the OpenAPI spec
     schema:
       body: 
@@ -130,6 +132,23 @@ For an HTTP event, the headers, query, params and body data are captured in a st
         # Here we are returning the body of the HTTP post event.
   ```
 
+#### Example workflow (on_validation_error handler) handling json schema validation error
+  ```yaml
+    summary: Handle json scehma validation error
+    id: error_handler
+    tasks:
+      - id: erorr_step1 
+        fn: com.gs.kafka
+        args: 
+          datasource: kafka1
+          data: # publish the event and validation error to kafka on a topic
+            event: <% inputs.event %>
+            validation_error: <% inputs.validation_error %>
+          config: 
+            topic: kafka_error_handle
+            method: publish
+  ```
+
 ### Kafka event
 
 > A kafka event is specified as `{topic_name}.{datasourceName}.{group_id}` in [the kafka event specification](#example-spec-for-kafka-event).
@@ -148,6 +167,8 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
   # a new message arrives on the topic_name
   id: /kafkaWebhook
   fn: com.jfs.publish_kafka #The event handler written in publish_kafka.yml, and 
+  # kept in src/workflows/com/jfs folder (in this example)
+  on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
   # kept in src/workflows/com/jfs folder (in this example)
   body: 
     description: The body of the query
