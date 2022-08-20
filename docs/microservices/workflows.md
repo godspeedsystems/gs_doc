@@ -39,6 +39,7 @@ A task has the following attributes
 - **fn** - The handler to be run in this task. It can be one of the [framework functions](#inbuilt-functions), [control functions](#comgsseries) (like parallel, sequential, switch), [developer written functions](#developer-written-functions), or another workflow.
 - **args** - Every handler `fn` has its own argument structure, which is kept in the `args` key. For example,
   ```yaml
+    id: httpbin_step1
     fn: com.gs.http
     args:
       datasource: httpbin
@@ -52,6 +53,18 @@ A task has the following attributes
     on_error: #You can find sample usage of this in the examples below. Just search on_error in this page.
       continue: false # Whether the next task should be executed, in case this task fails. by default continue is true. 
       response: <%Coffee/JS expression%> | String # If specified, the output of `response` is returned as the output of this task. If not specified, the error output is the default output of the failed task.
+      tasks: # If specified, the tasks are executed in series/sequence. The output of the last task in these tasks is the default output of the failed task.
+        - id: transform_error
+          fn: com.gs.transform
+          args: <% outputs.httpbin_step1 %>
+
+        - id: publish_error
+          fn: com.gs.kafka
+          args:
+            datasource: kafka1
+            data: <% outputs.transform_error.message %>
+            config:
+              topic: publish-producer1
   ```
 The only exception to this is [control functions](#comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
 - **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
