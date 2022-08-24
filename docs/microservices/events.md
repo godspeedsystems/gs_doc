@@ -142,8 +142,9 @@ For an HTTP event, the headers, query, params and body data are captured in a st
         args: 
           datasource: kafka1
           data: # publish the event and validation error to kafka on a topic
-            event: <% inputs.event %>
-            validation_error: <% inputs.validation_error %>
+            value: 
+              event: <% inputs.event %>
+              validation_error: <% inputs.validation_error %>
           config: 
             topic: kafka_error_handle
             method: publish
@@ -196,7 +197,8 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
         config:
           method: publish
           topic: publish-producer1 
-        data: <% inputs %>
+        data: 
+          value: <% inputs %>
       # Here we are publishing an event data to another topic
 ```
 

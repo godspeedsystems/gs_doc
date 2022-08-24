@@ -62,7 +62,8 @@ A task has the following attributes
           fn: com.gs.kafka
           args:
             datasource: kafka1
-            data: <% outputs.transform_error.message %>
+            data: 
+              value: <% outputs.transform_error.message %>
             config:
               topic: publish-producer1
   ```
@@ -282,8 +283,14 @@ Publish events on Kafka.
           method: publish
           topic: kyc_initiate_recieved
           group_id: kyc_domain
-        data: <% inputs %> # Evaluation of dynamic values happens via <% %>. The type of scripting is coffee. 
+        data: # Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
+          value: <% inputs %> # Your message content. Evaluation of dynamic values happens via <% %>. The type of scripting is coffee. 
+          key: # Optional - Used for partitioning.
+          partition: # Optional - Which partition to send the message to. 
+          timestamp: # Optional - The timestamp of when the message was created. 
+          headers: # Optional - Metadata to associate with your message. 
 ```
+> Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
 
 #### com.gs.datastore
 
