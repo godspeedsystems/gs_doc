@@ -319,6 +319,28 @@ tasks:
 
 ```
 
+#### com.gs.elasticgraph
+
+The elasticgraph function allows CRUD access to elasticsearch [datastore](./datasources/elasticgraph).
+
+```yaml
+summary: eg
+tasks:
+  - id: create_entity1
+    description: create_entity1
+    fn: com.gs.elasticgraph
+    args:
+      datasource: elasticgraph
+      data: 
+        index: <% inputs.params.entity_type + 's' %>
+        type: '_doc'
+        body: <% inputs.body %>
+      config:
+        method: index
+    on_error:
+      continue: false
+```
+
 #### com.gs.transform
 
 This function allows to transform data from one format to another using coffee/js scripting.
@@ -432,50 +454,6 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
 
 ```
 
-#### com.gs.return
-
-:::tip return statement
-The classic return statement
-:::
-It returns from the current function to the function caller. The function stops executing when the return statement is called.
-
-```yaml
-  summary: Multiplexing create loan for hdfc api calls
-  id: helloworld
-  tasks:
-    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
-      description: create account in the bank
-      fn: com.gs.return
-      args: |
-        <coffee% 'Hello ' + inputs.query.name %>
-```
-
-#### com.gs.log
-
-It logs the intermediate inputs/outputs during the workflow execution in pino logging format. The args are `level` and `data`. `level` takes any value from the [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) and `data` takes a coffee/js expression to be evaluated during runtime or anything (like string, number, etc.) which you want to get logged during the workflow execution.
-
-```yaml
-  summary: Summing x + y
-  description: Here we sum two hardcoded x and y values. Feel free to try using API inputs from body or params!
-  tasks:
-    - id: sum_step1
-      description: add two numbers
-      fn: com.jfs.sum
-      args:
-        x: 1
-        y: 2
-    - id: sum_step2
-      description: log the output in logs
-      fn: com.gs.log
-      args:
-        level: info # log levels: info, debug, error, warn, fatal, silent, trace
-        data: <% outputs.sum_step1 %>
-    - id: sum_step3
-      description: return the response
-      fn: com.gs.transform
-      args: <% outputs.sum_step1 %>
-```
-
 #### com.gs.each_sequential
 
 :::tip control flow function
@@ -522,6 +500,51 @@ The args is list of values in `value` field along with associated tasks. For eac
       fn: com.gs.transform
       args: <% outputs.each_parallel_step1 %>
 ```
+
+#### com.gs.return
+
+:::tip return statement
+The classic return statement
+:::
+It returns from the current function to the function caller. The function stops executing when the return statement is called.
+
+```yaml
+  summary: Multiplexing create loan for hdfc api calls
+  id: helloworld
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: create account in the bank
+      fn: com.gs.return
+      args: |
+        <coffee% 'Hello ' + inputs.query.name %>
+```
+
+#### com.gs.log
+
+It logs the intermediate inputs/outputs during the workflow execution in pino logging format. The args are `level` and `data`. `level` takes any value from the [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) and `data` takes a coffee/js expression to be evaluated during runtime or anything (like string, number, etc.) which you want to get logged during the workflow execution.
+
+```yaml
+  summary: Summing x + y
+  description: Here we sum two hardcoded x and y values. Feel free to try using API inputs from body or params!
+  tasks:
+    - id: sum_step1
+      description: add two numbers
+      fn: com.jfs.sum
+      args:
+        x: 1
+        y: 2
+    - id: sum_step2
+      description: log the output in logs
+      fn: com.gs.log
+      args:
+        level: info # log levels: info, debug, error, warn, fatal, silent, trace
+        data: <% outputs.sum_step1 %>
+    - id: sum_step3
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.sum_step1 %>
+```
+
 
 ### Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.

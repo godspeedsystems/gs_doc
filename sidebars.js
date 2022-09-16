@@ -80,6 +80,7 @@ const sidebars = {
         'microservices/datasources/api',
         'microservices/datasources/datastore',
         'microservices/datasources/kafka',
+        'microservices/datasources/elasticgraph',
         'microservices/datasources/extensible-datasources'
       ],
     },
