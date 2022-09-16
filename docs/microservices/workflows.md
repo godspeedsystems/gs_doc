@@ -468,6 +468,53 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
       args: <% outputs.sum_step1 %>
 ```
 
+#### com.gs.each_sequential
+
+:::tip control flow function
+The classic for-each flow execution
+:::
+The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed sequentially. The final output each_sequential is the array of outputs of the last executed task of each iteration.
+
+```yaml
+  summary: For each sample
+  description: Here we transform the response of for loop
+  tasks:
+    - id: each_sequential_step1
+      description: for each
+      fn: com.gs.each_sequential
+      value: [1, 2, 3, 4]
+      tasks:
+        - id: each_task1
+          fn: com.gs.transform
+          args: <% 'each_task1 ' + task_value %>
+    - id: each_sequential_step2
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.each_sequential_step1 %>
+```
+
+#### com.gs.each_parallel
+
+The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed in parallel. The final output each_sequential is the array of outputs of the last executed task of each iteration.
+
+```yaml
+  summary: For each sample
+  description: Here we transform the response of for loop
+  tasks:
+    - id: each_parallel_step1
+      description: for each
+      fn: com.gs.each_parallel
+      value: [1, 2, 3, 4]
+      tasks:
+        - id: each_task1
+          fn: com.gs.transform
+          args: <% 'each_task1 ' + task_value %>
+    - id: each_parallel_step2
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.each_parallel_step1 %>
+```
+
 ### Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
