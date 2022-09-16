@@ -31,6 +31,56 @@ The response of the event is flexible for the developer to change as per the req
 
 > All event declarations are stored in the src/events folder, in YAML files.
 
+### JSON schema validation
+The framework provides request and response schema validation out of the box.
+
+#### Request schema validation
+Sample spec for request schema.
+```
+data: #Input data defined as per the OpenAPI spec
+  schema:
+    body: 
+      required: true
+      content:
+        application/json:
+          schema:
+            type: 'object'
+            required: []
+            properties:
+              dob:  { type : 'string', format : 'date', pattern : "[0-9]{4}-[0-9]{2}-[0-9]{2}" }
+              meta:
+                type: 'object'
+```
+If request schema validation fails, then status code 400 is returned.
+
+#### Response schema validation
+Sample spec for response schema.
+```
+responses: #Output data defined as per the OpenAPI spec
+  200:
+    examples: # <string, ExampleObject>
+    schema:
+      data: 
+        description:
+        required: # default value is false
+        content:
+          application/json: # For ex. application/json application/xml
+            schema: 
+              type: object
+              properties:
+                application_id: 
+                  type: string
+              additionalProperties: false
+              required: [application_id]
+            examples: # <string, ExampleObject>
+              example1:
+                summary:
+                description:
+                value: 
+                  application_id: PRM20478956N
+                external_value:
+```
+If response schema validation fails, then status code 500 is returned.
 
 ### HTTP event
 

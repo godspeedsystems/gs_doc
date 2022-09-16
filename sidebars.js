@@ -73,11 +73,6 @@ const sidebars = {
       id: 'microservices/workflows',
     },                    
     {
-      type: 'doc',
-      label: 'Mappings',
-      id: 'microservices/mappings',
-    },                    
-    {
       type: 'category',
       label: 'Datasources',
       items: [
@@ -88,6 +83,16 @@ const sidebars = {
         'microservices/datasources/extensible-datasources'
       ],
     },
+    {
+      type: 'doc',
+      label: 'Mappings',
+      id: 'microservices/mappings',
+    },                    
+    {
+      type: 'doc',
+      label: 'Plugins',
+      id: 'microservices/plugins',
+    },                    
     {
       type: 'doc',
       label: 'Authentication & Authorization',

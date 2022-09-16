@@ -201,6 +201,8 @@ Send HTTP events to other APIs in Axios compatible format.
     - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
       description: agreement esign
       fn: com.gs.http
+      params: # query params to be sent in the request
+        id: 123
       args:
         datasource: httpbin
         config:
@@ -342,6 +344,7 @@ This function allows to transform data from one format to another using coffee/j
         code: 200
         data: <% outputs.step1_switch.data %>
 ```
+
 #### com.gs.series
 :::tip control flow function
 Executes the tasks in series. 
@@ -408,6 +411,7 @@ Syntax is same as [com.gs.series](#comgsseries)
         data: outputs['1st']
         } %>
 ```
+
 #### com.gs.switch
 :::tip control flow function
 The classic switch-case flow execution
@@ -427,9 +431,13 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
               args: <%inputs%>
 
 ```
+
 #### com.gs.return
 
-Just an alias for [transform](#comgstransform), for more readbility. It transforms data and returns the value of the transformation.
+:::tip return statement
+The classic return statement
+:::
+It returns from the current function to the function caller. The function stops executing when the return statement is called.
 
 ```yaml
   summary: Multiplexing create loan for hdfc api calls
