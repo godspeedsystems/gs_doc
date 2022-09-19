@@ -82,7 +82,7 @@ type: api
 base_url: <% config.httpbin.base_url %>
 authn: com.jfs.httpbin_auth
 ```
-Here, `com.jfs.httpbin_auth` is the authentication workflow which gets called every time this datasource is used in the workflow.
+Here, `com.jfs.httpbin_auth` is the authentication workflow which gets called for the authentication of any request to this datasource.
 
 **Sample workflow using the above datasource**
 ```yaml
@@ -132,3 +132,7 @@ params:
   param1: val1
 statusCodes: [401, 403, ....]
 ```
+
+:::note
+The authentication workflow gets called when any request returns the specified `statusCodes`. 
+:::
