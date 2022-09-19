@@ -12,7 +12,7 @@ It supports multiple kinds of SQL and NoSQL datastores. The developer only needs
 - Postgres (via Prisma)
 - Mysql (via Prisma)
 - Mongodb (via Prisma)
-- Elasticsearch (via Elasticgraph, our inhouse implementation providing bunch of exciting features over Elasticsearch, including relationship management and joins.)( <Highlight color="#D0F9E5">Planned</Highlight> )
+- Elasticsearch (via Elasticgraph, our inhouse implementation providing bunch of exciting features over Elasticsearch, including relationship management and joins.)
 
 **The integration supports**
 - Model declaration (For both relational and non-relational stores)
@@ -59,7 +59,7 @@ Please make sure that `godspeed prisma <command>` is executed inside from devcon
 :::
 
 ## Prisma Datastore Setup
-The framework has inbuilt feature of setting up datastore automatically whenever a new `{datastore_name}.prisma` file is created in the `src/datasources` folder. In case, you are getting any error in the datastore setup, then you can refer to below section for manual setup: 
+The framework has [inbuilt feature](../setup/auto-watch.md/#auto-watch-and-build) of setting up datastore automatically whenever a new `{datastore_name}.prisma` file is created in the `src/datasources` folder. In case, you are getting any error in the datastore setup, then you can refer to below section for manual setup: 
 
 > During the project setup, if you have not specified the type of datastore you just added, then you will have to execute `godspeed update` in project root directory, outside the dev container. This will deploy the container for this datastore in the dev container environment.
 

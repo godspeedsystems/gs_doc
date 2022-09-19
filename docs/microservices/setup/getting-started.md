@@ -5,11 +5,15 @@ title: Getting started
 
 Hereby is a step by step guide on running your first project. The setup is independent of the OS you are running it on.
 
+### Glossary
+**gs_service**: The framework code version. During this setup, you will be asked to select the version of gs_service.   
+**Remote containers/Dev containers**: Refer [VSCode Remote containers](#https://code.visualstudio.com/docs/remote/containers) for more information.
+
 ### Pre-requisites
 
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
-- Visual Studio Code LTS, with the `Remote Containers` plugin installed
+- Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
 - Docker-desktop 
 - Git
 
@@ -31,6 +35,8 @@ npm install -g @mindgrep/godspeed
 godspeed create my_test_project
 ```
 During the setup, you will be asked which datastores you need. Also whether you need Kafka. Say yes or no, depending on your requirements. 
+
+> By default, `latest` version is selected for gs_service. You should select either `latest` or any highest semantic version available in the list.
 
 ### Step3: CD to your project
 ```sh
@@ -65,9 +71,3 @@ With the dev container running, we have auto watch and auto build enabled when y
 
 ### Time to start the development
 If you have successfully reached here, then it is time to start the development of your project! 
-
-
-
-
-
-

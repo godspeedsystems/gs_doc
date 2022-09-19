@@ -565,3 +565,50 @@ Developer can write functions in JS/TS and [kept in src/functions folder](#locat
 
 ### Headers defined at workflow level
 Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#the-tasks-within-workflows)
+
+### File Upload feature
+The framework provides file upload feature to upload files. Here is the sample event and workflow spec to upload any file.
+
+**Event Spec**
+```yaml
+/document.http.post:
+  fn: com.biz.documents.upload_file
+  id: '/sendDocuments'
+  summary: upload document
+  description: upload document on httpbin
+  data: 
+    schema:
+      body: 
+        required: false
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                fileName:
+                  type: string
+                  format: binary
+```
+
+**Workflow spec**
+```yaml
+  summary: upload file
+  id: upload_file
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: upload docfileuments
+      fn: com.gs.http
+      args:
+        datasource: httpbin
+        params:
+        file_key: files
+        files: <% inputs.files %>
+        config:
+          url : /v1/documents
+          method: post
+
+      retry:
+        maxAttempt: 5
+        type: constant
+        interval: PT15M
+```

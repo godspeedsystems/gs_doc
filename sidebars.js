@@ -54,7 +54,8 @@ const sidebars = {
               ]
             },
             'microservices/setup/documentation',
-            'microservices/setup/tests'
+            'microservices/setup/tests',
+            'microservices/setup/auto-watch'
           ],
     },
     {
