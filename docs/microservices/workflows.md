@@ -71,24 +71,24 @@ The only exception to this is [control functions](#comgsseries) like series, par
 - **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
   ```yaml
     retry:
-      maxAttempt: 5
+      max_attempts: 5
       type: constant
       interval: PT15M
   ```
 
   ```yaml
     retry:
-      maxAttempt: 5
+      max_attempts: 5
       type: exponential
       interval: PT15S
   ```
 
   ```yaml
     retry:
-      maxAttempt: 5
+      max_attempts: 5
       type: random
-      minInterval: PT5S
-      maxInterval: PT10S
+      min_interval: PT5S
+      max_interval: PT10S
   ```
 
 #### Example of multiple task with arguments
@@ -210,7 +210,7 @@ Send HTTP events to other APIs in Axios compatible format.
           method: post
 
       retry: 
-        maxAttempt: 5
+        max_attempts: 5
         type: constant
         interval: PT15M
 
@@ -254,7 +254,7 @@ Send HTTP events to other APIs in Axios compatible format.
           method: post
 
       retry:
-        maxAttempt: 5
+        max_attempts: 5
         type: constant
         interval: PT15M
 
@@ -608,7 +608,7 @@ The framework provides file upload feature to upload files. Here is the sample e
           method: post
 
       retry:
-        maxAttempt: 5
+        max_attempts: 5
         type: constant
         interval: PT15M
 ```
