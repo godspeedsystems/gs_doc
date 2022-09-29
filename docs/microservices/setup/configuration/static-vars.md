@@ -15,7 +15,7 @@ The static variables as well as their values are defined in yaml files under `co
 
 ### default.yaml
 This file contains some predefined variables. Below is a sample file.
-```
+```yaml
 log_level: debug
 api_version: "1.0"
 lang: coffee
@@ -28,11 +28,12 @@ jwt:
   issuer: ms.sample.com
   audience: sample.com
   secretOrKey: sampleKey
+redact: ['ns', 'req.headers'] # fields to hide
 ```
 
 ### telemetry/index.yaml
 This is a sample for defining variables of telemetry.
-```
+```yaml
 metrics:
   export:
     interval: 3000

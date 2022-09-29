@@ -32,7 +32,7 @@ Numerous open source and commercial softwares for Observability support OpenTele
 Collect, correlate and debug signals across logs (events), traces and metrics, based on the request id and the attributes defined for the organization. For example, app version, function, DB query, K8s pod, domain, microservice etc.
 
 ## Configuration
-### Specifying export endpoint
+### OTEL exporter endpoint
 Specify the IP address of your OTEL collector as env variable. Refer [OTEL Exporter](https://opentelemetry.io/docs/reference/specification/protocol/exporter/#endpoint-urls-for-otlphttp) for more information.
 ```
 $ export OTEL_EXPORTER_OTLP_ENDPOINT=<IP of OTEL collector>:4317
@@ -42,7 +42,7 @@ For example,
 export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://172.17.0.1:4317
 ```
 
-### Specifying the service name
+### OTEL service name
 Specify the service name by which you want to setup observability and set it as env variable. 
 ```
 $ export OTEL_SERVICE_NAME=sample_proj1
@@ -54,6 +54,13 @@ Let's assume you have setup SigNoz as the exporter then you will see something l
 ![Traces](/img/Traces.png)
 
 > In case you have any questions, please reach out to us on our [Discord channel](https://discord.com/channels/983323669809999882/983323669809999885).
+
+### Logging
+#### Log level
+The minimum level set to log above this level. Please refer [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) for more information. Set `log_level` in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml)
+
+#### Log fields masking
+If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
 
 ## Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
