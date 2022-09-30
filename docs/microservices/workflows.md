@@ -330,7 +330,7 @@ tasks:
     description: create_entity1
     fn: com.gs.elasticgraph
     args:
-      datasource: elasticgraph
+      datasource: elasticgraph1
       data: 
         index: <% inputs.params.entity_type + 's' %>
         type: '_doc'
