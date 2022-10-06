@@ -21,7 +21,12 @@ const sidebars = {
   tutorialSidebar: [
     {
       type: 'doc',
-      label: 'Preface',
+      label: 'Table of Contents',
+      id: 'table-of-contents',
+    },
+    {
+      type: 'doc',
+      label: '1. Preface',
       id: 'preface',
     },
 
@@ -36,18 +41,18 @@ const sidebars = {
     // },
     {
       type: 'doc',
-      label: 'Introduction',
+      label: '2. Introduction',
       id: 'microservices/intro',
     },
     {
           type: 'category',
-          label: 'Setup',
+          label: '3. Setup',
           items: [
             'microservices/setup/getting-started',
             'microservices/setup/scaffolding',
             {
               type: 'category',
-              label: 'Configuration',
+              label: '3.3 Configuration',
               items: [
                 'microservices/setup/configuration/env-vars',
                 'microservices/setup/configuration/static-vars'
@@ -60,22 +65,22 @@ const sidebars = {
     },
     {
       type: 'doc',
-      label: 'CLI',
+      label: '4. CLI',
       id: 'microservices/introduction-cli',
     }, 
     {
       type: 'doc',
-      label: 'Events',
+      label: '5. Events',
       id: 'microservices/events',
     },  
     {
       type: 'doc',
-      label: 'Workflows',
+      label: '6. Workflows',
       id: 'microservices/workflows',
     },                    
     {
       type: 'category',
-      label: 'Datasources',
+      label: '7. Datasources',
       items: [
         'microservices/datasources/intro',
         'microservices/datasources/api',
@@ -87,17 +92,17 @@ const sidebars = {
     },
     {
       type: 'doc',
-      label: 'Mappings',
+      label: '8. Mappings',
       id: 'microservices/mappings',
     },                    
     {
       type: 'doc',
-      label: 'Plugins',
+      label: '9. Plugins',
       id: 'microservices/plugins',
     },                    
     {
       type: 'doc',
-      label: 'Authentication & Authorization',
+      label: '10. Authentication & Authorization',
       id: 'microservices/authen-author',
     }, 
 
@@ -189,7 +194,7 @@ const sidebars = {
 
     {
       type: 'category',
-      label: 'Telemetry',
+      label: '11. Telemetry',
       items: ['telemetry/intro'],
     },
 
@@ -213,13 +218,13 @@ const sidebars = {
 
     {
       type: 'doc',
-      label: 'Roadmap',
+      label: '12. Roadmap',
       id: 'roadmap',
     },
 
     {
       type: 'doc',
-      label: 'FAQ',
+      label: '13. FAQ',
       id: 'faq',
     },
 

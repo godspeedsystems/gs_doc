@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: Introduction
+title: 7.1 Introduction
 ---
 
 # Datasources
@@ -8,7 +8,7 @@ Any kind of entity which provides read and write mechanism for data is considere
 
 ![datasources](/img/datasources_folder.png)
 
-### Datasource types
+### 7.1.1 Datasource types
 
 **Currently supported types**
 - [API](./api)
@@ -16,7 +16,8 @@ Any kind of entity which provides read and write mechanism for data is considere
   - Postgres
   - Mysql
   - Mongodb
-  - Elasticsearch
+- [Kafka](./kafka.md)
+- [Elasticsearch](./elasticgraph.md)
 
 **Upcoming**
 - S3

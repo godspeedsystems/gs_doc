@@ -1,0 +1,111 @@
+---
+sidebar_position: 2
+title: Table of Contents
+---
+
+# Table of Contents
+[1. Preface](preface.md)   
+    [1.1 Introduction](preface.md/#11-introduction)   
+    [1.2 Goals](preface.md/#12-goals)   
+    [1.3 Features](preface.md/#13-features)   
+    [1.4 Tenets](preface.md/#14-tenets)   
+    [1.5 Design principals](preface.md/#15-design-principals)   
+    [1.6 Framework architecture](preface.md/#16-framework-architecture)   
+    [1.7 Scenarios and use cases](preface.md/#17-scenarios-and-use-cases)   
+
+[2. Introduction](./microservices/intro.md)   
+    [2.1 Developer's work](./microservices/intro.md/#21-developers-work)   
+
+[3. Setup](./microservices/setup/getting-started.md)   
+    [3.1 Getting started](./microservices/setup/getting-started.md)   
+        [3.1.1 Glossary](./microservices/setup/getting-started.md/#311-glossary)   
+        [3.1.2 Pre-requisites](./microservices/setup/getting-started.md/#312-pre-requisites)   
+        [3.1.3 Steps to get started](./microservices/setup/getting-started.md/#313-steps-to-get-started)   
+        [3.1.4 Time to start the development](./microservices/setup/getting-started.md/#314-time-to-start-the-development)   
+
+[3.2 Project structure](./microservices/setup/scaffolding.md)   
+    [3.2.1 Scaffolding & Project structure](./microservices/setup/scaffolding.md/#321-scaffolding--project-structure)   
+
+[3.3 Configuration](./microservices/setup/configuration/env-vars.md)   
+    [3.3.1 Environment variables](./microservices/setup/configuration/env-vars.md)   
+    [3.3.2 Static variables](./microservices/setup/configuration/static-vars.md)   
+[3.4 Documentation](./microservices/setup/documentation.md)   
+[3.5 Tests](./microservices/setup/tests.md)   
+[3.6 Auto watch and build](./microservices/setup/auto-watch.md)   
+
+[4. CLI](./microservices/introduction-cli.md)   
+    [4.1 Functionality](./microservices/introduction-cli.md/#41-functionality)   
+    [4.2 Installation](./microservices/introduction-cli.md/#42-installation)   
+    [4.3 Options](./microservices/introduction-cli.md/#43-options)   
+    [4.4 Commands: Outside the dev container](./microservices/introduction-cli.md/#44-commands-outside-the-dev-container)   
+    [4.5 Commands: Inside the dev container](./microservices/introduction-cli.md/#45-commands-inside-the-dev-container)   
+
+[5. Events](./microservices/events.md)   
+    [5.1 Event types](./microservices/events.md/#51-event-types)   
+    [5.2 Event schema & examples for supported sources](./microservices/events.md/#52-event-schema--examples-for-supported-sources)   
+        [5.2.1 JSON schema validation](./microservices/events.md/#521-json-schema-validation)   
+        [5.2.2 HTTP event](./microservices/events.md/#522-http-event)   
+        [5.2.3 Kafka event](./microservices/events.md/#523-kafka-event)   
+
+[6. Workflows](./microservices/workflows.md)   
+    [6.1 The structure of workflows](./microservices/workflows.md/#61-the-structure-of-workflows)   
+    [6.2 The tasks within workflows](./microservices/workflows.md/#62-the-tasks-within-workflows)   
+    [6.3 Location and fully qualified name (id) of workflows and functions](./microservices/workflows.md/#63-location-and-fully-qualified-name-id-of-workflows-and-functions)   
+    [6.4 Referencing a workflow within an event or another workflow](./microservices/workflows.md/#64-referencing-a-workflow-within-an-event-or-another-workflow)   
+    [6.5 Use of Coffee/JS for scripting](./microservices/workflows.md/#65-use-of-coffeejs-for-scripting)   
+
+[6.6 Inbuilt functions](./microservices/workflows.md/#66-inbuilt-functions)   
+        [6.6.1 com.gs.http](./microservices/workflows.md/#661-comgshttp)   
+        [6.6.2 com.gs.kafka](./microservices/workflows.md/#662-comgskafka)   
+        [6.6.3 com.gs.datastore](./microservices/workflows.md/#663-comgsdatastore)   
+        [6.6.4 com.gs.elasticgraph](./microservices/workflows.md/#664-comgselasticgraph)   
+        [6.6.5 com.gs.transform](./microservices/workflows.md/#665-comgstransform)   
+        [6.6.6 com.gs.series](./microservices/workflows.md/#666-comgsseries)   
+        [6.6.7 com.gs.parallel](./microservices/workflows.md/#667-comgsparallel)   
+        [6.6.8 com.gs.switch](./microservices/workflows.md/#668-comgsswitch)   
+        [6.6.9 com.gs.each_sequential](./microservices/workflows.md/#669-comgseachsequential)   
+        [6.6.10 com.gs.each_parallel](./microservices/workflows.md/#6610-comgseachparallel)   
+        [6.6.11 com.gs.return](./microservices/workflows.md/#6611-comgsreturn)   
+        [6.6.12 com.gs.log](./microservices/workflows.md/#6612-comgslog)   
+    [6.7 Developer written functions](./microservices/workflows.md/#67-developer-written-functions)   
+    [6.8 Headers defined at workflow level](./microservices/workflows.md/#68-headers-defined-at-workflow-level)   
+    [6.9 File Upload feature](./microservices/workflows.md/#69-file-upload-feature)   
+
+[7. Datasources](./microservices/datasources/intro.md)   
+    [7.1 Introduction](./microservices/datasources/intro.md)   
+        [7.1.1 Datasource types](./microservices/datasources/intro.md/#711-datasource-types)   
+
+[7.2 API datasource](./microservices/datasources/api.md)   
+        [7.2.1 API datasource schema defined externally](./microservices/datasources/api.md/#721-api-datasource-schema-defined-externally)   
+        [7.2.2 API datasource schema defined within the yaml file](./microservices/datasources/api.md/#722-api-datasource-schema-defined-within-the-yaml-file)   
+        [7.2.3 Headers defined at datasource level](./microservices/datasources/api.md/#723-headers-defined-at-datasource-level)   
+        [7.2.4 Headers defined at task level](./microservices/datasources/api.md/#724-headers-defined-at-task-level)   
+        [7.2.5 Example usage](./microservices/datasources/api.md/#725-example-usage)   
+
+[7.3 Datastore as datasource](./microservices/datasources/datastore.md)   
+    [7.3.1 Schema specification](./microservices/datasources/datastore.md/#731-schema-specification)   
+    [7.3.2 CLI Commands](./microservices/datasources/datastore.md/#732-cli-commands)   
+    [7.3.3 Prisma Datastore Setup](./microservices/datasources/datastore.md/#733-prisma-datastore-setup)   
+    [7.3.4 Auto generating CRUD APIs from data store models](./microservices/datasources/datastore.md/#734-auto-generating-crud-apis-from-data-store-models)   
+    [7.3.5 Sample datastore CRUD task](./microservices/datasources/datastore.md/#735-sample-datastore-crud-task)   
+
+[7.4 Kafka as datasource](./microservices/datasources/kafka.md)   
+    [7.4.1 Example spec](./microservices/datasources/kafka.md/#741-example-spec)   
+
+[7.5 Elasticgraph as datasource](./microservices/datasources/elasticgraph.md)   
+    [7.5.1 Folder Structure](./microservices/datasources/elasticgraph.md/#751-folder-structure)   
+    [7.5.2 Datasource DSL](./microservices/datasources/elasticgraph.md/#752-datasource-dsl)   
+    [7.5.3 Configuration files for elasticgraph](./microservices/datasources/elasticgraph.md/#753-configuration-files-for-elasticgraph)   
+
+[7.6 Extensible datasources](./microservices/datasources/extensible-datasources.md)   
+    [7.6.1 Datasource definition](./microservices/datasources/extensible-datasources.md/#761-datasource-definition)   
+    [7.6.2 Example spec for the event](./microservices/datasources/extensible-datasources.md/#762-example-spec-for-the-event)   
+    [7.6.3 Example spec for the workflow](./microservices/datasources/extensible-datasources.md/#763-example-spec-for-the-workflow)   
+
+[8. Mappings](./microservices/mappings.md)   
+[9. Plugins](./microservices/plugins.md)   
+[10. Authentication & Authorization](./microservices/authen-author.md)   
+[11. Telemetry](./telemetry/intro.md)   
+[12. Roadmap](roadmap.md)   
+[13. FAQ](faq.md)   
+[4. CLI](./microservices/introduction-cli.md)   

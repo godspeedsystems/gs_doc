@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: Datastore as datasource
+title: 7.3 Datastore as datasource
 ---
 
 # Introduction
@@ -22,13 +22,13 @@ It supports multiple kinds of SQL and NoSQL datastores. The developer only needs
 - Authorization mechanism at the entity, column, row and ownership levels
 - Automatic caching based on configuration.
 
-## Schema specification
+## 7.3.1 Schema specification
 
 The framework extends [Prisma specification](http://prisma.io) for specifying the schema of any datastore. This can be generated from an [existing database](#cli-commands) or manually created by the developer. The schema is present as `{datastore_name}.prisma` file in the `src/datasources` folder.
 
 ![datasources](/img/datastore-datasource.jpeg)
 
-## CLI Commands
+## 7.3.2 CLI Commands
 Any [Prisma CLI command](https://www.prisma.io/docs/concepts/components/prisma-cli) can be executed from godspeed CLI using `godspeed prisma <command>`. For example,
 ```
 $ godspeed prisma db pull --schema=./src/datasources/mongo_pull.prisma 
@@ -58,7 +58,7 @@ Run prisma generate to generate Prisma Client.
 Please make sure that `godspeed prisma <command>` is executed inside from devcontainer/project root directory.
 :::
 
-## Prisma Datastore Setup
+## 7.3.3 Prisma Datastore Setup
 The framework has [inbuilt feature](../setup/auto-watch.md/#auto-watch-and-build) of setting up datastore automatically whenever a new `{datastore_name}.prisma` file is created in the `src/datasources` folder. In case, you are getting any error in the datastore setup, then you can refer to below section for manual setup: 
 
 > During the project setup, if you have not specified the type of datastore you just added, then you will have to execute `godspeed update` in project root directory, outside the dev container. This will deploy the container for this datastore in the dev container environment.
@@ -103,7 +103,7 @@ The database is already in sync with the Prisma schema.
 ✔ Generated Prisma Client (3.15.2 | library) to ./src/datasources/generated-clients/mongo in 149ms
 ```
 
-## Auto generating CRUD APIs from data store models
+## 7.3.4 Auto generating CRUD APIs from data store models
 Developer can generate CRUD APIs for all the models in a datastore. `Events` and `Workflows` will be auto generated for `Create`, `Read`, `Update` and `Delete` operations for each model in respective datastore.
 
  Auto-generated events and workflows will be stored in `/events/{datasourceName}/{modelName}` and `/functions/com/gs/{datasourceName}/{modelName}` folders respectively.
@@ -112,7 +112,7 @@ Developer can generate CRUD APIs for all the models in a datastore. `Events` and
 godspeed gen-crud-api
 ```
 
-## Sample datastore CRUD task
+## 7.3.5 Sample datastore CRUD task
 Please find an [example here](../workflows#comgsdatastore)
 
 

@@ -1,6 +1,8 @@
 ---
 sidebar_position: 3
 title: Workflows
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Workflows
@@ -11,7 +13,7 @@ Workflows is where the actual computation and flow orchestration happens. The fr
 
 > Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
-## The structure of workflows
+### 6.1 The structure of workflows
 
 A workflow has the following attributes
 - **summary** - the title
@@ -30,7 +32,7 @@ tasks: # tasks to be run in sequence (default is sequence)
     args: 'Hello World!' # com.gs.return takes its return value as `args`. Hence the args key.
 ```
 
-### The tasks within workflows
+### 6.2 The tasks within workflows
 A workflow has one or more tasks associated with it.
 A task has the following attributes
 - **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#example-of-multiple-task-with-own-params).
@@ -130,18 +132,18 @@ tasks: # tasks to be run in sequence (default is sequence)
         } %>    
 ```
 
-### Location and fully qualified name (id) of workflows and functions
+### 6.3 Location and fully qualified name (id) of workflows and functions
 All the workflows and functions are to be kept in the `src/functions` folder. Their directory tree path, followed by the file name becomes the workflow's fully qualified name or id, by which it can be referenced in the events or within other workflows.
 
 > The JS function shown below will be available in workflows under the F.Q.N. `com.biz.custom_function`. Similarly, `com.biz.create_hdfc_account`, `com.biz.create_parallel` etc. are accessible as handlers from within other [workflow tasks](#the-tasks-within-workflows) or events.
 
   ![function_folder](/img/function_folder.jpeg)
 
-### Referencing a workflow within an event or another workflow
+### 6.4 Referencing a workflow within an event or another workflow
 A workflow task references and invokes other workflows written in either YAML or JS/TS, via the `fn` key. In future, other languages will also be supported. 
 An [event definition](./events#example-spec-for-http-event) references the handler yaml workflows by their fully qualified name, via the same `fn` key.
 
-### Use of Coffee/JS for scripting
+### 6.5 Use of Coffee/JS for scripting
 
 The framework provides coffee/js for 
 
@@ -185,11 +187,11 @@ Global configuration for language is overridden by defining specific language in
           %>
 ```
 
-### Inbuilt functions
+### 6.6 Inbuilt functions
 
 The framework provides the following inbuilt functions 
 
-#### com.gs.http
+#### 6.6.1 com.gs.http
 
 Send HTTP events to other APIs in Axios compatible format.
 
@@ -268,7 +270,7 @@ Send HTTP events to other APIs in Axios compatible format.
 
 ```
 
-#### com.gs.kafka
+#### 6.6.2 com.gs.kafka
 
 Publish events on Kafka.
 
@@ -294,7 +296,7 @@ Publish events on Kafka.
 ```
 > Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
 
-#### com.gs.datastore
+#### 6.6.3 com.gs.datastore
 
 The datastore function allows CRUD access to any supported [datastore](./datasources/datastore) in a format extending [Prisma API](http://prisma.io).
 
@@ -319,7 +321,7 @@ tasks:
 
 ```
 
-#### com.gs.elasticgraph
+#### 6.6.4 com.gs.elasticgraph
 
 The elasticgraph function allows CRUD access to elasticsearch [datastore](./datasources/elasticgraph).
 
@@ -341,7 +343,7 @@ tasks:
       continue: false
 ```
 
-#### com.gs.transform
+#### 6.6.5 com.gs.transform
 
 This function allows to transform data from one format to another using coffee/js scripting.
 
@@ -367,7 +369,7 @@ This function allows to transform data from one format to another using coffee/j
         data: <% outputs.step1_switch.data %>
 ```
 
-#### com.gs.series
+#### 6.6.6 com.gs.series
 :::tip control flow function
 Executes the tasks in series. 
 :::
@@ -397,7 +399,7 @@ By default every top level workflow executes its task in series. But when invoki
         } %>
 ```
 
-#### com.gs.parallel
+#### 6.6.7 com.gs.parallel
 :::tip control flow function
 Executes the child tasks in parallel.
 :::
@@ -434,7 +436,7 @@ Syntax is same as [com.gs.series](#comgsseries)
         } %>
 ```
 
-#### com.gs.switch
+#### 6.6.8 com.gs.switch
 :::tip control flow function
 The classic switch-case flow execution
 :::
@@ -454,7 +456,7 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
 
 ```
 
-#### com.gs.each_sequential
+#### 6.6.9 com.gs.each_sequential
 
 :::tip control flow function
 The classic for-each flow execution
@@ -479,7 +481,7 @@ The args is list of values in `value` field along with associated tasks. For eac
       args: <% outputs.each_sequential_step1 %>
 ```
 
-#### com.gs.each_parallel
+#### 6.6.10 com.gs.each_parallel
 
 The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed in parallel. The final output each_sequential is the array of outputs of the last executed task of each iteration.
 
@@ -501,7 +503,7 @@ The args is list of values in `value` field along with associated tasks. For eac
       args: <% outputs.each_parallel_step1 %>
 ```
 
-#### com.gs.return
+#### 6.6.11 com.gs.return
 
 :::tip return statement
 The classic return statement
@@ -519,7 +521,7 @@ It returns from the current function to the function caller. The function stops 
         <coffee% 'Hello ' + inputs.query.name %>
 ```
 
-#### com.gs.log
+#### 6.6.12 com.gs.log
 
 It logs the intermediate inputs/outputs during the workflow execution in pino logging format. The args are `level` and `data`. `level` takes any value from the [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) and `data` takes a coffee/js expression to be evaluated during runtime or anything (like string, number, etc.) which you want to get logged during the workflow execution.
 
@@ -546,7 +548,7 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 ```
 
 
-### Developer written functions
+### 6.7 Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
 ![function_folder](/img/function_folder.jpeg)
@@ -563,10 +565,10 @@ Developer can write functions in JS/TS and [kept in src/functions folder](#locat
         arg2: 'hello again'
 ```
 
-### Headers defined at workflow level
+### 6.8 Headers defined at workflow level
 Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#the-tasks-within-workflows)
 
-### File Upload feature
+### 6.9 File Upload feature
 The framework provides file upload feature to upload files. Here is the sample event and workflow spec to upload any file.
 
 **Event Spec**
@@ -612,3 +614,5 @@ The framework provides file upload feature to upload files. Here is the sample e
         type: constant
         interval: PT15M
 ```
+
+

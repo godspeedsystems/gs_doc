@@ -1,6 +1,6 @@
 ---
 sidebar_position: 7
-title: Auto watch and build
+title: 3.6 Auto watch and build
 ---
 
 # Auto watch and build

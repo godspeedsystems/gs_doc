@@ -8,7 +8,7 @@ title: About Godspeed
 **This document is intended for stakeholders, tech leaders, architects & developers. It will provide high level goals, tenets, design principles, components & features of the platform for the intended audience.
 **
 
-## 1. Introduction
+## 1.1 Introduction
 
 **Godspeed is aimed at empowering teams to develop, maintain and observe microservices based backends, with high velocity, scalability, quality and performance.
 ** We want development (and hence also QA) teams to bypass all the repeatable and reusable work involved in building modern distributed backends with domain driven design, multi-tenancy, microservices and serverless functions. We want the developers to be able to speedily develop microservices in days, instead of months.
@@ -21,7 +21,7 @@ This framework is being systematically developed by Mindgrep over the last years
 
 ---
 
-## 2. Goals
+## 1.2 Goals
 
 **THE GOALS OF THE FRAMEWORK ARE AIMED TO MAKE BUSINESS AGILE BY EMPOWERING THE PRODUCT & DEVELOPMENT TEAMS TO DELIVER EXCELLENT SOLUTIONS VERY FAST.**
 
@@ -47,10 +47,10 @@ Migrate existing data models to Godspeed via database introspection. Autogenerat
 
 ---
 
-## 3. Features
+## 1.3 Features
 ![features](/img/features.png)
 
-## 4. Tenets
+## 1.4 Tenets
 
 ### Don't repeat yourself
 
@@ -66,7 +66,7 @@ Use standards in designing the system. For example, events using CouldEvents. Ob
 
 ---
 
-## 5. Design principals
+## 1.5 Design principals
 
 ### Three fundamental abstractions
 The three fundamental abstractions in the Godspeed are events (sync/async), workflows (business logic) and datasources (APIs/datastores). [Read more](./microservices/intro.md)
@@ -77,7 +77,7 @@ We will follow [OpenTelemetry](https://opentelemetry.io/) (OTEL) SDKs to collect
 
 ---
 
-## 6. Framework architecture
+## 1.6 Framework architecture
 
 The three main dimensions of Godspeed framework: events, workflows and datasources.
 
@@ -85,6 +85,6 @@ The three main dimensions of Godspeed framework: events, workflows and datasourc
 
 ---
 
-## 7. Scenarios and use cases
+## 1.7 Scenarios and use cases
 
 Use cases include any kind of microservice, CRUD microservice, wrapper service, search and suggest service, backend for frontend service, orchestration service, domain gateway service, etc.

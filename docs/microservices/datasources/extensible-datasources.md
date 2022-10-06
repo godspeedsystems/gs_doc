@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: Extensible datasources
+title: 7.6 Extensible datasources
 ---
 
 # Introduction
 
 The framework provides feature to extend datasources where you can add new datasources with any customized type as per your business logic.
 
-## Datasource definition
+## 7.6.1 Datasource definition
 You can define your datasource in yaml file inside `src/datasources` directory. For example, newDatasource.yaml is defined in the datasources.
 ```
 .
@@ -83,7 +83,7 @@ export default async function(args:{[key:string]:any;}) {
 }
 ```
 
-## Example spec for the event
+## 7.6.2 Example spec for the event
 ``` yaml
 /sample_helloworld.http.post:
   id: sample_event
@@ -101,7 +101,7 @@ export default async function(args:{[key:string]:any;}) {
           required: [name]
 ```
 
-## Example spec for the workflow
+## 7.6.3 Example spec for the workflow
 ``` yaml
 summary: hello world
 tasks:

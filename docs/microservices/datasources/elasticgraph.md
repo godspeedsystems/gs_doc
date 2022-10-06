@@ -1,14 +1,13 @@
 ---
 sidebar_position: 3
-title: Elasticgraph as datasource
+title: 7.5 Elasticgraph as datasource
 ---
 
 # Introduction
 
 The framework supports elasticgraph as a datasource. It supports elasticsearch as datastore. In addition, you can use various features of elasticgraph like deep graph search algorithms, joins, aggregations, multi-lingual support.
 
-## Example spec
-### Folder Structure
+### 7.5.1 Folder Structure
 The datasources for elasticgraph are defined in `src/datasources`. Here, `elasticgraph1.yaml` and `elasticgraph2.yaml` are defined in datasources.
 ```
 .
@@ -23,7 +22,7 @@ The datasources for elasticgraph are defined in `src/datasources`. Here, `elasti
     └── mappings
 ```
 
-### Datasource DSL
+### 7.5.2 Datasource DSL
 **elasticgraph1.yaml**
 ```yaml
 type: elasticgraph
@@ -40,7 +39,7 @@ collect: true # collect feature of elasticsearch
 ```
 
 
-### Configuration files for elasticgraph
+### 7.5.3 Configuration files for elasticgraph
 All the configuration files for elasticgraph datasources should be defined in `src/datasources/eg_config/` directory.
 
 Sample strucutre of config files under `schema_backend` path.

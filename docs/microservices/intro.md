@@ -14,7 +14,7 @@ These abstractions allow the developer to focus purely on their business logic. 
 
 There is a standard [project structure](./setup/scaffolding#project-structure) which will give the developer a kickstart to their project and also reference code/declarations, for the kind of stuff they can do using the framework.
 
-## Developer's work 
+## 2.1 Developer's work 
 The developer will use the CLI provided by the framework to setup a new microservice project and start developing. (S)he will configure the events, datasources, and workflows for the required functionality, along with mappings, environment variables, and common configurations, like for telemetry. To configure the datasources, 
 - For datastores: they will either define the db schema or autogenerate it from the existing database using the CLI. 
 - For APIs: they will need to define the APIs OpenAPI schema or provide the url for the same. 

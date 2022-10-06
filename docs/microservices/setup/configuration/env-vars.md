@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: Environment variables
+title: 3.3.1 Environment variables
 ---
 
 # Environment variables

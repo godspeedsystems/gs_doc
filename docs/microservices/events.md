@@ -1,6 +1,8 @@
 ---
 sidebar_position: 3
 title: Events
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Events
@@ -14,7 +16,7 @@ A microservice can be configured to consume events from variety of [event source
 
 The response of the event is flexible for the developer to change as per the requirement. 
 
-## Event types
+## 5.1 Event types
 
 **Currently supported**
 - http.{method_type} For example, post or get
@@ -27,11 +29,11 @@ The response of the event is flexible for the developer to change as per the req
 - GraphQL
 - Websocket
 
-## Event schema & examples for supported sources
+## 5.2 Event schema & examples for supported sources
 
 > All event declarations are stored in the src/events folder, in YAML files.
 
-### JSON schema validation
+### 5.2.1 JSON schema validation
 The framework provides request and response schema validation out of the box.
 
 #### Request schema validation
@@ -82,7 +84,7 @@ responses: #Output data defined as per the OpenAPI spec
 ```
 If response schema validation fails, then status code 500 is returned.
 
-### HTTP event
+### 5.2.2 HTTP event
 
 For an HTTP event, the headers, query, params and body data are captured in a standard format, and made available in the `inputs` object [for use in the workflows](#example-workflow-consuming-an-http-event). 
  
@@ -200,7 +202,7 @@ For an HTTP event, the headers, query, params and body data are captured in a st
             method: publish
   ```
 
-### Kafka event
+### 5.2.3 Kafka event
 
 > A kafka event is specified as `{topic_name}.{datasourceName}.{group_id}` in [the kafka event specification](#example-spec-for-kafka-event).
 

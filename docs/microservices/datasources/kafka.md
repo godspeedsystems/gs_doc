@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: Kafka as datasource
+title: 7.4 Kafka as datasource
 ---
 
 # Introduction
 
 The framework supports kafka as a datasource. It helps in interacting with kafka, to send/receive events on a kafka message bus. 
 
-## Example spec
+## 7.4.1 Example spec
 The datasources for kafka are defined in `src/datasources`. Here, two kafka clients `kafka1.yaml` and `kafka2.yaml` are defined in datasources.
 ```
 .

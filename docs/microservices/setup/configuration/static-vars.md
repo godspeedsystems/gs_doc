@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: Static variables
+title: 3.3.2 Static variables
 ---
 
 # Static variables
@@ -9,8 +9,6 @@ The static variables as well as their values are defined in yaml files under `co
 ```
 ├── config
 │   ├── default.yaml
-│   └── telemetry
-│       └── index.yaml
 ```
 
 ### default.yaml
@@ -30,12 +28,3 @@ jwt:
   secretOrKey: sampleKey
 redact: ['ns', 'req.headers'] # fields to hide
 ```
-
-### telemetry/index.yaml
-This is a sample for defining variables of telemetry.
-```yaml
-metrics:
-  export:
-    interval: 3000
-```
-

@@ -6,7 +6,7 @@ title: Introduction to Godspeed CLI
 # Godspeed CLI
 The CLI is the primary way to interact with your Godspeed project from the command line. It provides a bunch of useful functionalities during the project development lifecycle.
 
-## Functionality
+## 4.1 Functionality
 ### Outside the dev container
 - Creating a new project environment with dev container setup, which includes the folder structure, all the databases, message bus, cache, etc.
 - Open up an existing project in the dev container, add/update a container in the dev environment, based on updated settings.
@@ -19,7 +19,7 @@ The CLI is the primary way to interact with your Godspeed project from the comma
 - Test suite/Postman collection generation.
 - Running test suite.
 
-## Installation
+## 4.2 Installation
 ```sh
 npm install -g @mindgrep/godspeed
 ```
@@ -48,7 +48,7 @@ Commands:
   help [command]                  display help for command
 ```
 
-## Options
+## 4.3 Options
 
 ### --version (-v)
 The --version option outputs information about your current godspeed version.
@@ -89,7 +89,7 @@ Commands:
   help [command]                  display help for command
 ```
 
-## Commands: Outside the dev container
+## 4.4 Commands: Outside the dev container
 
 ### create
 The create command creates project structure for any microservice. When called without arguments, it creates project structure with examples.
@@ -309,7 +309,7 @@ Options:
   -h, --help                            display help for command
 ```
 
-## Commands: Inside the dev container
+## 4.5 Commands: Inside the dev container
 
 ### prisma
 You can run all the prisma commands in your project root directory inside the dev container. This command is useful for db migration and introspection. [Read more here](https://www.prisma.io/docs/concepts/components/prisma-cli). 
