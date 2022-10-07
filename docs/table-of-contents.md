@@ -5,8 +5,6 @@ title: Table of Contents
 
 # Table of Contents
 
-<pre> hello world </pre>
-
 [1. Preface](preface.md)   
     [1.1 Introduction](preface.md/#11-introduction)   
     [1.2 Goals](preface.md/#12-goals)   
