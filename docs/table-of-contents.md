@@ -4,6 +4,9 @@ title: Table of Contents
 ---
 
 # Table of Contents
+
+<pre> hello world </pre>
+
 [1. Preface](preface.md)   
     [1.1 Introduction](preface.md/#11-introduction)   
     [1.2 Goals](preface.md/#12-goals)   
@@ -103,9 +106,58 @@ title: Table of Contents
     [7.6.3 Example spec for the workflow](./microservices/datasources/extensible-datasources.md/#763-example-spec-for-the-workflow)   
 
 [8. Mappings](./microservices/mappings.md)   
-[9. Plugins](./microservices/plugins.md)   
+    [8.1 Project structure](./microservices/mappings.md/#81-project-structure)   
+    [8.2 Sample mappings](./microservices/mappings.md/#82-sample-mappings)   
+
+[9. Plugins](./microservices/plugins.md) 
+    [9.1 Project structure](./microservices/plugins.md/#91-project-structure) 
+    [9.2 Sample plugins](./microservices/plugins.md/#92-sample-plugins) 
+
 [10. Authentication & Authorization](./microservices/authen-author.md)   
+    [10.1 Authentication](./microservices/authen-author.md/#101-authentication)   
+    [10.1.1 JWT Configuration](./microservices/authen-author.md/#1011-jwt-configuration)   
+    [10.1.2 Event spec](./microservices/authen-author.md/#1012-event-spec)   
+    [10.1.3 Generate JWT](./microservices/authen-author.md/#1013-generate-jwt)   
+    [10.1.4 Datasource authentication](./microservices/authen-author.md/#1014-datasource-authentication)   
+    [10.2 Authorization](./microservices/authen-author.md/#102-authorization)   
+
 [11. Telemetry](./telemetry/intro.md)   
+    [11.1 Introduction](./telemetry/intro.md/#111-introduction)   
+        [11.1.1 Architecture](./telemetry/intro.md/#1111-architecture)   
+
+[11.2 Goals](./telemetry/intro.md/#112-goals)   
+[11.3 Configuration](./telemetry/intro.md/#113-configuration)   
+        [11.3.1 OTEL exporter endpoint](./telemetry/intro.md/#1131-otel-exporter-endpoint)   
+        [11.3.2 OTEL service name](./telemetry/intro.md/#1132-otel-service-name)   
+        [11.3.3 Logging](./telemetry/intro.md/#1133-logging)   
+
+[11.4 Custom metrics, traces and logs (BPM)](./telemetry/intro.md/#1141-dsl-spec-for-custom-metrics)   
+        [11.4.1 DSL spec for custom metrics](./telemetry/intro.md/#1142-dsl-spec-for-custom-trace)   
+        [11.4.2 DSL spec for custom trace](./telemetry/intro.md)   
+        [11.4.3 DSL spec for custom logs](./telemetry/intro.md/#1143-dsl-spec-for-custom-logs)   
+
+[11.5 Observability Stack](./telemetry/intro.md/#115-observability-stack)   
+[11.6 Recommended model for telemetry signals](./telemetry/intro.md/#116-recommended-model-for-telemetry-signals)   
+
 [12. Roadmap](roadmap.md)   
+
 [13. FAQ](faq.md)   
-[4. CLI](./microservices/introduction-cli.md)   
+    [13.1 What is the learning curve of the microservice framework?](faq.md/#131-what-is-the-learning-curve-of-the-microservice-framework)   
+    [13.2 What is the development process and quality metrics?](faq.md/#132-what-is-the-development-process-and-quality-metrics)   
+    [13.3 How can we adopt new versions of used technology easily and fast? For example, the new Postgres release.](faq.md/#133-how-can-we-adopt-new-versions-of-used-technology-easily-and-fast-for-example-the-new-postgres-release)   
+    [13.4 How easy is it to add new technology in place of an existing one, or add something absolutely new and unique (not existing in the framework)?](faq.md/#134-how-easy-is-it-to-add-new-technology-in-place-of-an-existing-one-or-add-something-absolutely-new-and-unique-not-existing-in-the-framework)   
+    [13.5 Which databases are currently supported? What is the roadmap for future support?](faq.md/#135-which-databases-are-currently-supported-what-is-the-roadmap-for-future-support)   
+    [13.6 Does the API handle DB transactions?](faq.md/#136-does-the-api-handle-db-transactions)   
+    [13.7 How can apps be decoupled or loosely coupled with DBs?](faq.md/#137-how-can-apps-be-decoupled-or-loosely-coupled-with-dbs)   
+    [13.8 When using Godspeed service alongside SpringBoot, what will be the impact on performance with another hop, versus direct connection with DB from Spring Boot?](faq.md/#138-when-using-godspeed-service-alongside-springboot-what-will-be-the-impact-on-performance-with-another-hop-versus-direct-connection-with-db-from-spring-boot)   
+    [13.9 What is the strategic advantage of making DB queries through Godspeed?](faq.md/#139-what-is-the-strategic-advantage-of-making-db-queries-through-godspeed)   
+    [13.10 How to achieve multi-tenancy in DBs, for a single application?](faq.md/#1310-how-to-achieve-multi-tenancy-in-dbs-for-a-single-application)   
+    [13.11 How can we start adopting the Godspeed framework?](faq.md/#1311-how-can-we-start-adopting-the-godspeed-framework)   
+    [13.12 How to move out of the Godspeed framework? Can we have a two door exit? I.e. Can we move out of technology and data both?](faq.md/#1312-how-to-move-out-of-the-godspeed-framework-can-we-have-a-two-door-exit-ie-can-we-move-out-of-technology-and-data-both)   
+    [13.13 How will we prevent unified CRUD API from limiting or choking us?](faq.md/#1313-how-will-we-prevent-unified-crud-api-from-limiting-or-choking-us)   
+    [13.14 What kind of API standards does the framework support?](faq.md/#1314-what-kind-of-api-standards-does-the-framework-support)   
+    [13.15 Why Rest first approach ? Why not Graphql first approach?](faq.md/#1315-why-rest-first-approach--why-not-graphql-first-approach)   
+    [13.16 How are we doing testing given there is quite a bit of custom DSL in the framework. How do we ensure the correctness?](faq.md/#1316-how-are-we-doing-testing-given-there-is-quite-a-bit-of-custom-dsl-in-the-framework-how-do-we-ensure-the-correctness)   
+    [13.17 How will the upgrades and migrations be done to the framework?](faq.md/#1317-how-will-the-upgrades-and-migrations-be-done-to-the-framework)   
+    [13.18 How CRUD APIs will support the paid as well as the non paid features of databases such as MongoDB. For example: MongoDB free vs paid versions will support different features.](faq.md/#1318-how-crud-apis-will-support-the-paid-as-well-as-the-non-paid-features-of-databases-such-as-mongodb-for-example-mongodb-free-vs-paid-versions-will-support-different-features)   
+    [13.19 How to ship new models easily?](faq.md/#1319-how-to-ship-new-models-easily)   

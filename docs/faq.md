@@ -9,13 +9,13 @@ title: COMMON FAQs
 
 Followings are collections of commonly asked questions with explanations. In future we will keep adding more questions/use cases/scenarios.
 
-## What is the learning curve of the microservice framework?
+## 13.1 What is the learning curve of the microservice framework?
 
 Our entire effort is to be a low code, easy to learn platform without too many things to learn, while getting big jobs done. A bunch of engineers have already trained and are developing microservices. Based on our data, it takes around 3~5 days for a young intern or engineer to get started on delivering enterprise level microservices.
 
 ---
 
-## What is the development process and quality metrics?
+## 13.2 What is the development process and quality metrics?
 
 All our upgrades go through peer reviews and test coverage (80%). We follow feature based branching. As part of our CI workflow, a developer can't commit/merge to the dev/master branches, unless all the test cases are passing. This ensures continuous sanity checks of our main branches.
 
@@ -37,7 +37,7 @@ Code and image vulnerability scans are also followed to ensure security within t
 
 ---
 
-## How can we adopt new versions of used technology easily and fast? For example, the new Postgres release.
+## 13.3 How can we adopt new versions of used technology easily and fast? For example, the new Postgres release.
 
 - Many times, the upgrades work with a simple update in package.json and [updating the project](./microservices/introduction-cli.md/#update). 
 
@@ -51,7 +51,7 @@ Code and image vulnerability scans are also followed to ensure security within t
 
 ---
 
-## How easy is it to add new technology in place of an existing one, or add something absolutely new and unique (not existing in the framework)?
+## 13.4 How easy is it to add new technology in place of an existing one, or add something absolutely new and unique (not existing in the framework)?
 
 - Since all the implementation is done against the open standards and pluggable interfaces, as long as the new technology is adhering to those standards drop-in replacement will be feasible.
 
@@ -61,26 +61,26 @@ Code and image vulnerability scans are also followed to ensure security within t
 
 ---
 
-## Which databases are currently supported? What is the roadmap for future support?
+## 13.5 Which databases are currently supported? What is the roadmap for future support?
 
 We currently support Mongodb, Postgres, MySQL, SQLServer, SQLite, MariaDB, CockroachDB, AWS Aurora, Azure SQL via [Prisma](https://www.prisma.io/). We are in the process of adding Elasticsearch in Q2, 2022.
 
 ---
 
-## Does the API handle DB transactions?
+## 13.6 Does the API handle DB transactions?
 
 Yes there is an extensive support for [DB transactions](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
 
 ---
 
-## How can apps be decoupled or loosely coupled with DBs?
+## 13.7 How can apps be decoupled or loosely coupled with DBs?
 
 This decoupling is possible because of the universal datastore schema, CRUD API and migration process.
 For more, please refer [prisma docs](https://www.prisma.io/docs/).
 
 ---
 
-## When using Godspeed service alongside SpringBoot, what will be the impact on performance with another hop, versus direct connection with DB from Spring Boot?
+## 13.8 When using Godspeed service alongside SpringBoot, what will be the impact on performance with another hop, versus direct connection with DB from Spring Boot?
 
 The performance of an API endpoint depends on the service PLUS DB working together. For example, DB connection pooling and utilization, transaction handling, batching of independent queries, optimization of indexes and queries, denormalization (for cross table queries and aggregations), memoization/caching (for faster read and solving N+1 queries problem), CQRS setup between multiple DBs.
 
@@ -88,7 +88,7 @@ Godspeed includes algorithms and best performance practices like the ones mentio
 
 ---
 
-## What is the strategic advantage of making DB queries through Godspeed?
+## 13.9 What is the strategic advantage of making DB queries through Godspeed?
 First of all, the hop is completely optional. There are a few benefits of using this hop, however, including
 
 - Become decoupled with the choice of database provider, so that if a DB changes ,the app code does not change.
@@ -99,7 +99,7 @@ First of all, the hop is completely optional. There are a few benefits of using 
 
 ---
 
-## How to achieve multi-tenancy in DBs, for a single application?
+## 13.10 How to achieve multi-tenancy in DBs, for a single application?
 
 It shall be done in two ways.
 
@@ -109,7 +109,7 @@ It shall be done in two ways.
 
 ---
 
-## How can we start adopting the Godspeed framework?
+## 13.11 How can we start adopting the Godspeed framework?
 
 - Start by creating a new microservice in [10 minutes](./microservices/setup/getting-started.md), referring our docs. 
 - Migration of existing microservices or monoliths:
@@ -118,7 +118,7 @@ It shall be done in two ways.
 
 ---
 
-## How to move out of the Godspeed framework? Can we have a two door exit? I.e. Can we move out of technology and data both?
+## 13.12 How to move out of the Godspeed framework? Can we have a two door exit? I.e. Can we move out of technology and data both?
 
 It is possible to opt out of the Godspeed framework without any kind of lock-in in which case all the microservices specific to the client can be developed using some other technology stack. The DBs can be self managed. 
 
@@ -126,19 +126,19 @@ The data will anyway be hosted on the client’s premise/cloud or its vendor’s
 
 ---
 
-## How will we prevent unified CRUD API from limiting or choking us?
+## 13.13 How will we prevent unified CRUD API from limiting or choking us?
 
 The framework, via Prisma, facilitates developers to access full functionality of any database or tool without being limited by the universal API. They shall be able to execute native database queries directly or via the API itself.
 
 ---
 
-## What kind of API standards does the framework support?
+## 13.14 What kind of API standards does the framework support?
 
 We currently support REST and planned to support GraphQL and gRPC in Q2, 2022.
 
 ---
 
-## Why Rest first approach ? Why not Graphql first approach?
+## 13.15 Why Rest first approach ? Why not Graphql first approach?
 
 Every existing Graphql server in the industry supports REST/JSON interface, custom DSL and along with it, a Graphql interface (Ex. DGraph, Hasura, Apollo, Postgraphile). We are also going the same route by first being REST/JSON based, custom DSL and then adding Graphql in future. This is primarily because of greater familiarity of the REST standard across industry. At the same time, our REST implementation brings some good concepts to include in the development methodology like the concept of giving power to the frontend team to decide what data they want in response, and to get data from multiple sources in one go. We are including the features of Graphql in our design. The foundation our API interface is the unified event schema which we plan to use to generate GraphQL API (planned for Q2, 2022)
 
@@ -150,7 +150,7 @@ Still, it's an new upcoming standard with its own benefits. We wish to roll out 
 
 ---
 
-## How are we doing testing given there is quite a bit of custom DSL in the framework. How do we ensure the correctness?
+## 13.16 How are we doing testing given there is quite a bit of custom DSL in the framework. How do we ensure the correctness?
 
 - DSL will not get loaded if it's not in the right format.
 - We are planning to add language feature in VSCode for compile time checks.
@@ -158,18 +158,18 @@ Still, it's an new upcoming standard with its own benefits. We wish to roll out 
 
 ---
 
-## How will the upgrades and migrations be done to the framework?
+## 13.17 How will the upgrades and migrations be done to the framework?
 
 We follow a semantic release process using [semantic version (semver)](https://semver.org/) with autogenerated Changelog. The developers can change/upgrade the version of the framework for any microservice [via the CLI](./microservices/introduction-cli.md/#version). After this, they can run the test cases and confirm if everything goes well.
 
 ---
 
-## How CRUD APIs will support the paid as well as the non paid features of databases such as MongoDB. For example: MongoDB free vs paid versions will support different features.
+## 13.18 How CRUD APIs will support the paid as well as the non paid features of databases such as MongoDB. For example: MongoDB free vs paid versions will support different features.
 
 The framework uses Prisma which already supports paid and non paid features of databases.
 
 ---
 
-## How to ship new models easily?
+## 13.19 How to ship new models easily?
 
 Prisma provides a standardized and widely used migration process, which can be used out of the box.

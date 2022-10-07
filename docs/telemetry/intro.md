@@ -1,9 +1,11 @@
 ---
 sidebar_position: 1
 title: Observability
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
-## Introduction
+## 11.1 Introduction
 
 For observability, the framework supports Application Performance Monitoring(APM) abd Business Performance Monitoring(BPM) out of the box. This includes distributed trace context propagation across sync and async channels, logging and basic metrics.
 
@@ -11,13 +13,13 @@ For the same, we are leveraging the [OpenTelemetry standard](http://opentelemetr
 
 > Not even a single request must go untracked!
 
-### Architecture
+### 11.1.1 Architecture
 ![arch](/img/otel_arch.png)
 
 - Both **Traces** and **Metrics** are sent to OTEL Collector directly. **Tempo** is used as tracing backend for traces and **Prometheus** is used for metrics with **Mimir** as its backend.
 - For **Logs**, a fluent bit daemonset is running on node, which collects logs from various applications on the node. **Loki** is used as logs aggregation solution.
 
-## Goals
+## 11.2 Goals
 
 ### Auto application performance monitoring
 
@@ -31,8 +33,8 @@ Numerous open source and commercial softwares for Observability support OpenTele
 
 Collect, correlate and debug signals across logs (events), traces and metrics, based on the request id and the attributes defined for the organization. For example, app version, function, DB query, K8s pod, domain, microservice etc.
 
-## Configuration
-### OTEL exporter endpoint
+## 11.3 Configuration
+### 11.3.1 OTEL exporter endpoint
 Specify the IP address of your OTEL collector as env variable. Refer [OTEL Exporter](https://opentelemetry.io/docs/reference/specification/protocol/exporter/#endpoint-urls-for-otlphttp) for more information.
 ```
 $ export OTEL_EXPORTER_OTLP_ENDPOINT=<IP of OTEL collector>:4317
@@ -42,7 +44,7 @@ For example,
 export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://172.17.0.1:4317
 ```
 
-### OTEL service name
+### 11.3.2 OTEL service name
 Specify the service name by which you want to setup observability and set it as env variable. 
 ```
 $ export OTEL_SERVICE_NAME=sample_proj1
@@ -55,17 +57,17 @@ Let's assume you have setup SigNoz as the exporter then you will see something l
 
 > In case you have any questions, please reach out to us on our [Discord channel](https://discord.com/channels/983323669809999882/983323669809999885).
 
-### Logging
+### 11.3.3 Logging
 #### Log level
 The minimum level set to log above this level. Please refer [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) for more information. Set `log_level` in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml)
 
 #### Log fields masking
 If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
 
-## Custom metrics, traces and logs (BPM)
+## 11.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
-### DSL spec for custom metrics
+### 11.4.1 DSL spec for custom metrics
 ```
 # refer https://github.com/siimon/prom-client
 metrics:
@@ -118,7 +120,7 @@ tasks:
           method: post
 ```
 
-### DSL spec for custom trace
+### 11.4.2 DSL spec for custom trace
 ```
 trace:
     name: span_name
@@ -151,7 +153,7 @@ tasks:
           method: post
 ```
 
-### DSL spec for custom logs
+### 11.4.3 DSL spec for custom logs
 ```
 logs:
     before:
@@ -210,9 +212,9 @@ tasks:
           method: post
 ```
 
-## Observability Stack
+## 11.5 Observability Stack
 The complete observability stack with K8s helm-charts will be made available soon.
 
-## Recommended model for telemetry signals
+## 11.6 Recommended model for telemetry signals
 
 Please find the [draft documentation here](https://docs.google.com/document/d/12V0oaqj81G8nDuCeD46_mHovv6uwaguwd4kVpBC2J6Q/edit#heading=h.zerkjmn66eyq). This is compiled in one place from various references across the OpenTelemetry documentation. This may require works by the DevOps team as well e.g. K8s related attributes.

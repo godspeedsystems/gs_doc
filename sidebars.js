@@ -193,10 +193,10 @@ const sidebars = {
     // },
 
     {
-      type: 'category',
+      type: 'doc',
       label: '11. Telemetry',
-      items: ['telemetry/intro'],
-    },
+      id: 'telemetry/intro',
+    }, 
 
     // {
     //   type: 'category',
