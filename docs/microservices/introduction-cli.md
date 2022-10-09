@@ -362,6 +362,26 @@ Writing to file:  true /workspace/development/app/tests/testSuite.json { result:
 Conversion successful, collection written to file
 ```
 
+### gen-crud-api
+You can get CRUD API generated automatically for datastores and elasticgraph datasources by executing this command in your project root directory inside the dev container.
+```
+$ godspeed gen-crud-api
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+
+> eg_test@1.0.0 gen-crud-api
+> npx godspeed-crud-api-generator
+
+Select datasource / schema to generate CRUD APIs
+(x) elasticgraph.yaml
+( ) For all
+( ) Cancel
+```
+
 ### test
 You can run the test suite generated in above command from the following two ways:
 1. Postman: Import the collection in postman and run the test suite.

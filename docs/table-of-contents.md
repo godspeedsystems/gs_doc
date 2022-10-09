@@ -97,6 +97,8 @@ title: Table of Contents
     [7.5.1 Folder Structure](./microservices/datasources/elasticgraph.md/#751-folder-structure)   
     [7.5.2 Datasource DSL](./microservices/datasources/elasticgraph.md/#752-datasource-dsl)   
     [7.5.3 Configuration files for elasticgraph](./microservices/datasources/elasticgraph.md/#753-configuration-files-for-elasticgraph)   
+    [7.5.4 Elasticgraph Setup](./microservices/datasources/elasticgraph.md/#754-elasticgraph-setup)   
+    [7.5.5 Auto generating CRUD APIs for elasticgraph](./microservices/datasources/elasticgraph.md/#755-auto-generating-crud-apis-for-elasticgraph)   
 
 [7.6 Extensible datasources](./microservices/datasources/extensible-datasources.md)   
     [7.6.1 Datasource definition](./microservices/datasources/extensible-datasources.md/#761-datasource-definition)   

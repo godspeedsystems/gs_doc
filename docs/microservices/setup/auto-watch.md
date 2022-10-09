@@ -11,6 +11,13 @@ Here is the list of files which are being watched inside the dev container.
 src/**/*.yaml|yml|js|json
 src/**/*.ts
 src/**/*.prisma
+src/**/*.toml
 ```
 
+** *.prisma files**
+These files are being watched for [Datastore as datasources](../datasources/datastore.md)
+
 > During any datastore setup via Prisma in the dev container, you don't need to setup anything explicitily, the watch feature automatically takes care of setting up the datastores. Refer [Prisma Datastore Setup](../datasources/datastore.md/#prisma-datastore-setup) for more information.
+
+** *.toml files**
+These files are being watched for configuration files of [Elasticgraph as datasource](../datasources/elasticgraph.md/#753-configuration-files-of-elasticgraph). If there is any change in *.toml file then auto watch reindexes all the elasticgraph datasources configuration inside `src/datasources/eg_config/` directory.
