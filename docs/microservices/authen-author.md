@@ -138,4 +138,60 @@ The authentication workflow gets called when any request returns the specified `
 :::
 
 ## 10.2 Authorization
-Coming soon!
+The framework provides authorization, to verify if any event/model is authorized to access specific information or is allowed to execute certain actions.
+
+### 10.2.1 Workflow DSL
+You can add authorization workflow at the task level in any workflow. The authorization workflow should return allow/deny output to the main worklfow.
+
+Here is the sample spec:  
+**Sample workflow calling the authz workflow**
+```yaml
+summary: Call an API
+tasks:
+    - id: httpbin_step1
+      description: Hit http bin with some dummy data. It will send back same as response
+      authz:
+        fn: com.jfs.authz
+        args: <% inputs %>
+      fn: com.gs.http
+      args:
+        datasource: httpbin
+        data: <% inputs %>
+        config:
+          url : /anything
+          method: post
+```
+
+**Sample authorization workflow `com.jfs.authz`**
+```yaml
+summary: Authorization workflow
+tasks:
+  - id: authz_step1
+    description: return allow/deny based upon user
+    fn: com.gs.http
+    args: 
+      datasource: authz
+      data: <% inputs.body.user %>
+      config:
+        url : /authorize
+        method: post
+  - id: authz_step2
+    description: transform response from authz api
+    fn: com.gs.transform
+    args: |
+        <coffee% if outputs.authz_step1.data.code == 200 then {
+            success: true
+            data: true
+        } else {
+            success: false
+            data: false
+        } %>
+```
+
+The authorization workflow should return response in this format to allow/deny:
+```yaml
+success: true/false
+data: true/false
+```
+
+> When data is returned as false i.e. deny then the framework will send `403 Unauthorized` response.
