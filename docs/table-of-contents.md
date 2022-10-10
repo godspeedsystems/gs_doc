@@ -119,7 +119,8 @@ title: Table of Contents
     [10.1.2 Event spec](./microservices/authen-author.md/#1012-event-spec)   
     [10.1.3 Generate JWT](./microservices/authen-author.md/#1013-generate-jwt)   
     [10.1.4 Datasource authentication](./microservices/authen-author.md/#1014-datasource-authentication)   
-    [10.2 Authorization](./microservices/authen-author.md/#102-authorization)   
+    [10.2 Authorization](./microservices/authen-author.md/#102-authorization)  
+    [10.2.1 Workflow DSL](./microservices/authen-author.md/#1021-workflow-dsl)  
 
 [11. Telemetry](./telemetry/intro.md)   
     [11.1 Introduction](./telemetry/intro.md/#111-introduction)   
