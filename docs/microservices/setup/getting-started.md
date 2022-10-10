@@ -20,6 +20,10 @@ Please ensure you have the following in your machine
 - Docker-desktop 
 - Git
 
+** Hardware recommendations **   
+RAM: 8GB   
+Hard Disk: SSD
+
 :::tip
 
 - Depending your setup, you may need to run the above command using administrator privileges
