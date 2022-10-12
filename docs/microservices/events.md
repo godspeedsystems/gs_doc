@@ -7,7 +7,7 @@ toc_max_heading_level: 4
 
 # Events
 
-A microservice can be configured to consume events from variety of [event sources](#event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes 
+A microservice can be configured to consume events from variety of [event sources](#51-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes 
 - The name/topic/URL of the event
 - The event source and other information for the source (for ex. group_id in case of Kafka events)
 - The event handler workflow
@@ -208,10 +208,10 @@ For an HTTP event, the headers, query, params and body data are captured in a st
 
 The `group_id` represents identifier for all the consumers of the group. Only one consumer of the group will consume a message. This is useful for microservices, when a single services runs in multiple K8s pods. Each pod is part of the same group. This ensures the message is eventually consumed by any one of the pods.
 
-The message body of a kafka event is captured and represented as `inputs.body` for [consumption in the handler workflow](#example-workflow-consuming-a-message-bus-event).
+The message body of a kafka event is captured and represented as `inputs.body` for [consumption in the handler workflow](#example-workflow-consuming-a-kafka-event).
 
 #### Datasource for kafka
-The datasources for kafka are defined in `src/datasources`. [Refer Kafka as datasource](./datasources/kafka.md/#example-spec) for more information.
+The datasources for kafka are defined in `src/datasources`. [Refer Kafka as datasource](./datasources/kafka.md/#741-example-spec) for more information.
 
 #### Example spec for kafka event
 
@@ -254,7 +254,7 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
       # Here we are publishing an event data to another topic
 ```
 
-Refer [com.gs.kafka](./workflows.md/#comgskafka) native function to publish an event on kafka.
+Refer [com.gs.kafka](./workflows.md/#662-comgskafka) native function to publish an event on kafka.
 
 <!--
 export const Highlight = ({children, color}) => (

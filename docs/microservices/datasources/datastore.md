@@ -24,7 +24,7 @@ It supports multiple kinds of SQL and NoSQL datastores. The developer only needs
 
 ## 7.3.1 Schema specification
 
-The framework extends [Prisma specification](http://prisma.io) for specifying the schema of any datastore. This can be generated from an [existing database](#cli-commands) or manually created by the developer. The schema is present as `{datastore_name}.prisma` file in the `src/datasources` folder.
+The framework extends [Prisma specification](http://prisma.io) for specifying the schema of any datastore. This can be generated from an [existing database](#732-cli-commands) or manually created by the developer. The schema is present as `{datastore_name}.prisma` file in the `src/datasources` folder.
 
 ![datasources](/img/datastore-datasource.jpeg)
 
@@ -113,7 +113,7 @@ godspeed gen-crud-api
 ```
 
 ## 7.3.5 Sample datastore CRUD task
-Please find an [example here](../workflows#comgsdatastore)
+Please find an [example here](../workflows#663-comgsdatastore)
 
 
 export const Highlight = ({children, color}) => (

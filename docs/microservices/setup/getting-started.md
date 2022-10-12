@@ -10,7 +10,7 @@ Hereby is a step by step guide on running your first project. The setup is indep
 
 ### 3.1.1 Glossary
 **gs_service**: The framework code version. During this setup, you will be asked to select the version of gs_service.   
-**Remote containers/Dev containers**: Refer [VSCode Remote containers](#https://code.visualstudio.com/docs/remote/containers) for more information.
+**Remote containers/Dev containers**: Refer [VSCode Remote containers](https://code.visualstudio.com/docs/remote/containers) for more information.
 
 ### 3.1.2 Pre-requisites
 

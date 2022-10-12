@@ -65,7 +65,7 @@ export default async function(args:{[key:string]:any;}) {
 ```
 
 ### executeFn
-It defines the execute function which gets executed in the workflow. The developer must define the execute function in the workflows as mentioned in the above project structure. The executeFn can be a js/ts function which takes the [workflow args](../workflows.md/#the-tasks-within-workflows) as input and return status/output.
+It defines the execute function which gets executed in the workflow. The developer must define the execute function in the workflows as mentioned in the above project structure. The executeFn can be a js/ts function which takes the [workflow args](../workflows.md/#62-the-tasks-within-workflows) as input and return status/output.
 
 ```
 export default async function(args:{[key:string]:any;}) {

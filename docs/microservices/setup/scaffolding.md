@@ -13,7 +13,7 @@ Click [here](../introduction-cli.md#create) for more information on `godspeed cr
 ### 3.2.1 Scaffolding & Project structure
 
 #### Project Structure with no examples
-The project contains blank structure with no examples/templates when it is created using `godspeed create -n` command option. Refer [command here](../introduction-cli.md#options-1) for more information.  
+The project contains blank structure with no examples/templates when it is created using `godspeed create -n` command option. Refer [command here](../introduction-cli.md#options) for more information.  
 
 ```
 .

@@ -9,7 +9,7 @@ toc_max_heading_level: 4
 
 Workflows is where the actual computation and flow orchestration happens. The framework supports a YAML based DSL to write workflows and tasks containing the business logic. These workflows can be attached to the events as their handlers, or called from within another workflow. 
 
-> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions [for evaluation of dynamic variables or transformation](./workflows/#use-of-coffeejs-for-scripting) of data from `inputs` of event, or `outputs` of previous tasks. 
+> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions [for evaluation of dynamic variables or transformation](./workflows/#65-use-of-coffeejs-for-scripting) of data from `inputs` of event, or `outputs` of previous tasks. 
 
 > Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
@@ -35,10 +35,10 @@ tasks: # tasks to be run in sequence (default is sequence)
 ### 6.2 The tasks within workflows
 A workflow has one or more tasks associated with it.
 A task has the following attributes
-- **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#example-of-multiple-task-with-own-params).
+- **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#define-language-at-workflow-level).
 - **summary** - the title
 - **description** - more details
-- **fn** - The handler to be run in this task. It can be one of the [framework functions](#inbuilt-functions), [control functions](#comgsseries) (like parallel, sequential, switch), [developer written functions](#developer-written-functions), or another workflow.
+- **fn** - The handler to be run in this task. It can be one of the [framework functions](#66-inbuilt-functions), [control functions](#666-comgsseries) (like parallel, sequential, switch), [developer written functions](#67-developer-written-functions), or another workflow.
 - **args** - Every handler `fn` has its own argument structure, which is kept in the `args` key. For example,
   ```yaml
     id: httpbin_step1
@@ -69,7 +69,7 @@ A task has the following attributes
             config:
               topic: publish-producer1
   ```
-The only exception to this is [control functions](#comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
+The only exception to this is [control functions](#666-comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
 - **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
   ```yaml
     retry:
@@ -135,7 +135,7 @@ tasks: # tasks to be run in sequence (default is sequence)
 ### 6.3 Location and fully qualified name (id) of workflows and functions
 All the workflows and functions are to be kept in the `src/functions` folder. Their directory tree path, followed by the file name becomes the workflow's fully qualified name or id, by which it can be referenced in the events or within other workflows.
 
-> The JS function shown below will be available in workflows under the F.Q.N. `com.biz.custom_function`. Similarly, `com.biz.create_hdfc_account`, `com.biz.create_parallel` etc. are accessible as handlers from within other [workflow tasks](#the-tasks-within-workflows) or events.
+> The JS function shown below will be available in workflows under the F.Q.N. `com.biz.custom_function`. Similarly, `com.biz.create_hdfc_account`, `com.biz.create_parallel` etc. are accessible as handlers from within other [workflow tasks](#62-the-tasks-within-workflows) or events.
 
   ![function_folder](/img/function_folder.jpeg)
 
@@ -147,7 +147,7 @@ An [event definition](./events#example-spec-for-http-event) references the handl
 
 The framework provides coffee/js for 
 
-- Transformations in [`com.gs.transform`](#comgstransform) and [`com.gs.return`](#comgsreturn)
+- Transformations in [`com.gs.transform`](#665-comgstransform) and [`com.gs.return`](#6611-comgsreturn)
 - Dynamic evaluation or workflow or task variables, event variables, datasource variables.
 
 You will find its code in <% %> within various examples in this page below.
@@ -404,7 +404,7 @@ By default every top level workflow executes its task in series. But when invoki
 Executes the child tasks in parallel.
 :::
 
-Syntax is same as [com.gs.series](#comgsseries)
+Syntax is same as [com.gs.series](#666-comgsseries)
 
 ```yaml
   summary: Parallel Multiplexing create loan for hdfc api calls
@@ -549,7 +549,7 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 
 
 ### 6.7 Developer written functions
-Developer can write functions in JS/TS and [kept in src/functions folder](#location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
+Developer can write functions in JS/TS and [kept in src/functions folder](#63-location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
 ![function_folder](/img/function_folder.jpeg)
 
@@ -566,7 +566,7 @@ Developer can write functions in JS/TS and [kept in src/functions folder](#locat
 ```
 
 ### 6.8 Headers defined at workflow level
-Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#the-tasks-within-workflows)
+Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#62-the-tasks-within-workflows)
 
 ### 6.9 File Upload feature
 The framework provides file upload feature to upload files. Here is the sample event and workflow spec to upload any file.

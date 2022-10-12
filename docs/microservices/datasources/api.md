@@ -54,7 +54,7 @@ headers:
 ```
 
 ### 7.2.4 Headers defined at task level
-Headers defined at task level are applicable for a single task only. You can find the [example usage here](../workflows#the-tasks-within-workflows)
+Headers defined at task level are applicable for a single task only. You can find the [example usage here](../workflows#62-the-tasks-within-workflows)
 
 ### 7.2.5 Example usage
-You can find the [example usage here](../workflows#comgshttp)
+You can find the [example usage here](../workflows#661-comgshttp)
