@@ -28,6 +28,27 @@ The framework extends [Prisma specification](http://prisma.io) for specifying th
 
 ![datasources](/img/datastore-datasource.jpeg)
 
+** Sample Schema **
+```
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated-clients/mongo"
+  previewFeatures = ["metrics"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_TEST_URL")
+}
+
+model User1 {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+}
+```
+
 ## 7.3.2 CLI Commands
 Any [Prisma CLI command](https://www.prisma.io/docs/concepts/components/prisma-cli) can be executed from godspeed CLI using `godspeed prisma <command>`. For example,
 ```
@@ -115,6 +136,38 @@ godspeed gen-crud-api
 ## 7.3.5 Sample datastore CRUD task
 Please find an [example here](../workflows#663-comgsdatastore)
 
+## 7.3.6 Prisma encryption of fields
+You can apply encryption on `String` type fields in Prisma. Be default, the encryption algorithm used is AES-GCM with 256 bit keys.  
+
+### 7.3.6.1 Specification
+In your prisma schema, add `/// @encrypted` to the fields you want to encrypts.   
+For example, `email` field in below schema:
+```
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated-clients/mongo"
+  previewFeatures = ["metrics"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_TEST_URL")
+}
+
+model User1 {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  email     String   @unique /// @encrypted
+  name      String?
+}
+```
+
+### 7.3.6.2 Configuration
+You can specify `prismaSecret` in [configuration](../setup/configuration/static-vars.md/#defaultyaml)   
+For example, this is the sample static configuration:
+```yaml
+prismaSecret: test # secret used to generate hash of prisma fields
+```
 
 export const Highlight = ({children, color}) => (
   <span

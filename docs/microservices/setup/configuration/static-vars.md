@@ -27,4 +27,5 @@ jwt:
   audience: sample.com
   secretOrKey: sampleKey
 redact: ['ns', 'req.headers'] # fields to hide
+prismaSecret: test # secret used to generate hash of prisma fields
 ```
