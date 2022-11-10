@@ -461,7 +461,7 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
 :::tip control flow function
 The classic for-each flow execution
 :::
-The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed sequentially. The final output each_sequential is the array of outputs of the last executed task of each iteration.
+The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed sequentially. The final output each_sequential is the array of status of the last executed task of each iteration.
 
 ```yaml
   summary: For each sample
@@ -481,9 +481,45 @@ The args is list of values in `value` field along with associated tasks. For eac
       args: <% outputs.each_sequential_step1 %>
 ```
 
+**on_error handling**  
+You can add on_error at task level as well as at each_sequential loop level. 
+
+See the below example, 
+- If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the loop else it continues the next tasks.
+- If no task is successful in loop then the control goes to on_error defined at loop level.   
+
+:::note
+on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
+:::
+
+```yaml
+  summary: For each sample
+  description: Here we transform the response of for loop
+  tasks:
+    - id: each_sequential_step1
+      description: for each
+      fn: com.gs.each_sequential
+      value: [1, 2, 3, 4]
+      tasks:
+        - id: each_task1
+          fn: com.gs.transform
+          args: <% 'each_task1 ' + task_value %>
+          on_error: # on_error at task level
+            continue: false
+            response: <%Coffee/JS expression%> | String
+      on_error: # on_error at loop level
+        continue: true
+        response: <%Coffee/JS expression%> | String
+    - id: each_sequential_step2
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.each_sequential_step1 %>
+```
+
+
 #### 6.6.10 com.gs.each_parallel
 
-The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed in parallel. The final output each_sequential is the array of outputs of the last executed task of each iteration.
+The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed in parallel. The final output each_parallel is the array of status of the last executed task of each iteration.
 
 ```yaml
   summary: For each sample
@@ -497,6 +533,44 @@ The args is list of values in `value` field along with associated tasks. For eac
         - id: each_task1
           fn: com.gs.transform
           args: <% 'each_task1 ' + task_value %>
+    - id: each_parallel_step2
+      description: return the response
+      fn: com.gs.transform
+      args: <% outputs.each_parallel_step1 %>
+```
+
+**on_error handling**  
+You can add on_error at task level as well as at each_parallel loop level. 
+
+See the below example, 
+- If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the execution for the next tasks in `tasks` for current `task_value` in `value` list. For exmaple, in the below workflow, if `each_task1` step of task_value 1 gets failed then `each_task2` will not get executed on continue false.
+- If no task is successful in loop then the control goes to on_error defined at loop level.   
+
+:::note
+on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
+:::
+
+```yaml
+  summary: For each sample
+  description: Here we transform the response of for loop
+  tasks:
+    - id: each_parallel_step1
+      description: for each
+      fn: com.gs.each_parallel
+      value: [1, 2, 3, 4]
+      tasks:
+        - id: each_task1
+          fn: com.gs.transform
+          args: <% 'each_task1 ' + task_value %>
+          on_error: # on_error at task level
+            continue: false
+            response: <%Coffee/JS expression%> | String
+        - id: each_task2
+          fn: com.gs.transform
+          args: <% 'each_task2 ' + task_value %>
+      on_error: # on_error at loop level
+        continue: true
+        response: <%Coffee/JS expression%> | String
     - id: each_parallel_step2
       description: return the response
       fn: com.gs.transform
