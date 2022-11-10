@@ -17,7 +17,8 @@ Hereby is a step by step guide on running your first project. The setup is indep
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
 - Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
-- Docker-desktop 
+- Docker-desktop
+  > In non-windows OS, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose -v` command.
 - Git
 
 ** Hardware recommendations **   
