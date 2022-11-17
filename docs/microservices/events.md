@@ -39,19 +39,17 @@ The framework provides request and response schema validation out of the box.
 #### Request schema validation
 Sample spec for request schema.
 ```
-data: #Input data defined as per the OpenAPI spec
-  schema:
-    body: 
-      required: true
-      content:
-        application/json:
-          schema:
-            type: 'object'
-            required: []
-            properties:
-              dob:  { type : 'string', format : 'date', pattern : "[0-9]{4}-[0-9]{2}-[0-9]{2}" }
-              meta:
-                type: 'object'
+body: 
+  content:
+    application/json:
+      schema:
+        type: 'object'
+        required: []
+        properties:
+          dob:
+            type: 'string'
+            format : 'date'
+            pattern : "[0-9]{4}-[0-9]{2}-[0-9]{2}"
 ```
 If request schema validation fails, then status code 400 is returned.
 
@@ -60,27 +58,23 @@ Sample spec for response schema.
 ```
 responses: #Output data defined as per the OpenAPI spec
   200:
-    examples: # <string, ExampleObject>
-    schema:
-      data: 
-        description:
-        required: # default value is false
-        content:
-          application/json: # For ex. application/json application/xml
-            schema: 
-              type: object
-              properties:
-                application_id: 
-                  type: string
-              additionalProperties: false
-              required: [application_id]
-            examples: # <string, ExampleObject>
-              example1:
-                summary:
-                description:
-                value: 
-                  application_id: PRM20478956N
-                external_value:
+    description:
+    content:
+      application/json: # For ex. application/json application/xml
+        schema: 
+          type: object
+          properties:
+            application_id: 
+              type: string
+          additionalProperties: false
+          required: [application_id]
+        examples: # <string, ExampleObject>
+          example1:
+            summary:
+            description:
+            value: 
+              application_id: PRM20478956N
+            external_value:
 ```
 If response schema validation fails, then status code 500 is returned.
 
@@ -105,72 +99,64 @@ For an HTTP event, the headers, query, params and body data are captured in a st
   # kept in src/workflows/com/biz/kyc/ckyc folder (in this example)
   on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
   # kept in src/workflows/com/jfs/ folder (in this example)
-  data: #Input data defined as per the OpenAPI spec
-    schema:
-      body: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: 'object'
-              required: []
-              properties:
-                dob:  { type : 'string', format : 'date', pattern : "[0-9]{4}-[0-9]{2}-[0-9]{2}" }
-                meta:
-                  type: 'object'
-
-      params: 
-      - name: lender_loan_application_id
-        in: params # same as open api spec: one of cookie, path, query, header
-        required: true
-        allow_empty_value: false
+  body: 
+    required: true
+    content:
+      application/json:
         schema:
-          type: string
+          type: 'object'
+          required: []
+          properties:
+            dob:  { type : 'string', format : 'date', pattern : "[0-9]{4}-[0-9]{2}-[0-9]{2}" }
+            meta:
+              type: 'object'
+
+  params: 
+  - name: lender_loan_application_id
+    in: params # same as open api spec: one of cookie, path, query, header
+    required: true
+    allow_empty_value: false
+    schema:
+      type: string
   responses: #Output data defined as per the OpenAPI spec
     200:
-      examples: # <string, ExampleObject>
-      schema:
-        data: 
-          description:
-          required: # default value is false
-          content:
-            application/json: # For ex. application/json application/xml
-              schema: 
-                type: object
-                properties:
-                  application_id: 
-                    type: string
-                additionalProperties: false
-                required: [application_id]
-              examples: # <string, ExampleObject>
-                example1:
-                  summary:
-                  description:
-                  value: 
-                    application_id: PRM20478956N
-                  external_value:
-              encoding:
+      description:
+      required: # default value is false
+      content:
+        application/json: # For ex. application/json application/xml
+          schema: 
+            type: object
+            properties:
+              application_id: 
+                type: string
+            additionalProperties: false
+            required: [application_id]
+          examples: # <string, ExampleObject>
+            example1:
+              summary:
+              description:
+              value: 
+                application_id: PRM20478956N
+              external_value:
+          encoding:
     400:
-      examples: # <string, ExampleObject>
-      schema:
-        data: 
-          description:
-          required: # default value is false
-          content:
-            application/json: # For ex. application/json application/xml
-              schema: 
-                type: object
-                properties:
-                  lender_response_code: 
-                    type: string
-              examples: # <string, ExampleObject>
-                example1:
-                  summary:
-                  description:
-                  value: 
-                    lender_response_code: E001
-                  external_value:
-              encoding:
+      description:
+      required: # default value is false
+      content:
+        application/json: # For ex. application/json application/xml
+          schema: 
+            type: object
+            properties:
+              lender_response_code: 
+                type: string
+          examples: # <string, ExampleObject>
+            example1:
+              summary:
+              description:
+              value: 
+                lender_response_code: E001
+              external_value:
+          encoding:
  ```
 
 #### Example workflow consuming an HTTP event
@@ -225,7 +211,6 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
   # kept in src/workflows/com/jfs folder (in this example)
   body: 
     description: The body of the query
-    required: true
     content:
       application/json: # For ex. application/json application/xml
         schema: 
