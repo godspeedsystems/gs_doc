@@ -1,6 +1,8 @@
 ---
 sidebar_position: 6
 title: Authentication & Authorization
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 ## 10.1 Authentication
@@ -19,6 +21,23 @@ jwt:
   secretOrKey: sampleKey
 ```
 You can also configure the same in [environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml)
+
+#### 10.1.1.1 Access JWT payload in Workflow DSL
+You can access the complete JWT payload in `<% inputs.user %>` in workflow DSL as given below:
+```yaml
+summary: Call an API and transform the 
+tasks:
+    - id: httpbin_step1
+      description: Hit http bin with some dummy data. It will send back same as response
+      fn: com.gs.http
+      args:
+        datasource: httpbin
+        data: <% inputs.body %>
+          jwt_payload: <% inputs.user %>
+        config:
+          url : /anything
+          method: post
+```
 
 ### 10.1.2 Event spec
 Add `authn: true` in the event DSL to enable authentication for any event.
@@ -141,7 +160,13 @@ The authentication workflow gets called when any request returns the specified `
 The framework provides authorization, to verify if any event/model is authorized to access specific information or is allowed to execute certain actions.
 
 ### 10.2.1 Workflow DSL
-You can add authorization workflow at the task level in any workflow. The authorization workflow should return allow/deny output to the main worklfow.
+You can add authorization workflow at the task level in any workflow. The authorization workflow should return allow/deny or json output to the main worklfow.
+
+** Allow/Deny **  
+If authz workflow returns data as true/false, it means the task is allowed/denied to get executed.
+
+** JSON output **  
+If authz workflow returns JSON output then it is merged with args.data of the task for which authz is being executed.
 
 Here is the sample spec:  
 **Sample workflow calling the authz workflow**
@@ -182,6 +207,11 @@ tasks:
         <coffee% if outputs.authz_step1.data.code == 200 then {
             success: true
             data: true
+        } else if outputs.authz_step1.data.code == 201 then {
+            success: true
+            data:
+              where:
+                role: 'USER'
         } else {
             success: false
             data: false
@@ -191,7 +221,7 @@ tasks:
 The authorization workflow should return response in this format to allow/deny:
 ```yaml
 success: true/false
-data: true/false
+data: true/false/JSON output
 ```
 
 > When data is returned as false i.e. deny then the framework will send `403 Unauthorized` response.
