@@ -624,7 +624,7 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 
 #### 6.6.13 com.gs.dynamic_fn
 
-It executes the workflow which is dynamically returned as the output of its task list.
+It executes the workflow whose name is dynamically returned as the output of its task list. The tasks of this function should return a string output which will be the name of the workflow to be executed.
 
 ** Event DSL **  
 ```yaml
