@@ -68,6 +68,7 @@ title: Table of Contents
         [6.6.10 com.gs.each_parallel](./microservices/workflows.md/#6610-comgseachparallel)   
         [6.6.11 com.gs.return](./microservices/workflows.md/#6611-comgsreturn)   
         [6.6.12 com.gs.log](./microservices/workflows.md/#6612-comgslog)   
+        [6.6.13 com.gs.dynamic_fn](./microservices/workflows.md/#6613-comgsdynamic_fn)   
     [6.7 Developer written functions](./microservices/workflows.md/#67-developer-written-functions)   
     [6.8 Headers defined at workflow level](./microservices/workflows.md/#68-headers-defined-at-workflow-level)   
     [6.9 File Upload feature](./microservices/workflows.md/#69-file-upload-feature)   

@@ -622,6 +622,64 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 ```
 
 
+#### 6.6.13 com.gs.dynamic_fn
+
+It executes the workflow which is dynamically returned as the output of its task list.
+
+** Event DSL **  
+```yaml
+'/sum.http.get':
+  fn: com.jfs.sum_dynamic
+  summary: A workflow to sum x and y
+  description: This workflow sums two integers
+  params: 
+    - name: x
+      in: query
+      required: true
+      allow_empty_value: false
+      schema:
+        type: string
+
+    - name: y
+      in: query
+      required: true
+      allow_empty_value: false
+      schema:
+        type: string
+```
+
+** com.jfs.sum_dynamic.yaml **
+```yaml
+summary: Dynamic function to call com.jfs.sum_workflow.yaml
+description: This function dynamically is taking workflow name and executing it at the runtime.
+tasks:
+  - id: sum_dynamic_step1
+    description: add two numbers
+    fn: com.gs.dynamic_fn
+    tasks: # the tasks should return a string value which will the name of the workflow to be executed.
+    # For example, in below task list, final workflow name will be `com.jfs.sum_workflow`
+      - id: get_wf_name_step1
+        fn: com.gs.transform
+        args: com.jfs.sum_workflow
+      - id: get_wf_name_step2 # this task is returning a workflow name dynamically
+        fn: com.gs.transform
+        args: <% outputs.get_wf_name_step1.data %>
+```
+
+** com.jfs.sum_workflow.yaml **
+```yaml
+summary: Summing x + y
+description: Here we sum two hardcoded x and y values. Feel free to try using API inputs from body or params!
+tasks:
+  - id: sum_step1
+    description: add two numbers
+    fn: com.gs.return
+    args: |
+     <%
+       +inputs.query.x + +inputs.query.y
+     %>
+```
+
 ### 6.7 Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#63-location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
