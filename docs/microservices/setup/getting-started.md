@@ -18,7 +18,7 @@ Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
 - Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
 - Docker-desktop
-  > In non-windows OS, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose -v` command.
+  > On Linux systems, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose version` command. Refer [Install Compose plugin](https://docs.docker.com/compose/install/linux/) for more information.
 - Git
 
 ** Hardware recommendations **   
