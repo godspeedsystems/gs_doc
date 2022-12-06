@@ -8,6 +8,10 @@ toc_max_heading_level: 4
 # Getting started
 Hereby is a step by step guide on running your first project. The setup is independent of the OS you are running it on.
 
+:::info
+You can also refer to tutorial on [Getting Started with Godspeed](https://www.youtube.com/watch?v=eEfqTAPAVlY).
+:::
+
 ### 3.1.1 Glossary
 **gs_service**: The framework code version. During this setup, you will be asked to select the version of gs_service.   
 **Remote containers/Dev containers**: Refer [VSCode Remote containers](https://code.visualstudio.com/docs/remote/containers) for more information.
@@ -17,7 +21,7 @@ Hereby is a step by step guide on running your first project. The setup is indep
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
 - Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
-- Docker-desktop
+- Docker-desktop should be up and running.
   > On Linux systems, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose version` command. Refer [Install Compose plugin](https://docs.docker.com/compose/install/linux/) for more information.
 - Git
 
