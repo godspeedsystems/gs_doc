@@ -39,6 +39,28 @@ A task has the following attributes
 - **summary** - the title
 - **description** - more details
 - **fn** - The handler to be run in this task. It can be one of the [framework functions](#66-inbuilt-functions), [control functions](#666-comgsseries) (like parallel, sequential, switch), [developer written functions](#67-developer-written-functions), or another workflow.
+> You can also use scripting in dynamic evaluation of a function name as given in below example. Refer [Coffee/JS scripting](#65-use-of-coffeejs-for-scripting) for more information.
+  ```yaml
+  summary: Call an API and transform the 
+  tasks:
+      - id: transform_fn_step1
+        description: find fn name
+        fn: com.gs.transform
+        args: |
+          <js%
+            if (inputs.body.fn == 'sum') {
+              return 'com.jfs.sum_workflow'
+            } else {
+              return 'com.jfs.helloworld'
+            }
+          %>
+      - id: call_fn_step2
+        description: call fn returned in transform_fn_step1
+        fn: <% outputs.transform_fn_step1.data %>
+        args: 
+          name: <% inputs.body.name %>
+  ```
+
 - **args** - Every handler `fn` has its own argument structure, which is kept in the `args` key. For example,
   ```yaml
     id: httpbin_step1
