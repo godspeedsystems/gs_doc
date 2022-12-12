@@ -31,6 +31,7 @@ title: Table of Contents
     [3.3.1 Environment variables](./microservices/setup/configuration/env-vars.md)   
     [3.3.2 Static variables](./microservices/setup/configuration/static-vars.md)   
 [3.4 Documentation](./microservices/setup/documentation.md)   
+    [3.4.1 Server URL](./microservices/setup/documentation.md/#341-server-url)   
 [3.5 Tests](./microservices/setup/tests.md)   
 [3.6 Auto watch and build](./microservices/setup/auto-watch.md)   
 

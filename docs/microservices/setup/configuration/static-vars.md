@@ -28,4 +28,5 @@ jwt:
   secretOrKey: sampleKey
 redact: ['ns', 'req.headers'] # fields to hide
 prismaSecret: test # secret used to generate hash of prisma fields
+server_url: https://api.example.com:8443/v1/api
 ```
