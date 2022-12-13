@@ -41,7 +41,7 @@ $ export OTEL_EXPORTER_OTLP_ENDPOINT=<IP of OTEL collector>:4317
 ```
 For example,
 ```
-export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://172.17.0.1:4317
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://172.17.0.1:4317
 ```
 
 ### 11.3.2 OTEL service name
