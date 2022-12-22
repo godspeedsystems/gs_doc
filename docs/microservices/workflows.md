@@ -702,6 +702,27 @@ tasks:
      %>
 ```
 
+#### 6.6.14 com.gs.aws
+
+Interacts with AWS to use its various services and methods. `params` is the list of params to the AWS service methods.
+
+```yaml
+summary: upload s3
+tasks:
+  - id: step1
+    description: upload s3
+    fn: com.gs.aws
+    args:
+      datasource: aws_s3
+      params:
+        - Bucket: 'godspeedbucket'
+          Key: 'file4.yml'
+          Body: <% fs.createReadStream(inputs.files[0].tempFilePath) %>
+      config:
+        service: S3
+        method: putObject
+```
+
 ### 6.7 Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#63-location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 

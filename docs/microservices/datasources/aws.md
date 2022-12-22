@@ -1,0 +1,35 @@
+---
+sidebar_position: 3
+title: 7.7 AWS as datasource
+---
+
+# Introduction
+
+The framework supports AWS as a datasource. It helps in interacting with AWS, to use various AWS services and methods. 
+
+## 7.7.1 Example spec
+The datasources for AWS are defined in `src/datasources`. Here, AWS datasource is defined in `aws_s3.yaml`.
+```
+.
+├── config
+└── src
+    ├── datasources
+    │   └── httpbin.yaml
+    │   ├── aws_s3.yaml
+    ├── events
+    ├── functions
+    └── mappings
+```
+
+Sample configuration in `aws_s3.yaml`
+```
+type: aws
+common:
+    credentials:
+        accessKeyId: 'AKIA4KQJJFGY2KPNNOEMmnbv'
+        secretAccessKey: '+pf5xyyPSUfBNn0V9ZIH0oPVzARBvxoehR+mpzigcdfg'
+    region: "ap-south-1"
+services:
+    S3:
+        config: {}
+```

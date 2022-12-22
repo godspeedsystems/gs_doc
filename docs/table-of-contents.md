@@ -70,6 +70,7 @@ title: Table of Contents
         [6.6.11 com.gs.return](./microservices/workflows.md/#6611-comgsreturn)   
         [6.6.12 com.gs.log](./microservices/workflows.md/#6612-comgslog)   
         [6.6.13 com.gs.dynamic_fn](./microservices/workflows.md/#6613-comgsdynamic_fn)   
+        [6.6.14 com.gs.aws](./microservices/workflows.md/#6614-comgsaws)    
     [6.7 Developer written functions](./microservices/workflows.md/#67-developer-written-functions)   
     [6.8 Headers defined at workflow level](./microservices/workflows.md/#68-headers-defined-at-workflow-level)   
     [6.9 File Upload feature](./microservices/workflows.md/#69-file-upload-feature)   
@@ -106,6 +107,9 @@ title: Table of Contents
     [7.6.1 Datasource definition](./microservices/datasources/extensible-datasources.md/#761-datasource-definition)   
     [7.6.2 Example spec for the event](./microservices/datasources/extensible-datasources.md/#762-example-spec-for-the-event)   
     [7.6.3 Example spec for the workflow](./microservices/datasources/extensible-datasources.md/#763-example-spec-for-the-workflow)   
+
+[7.7 AWS as datasource](./microservices/datasources/aws.md)   
+    [7.7.1 Example spec](./microservices/datasources/aws.md/#771-example-spec)   
 
 [8. Mappings](./microservices/mappings.md)   
     [8.1 Project structure](./microservices/mappings.md/#81-project-structure)   
