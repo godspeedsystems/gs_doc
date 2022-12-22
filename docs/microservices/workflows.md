@@ -209,6 +209,25 @@ Global configuration for language is overridden by defining specific language in
           %>
 ```
 
+#### Built-in Javascript modules
+You can use build-in javascript modules in inline scripting. Only synchronous methods of build-in modules are allowed in inline scripting. For example,
+```yaml
+summary: upload s3
+tasks:
+  - id: step1
+    description: upload s3
+    fn: com.gs.aws
+    args:
+      datasource: aws_s3
+      params:  # fs is used directly in scripting in Body
+        - Bucket: 'godspeedbucket'
+          Key: 'file4.yml'
+          Body: <% fs.createReadStream(inputs.files[0].tempFilePath) %>
+      config:
+        service: S3
+        method: putObject
+```
+
 ### 6.6 Inbuilt functions
 
 The framework provides the following inbuilt functions 
@@ -704,7 +723,9 @@ tasks:
 
 #### 6.6.14 com.gs.aws
 
-Interacts with AWS to use its various services and methods. `params` is the list of params to the AWS service methods.
+Interacts with AWS to use its various services and methods. `params` is the list of params to the AWS service methods. We are using AWS v3 style services.
+
+> Please refer [AWS S3](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/s3.html) for AWS S3 methods.
 
 ```yaml
 summary: upload s3
