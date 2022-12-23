@@ -20,14 +20,14 @@ const sidebars = {
 
   tutorialSidebar: [
     {
-      type: 'doc',
-      label: 'Table of Contents',
-      id: 'table-of-contents',
+      type: "doc",
+      label: "Table of Contents",
+      id: "table-of-contents",
     },
     {
-      type: 'doc',
-      label: '1. Preface',
-      id: 'preface',
+      type: "doc",
+      label: "1. Preface",
+      id: "preface",
     },
 
     // {
@@ -40,72 +40,73 @@ const sidebars = {
     //   ],
     // },
     {
-      type: 'doc',
-      label: '2. Introduction',
-      id: 'microservices/intro',
+      type: "doc",
+      label: "2. Introduction",
+      id: "microservices/intro",
     },
     {
-          type: 'category',
-          label: '3. Setup',
-          items: [
-            'microservices/setup/getting-started',
-            'microservices/setup/scaffolding',
-            {
-              type: 'category',
-              label: '3.3 Configuration',
-              items: [
-                'microservices/setup/configuration/env-vars',
-                'microservices/setup/configuration/static-vars'
-              ]
-            },
-            'microservices/setup/documentation',
-            'microservices/setup/tests',
-            'microservices/setup/auto-watch'
-          ],
-    },
-    {
-      type: 'doc',
-      label: '4. CLI',
-      id: 'microservices/introduction-cli',
-    }, 
-    {
-      type: 'doc',
-      label: '5. Events',
-      id: 'microservices/events',
-    },  
-    {
-      type: 'doc',
-      label: '6. Workflows',
-      id: 'microservices/workflows',
-    },                    
-    {
-      type: 'category',
-      label: '7. Datasources',
+      type: "category",
+      label: "3. Setup",
       items: [
-        'microservices/datasources/intro',
-        'microservices/datasources/api',
-        'microservices/datasources/datastore',
-        'microservices/datasources/kafka',
-        'microservices/datasources/elasticgraph',
-        'microservices/datasources/extensible-datasources',
-        'microservices/datasources/aws'
+        "microservices/setup/getting-started",
+        "microservices/setup/scaffolding",
+        {
+          type: "category",
+          label: "3.3 Configuration",
+          items: [
+            "microservices/setup/configuration/env-vars",
+            "microservices/setup/configuration/static-vars",
+          ],
+        },
+        "microservices/setup/documentation",
+        "microservices/setup/tests",
+        "microservices/setup/auto-watch",
       ],
     },
     {
-      type: 'doc',
-      label: '8. Mappings',
-      id: 'microservices/mappings',
-    },                    
+      type: "doc",
+      label: "4. CLI",
+      id: "microservices/introduction-cli",
+    },
     {
-      type: 'doc',
-      label: '9. Plugins',
-      id: 'microservices/plugins',
-    },                    
+      type: "doc",
+      label: "5. Events",
+      id: "microservices/events",
+    },
     {
-      type: 'doc',
-      label: '10. Authentication & Authorization',
-      id: 'microservices/authen-author',
-    }, 
+      type: "doc",
+      label: "6. Workflows",
+      id: "microservices/workflows",
+    },
+    {
+      type: "category",
+      label: "7. Datasources",
+      items: [
+        "microservices/datasources/intro",
+        "microservices/datasources/api",
+        "microservices/datasources/datastore",
+        "microservices/datasources/kafka",
+        "microservices/datasources/elasticgraph",
+        "microservices/datasources/extensible-datasources",
+        "microservices/datasources/aws",
+        "microservices/datasources/redis",
+      ],
+    },
+    {
+      type: "doc",
+      label: "8. Mappings",
+      id: "microservices/mappings",
+    },
+    {
+      type: "doc",
+      label: "9. Plugins",
+      id: "microservices/plugins",
+    },
+    {
+      type: "doc",
+      label: "10. Authentication & Authorization",
+      id: "microservices/authen-author",
+    },
 
     // {
     //   type: 'category',
@@ -122,8 +123,8 @@ const sidebars = {
     //       ],
     //     },
     //     'microservices/intro',
-    //     'microservices/events', 
-    //     'microservices/workflows', 
+    //     'microservices/events',
+    //     'microservices/workflows',
     //     {
     //       type: 'category',
     //       label: 'Datasources',
@@ -133,7 +134,7 @@ const sidebars = {
     //         'microservices/datasources/datastore'
     //       ],
     //     },
-    //     'microservices/authen-author', 
+    //     'microservices/authen-author',
     //   ]// 'microservices/technology-used/intro'],
     // },
 
@@ -194,10 +195,10 @@ const sidebars = {
     // },
 
     {
-      type: 'doc',
-      label: '11. Telemetry',
-      id: 'telemetry/intro',
-    }, 
+      type: "doc",
+      label: "11. Telemetry",
+      id: "telemetry/intro",
+    },
 
     // {
     //   type: 'category',
@@ -218,15 +219,15 @@ const sidebars = {
     // },
 
     {
-      type: 'doc',
-      label: '12. Roadmap',
-      id: 'roadmap',
+      type: "doc",
+      label: "12. Roadmap",
+      id: "roadmap",
     },
 
     {
-      type: 'doc',
-      label: '13. FAQ',
-      id: 'faq',
+      type: "doc",
+      label: "13. FAQ",
+      id: "faq",
     },
 
     // {
