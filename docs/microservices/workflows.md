@@ -7,9 +7,9 @@ toc_max_heading_level: 4
 
 # Workflows
 
-Workflows is where the actual computation and flow orchestration happens. The framework supports a YAML based DSL to write workflows and tasks containing the business logic. These workflows can be attached to the events as their handlers, or called from within another workflow. 
+Workflows is where the actual computation and flow orchestration happens. The framework supports a YAML based DSL to write workflows and tasks containing the business logic. These workflows can be attached to the events as their handlers, or called from within another workflow.
 
-> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions [for evaluation of dynamic variables or transformation](./workflows/#65-use-of-coffeejs-for-scripting) of data from `inputs` of event, or `outputs` of previous tasks. 
+> The framework exposes [CoffeeScript](https://coffeescript.org/)/JS based expressions [for evaluation of dynamic variables or transformation](./workflows/#65-use-of-coffeejs-for-scripting) of data from `inputs` of event, or `outputs` of previous tasks.
 
 > Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
@@ -26,7 +26,7 @@ summary: Hello world
 description: Hello world example which invokes the com.gs.return workflow
 id: hello_world # needed for better logging visibility
 tasks: # tasks to be run in sequence (default is sequence)
-  - id: step1 ## id of this task. Its output will be accessible 
+  - id: step1 ## id of this task. Its output will be accessible
   # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
     fn: com.gs.return
     args: 'Hello World!' # com.gs.return takes its return value as `args`. Hence the args key.
@@ -41,7 +41,7 @@ A task has the following attributes
 - **fn** - The handler to be run in this task. It can be one of the [framework functions](#66-inbuilt-functions), [control functions](#666-comgsseries) (like parallel, sequential, switch), [developer written functions](#67-developer-written-functions), or another workflow.
 > You can also use scripting in dynamic evaluation of a function name as given in below example. Refer [Coffee/JS scripting](#65-use-of-coffeejs-for-scripting) for more information.
   ```yaml
-  summary: Call an API and transform the 
+  summary: Call an API and transform the
   tasks:
       - id: transform_fn_step1
         description: find fn name
@@ -57,7 +57,7 @@ A task has the following attributes
       - id: call_fn_step2
         description: call fn returned in transform_fn_step1
         fn: <% outputs.transform_fn_step1.data %>
-        args: 
+        args:
           name: <% inputs.body.name %>
   ```
 
@@ -75,7 +75,7 @@ A task has the following attributes
 - **on_error** - What to do if this task fails?
   ```yaml
     on_error: #You can find sample usage of this in the examples below. Just search on_error in this page.
-      continue: false # Whether the next task should be executed, in case this task fails. by default continue is true. 
+      continue: false # Whether the next task should be executed, in case this task fails. by default continue is true.
       response: <%Coffee/JS expression%> | String # If specified, the output of `response` is returned as the output of this task. If not specified, the error output is the default output of the failed task.
       tasks: # If specified, the tasks are executed in series/sequence. The output of the last task in these tasks is the default output of the failed task.
         - id: transform_error
@@ -86,13 +86,13 @@ A task has the following attributes
           fn: com.gs.kafka
           args:
             datasource: kafka1
-            data: 
+            data:
               value: <% outputs.transform_error.message %>
             config:
               topic: publish-producer1
   ```
 The only exception to this is [control functions](#666-comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
-- **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow. 
+- **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow.
   ```yaml
     retry:
       max_attempts: 5
@@ -121,12 +121,12 @@ The only exception to this is [control functions](#666-comgsseries) like series,
 summary: Workflow with switch-case and transform task
 id: example_switch_functionality_id
 description: |
-  Run two tasks in series. Both take different arguments. First one is switch case task. 
-  Second is transform task which consumes the output of step1 and shapes the final output of this workflow. 
+  Run two tasks in series. Both take different arguments. First one is switch case task.
+  Second is transform task which consumes the output of step1 and shapes the final output of this workflow.
 tasks: # tasks to be run in sequence (default is sequence)
-  - id: step1_switch ## id of this switch task. Its output will be accessible 
+  - id: step1_switch ## id of this switch task. Its output will be accessible
     # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
-    fn: com.gs.switch # Switch workflow takes `value` and `cases` as arguments. The cases object specifies another task for every case. 
+    fn: com.gs.switch # Switch workflow takes `value` and `cases` as arguments. The cases object specifies another task for every case.
     value: <%inputs.body.condition%> # Evaluation of dynamic values happens via <% %>
     cases:
       FIRST:
@@ -144,14 +144,14 @@ tasks: # tasks to be run in sequence (default is sequence)
     defaults:
       id: default
       fn: com.gs.return
-      args: <%inputs.body.default_return_val%> #coffee/js script for dyanmic evaluation. Wrapped in <% %>. Same as that used elsewhere in workflows for dynamic calculations and variable substitutions. For ex. as used in com.gs.transform and com.gs.return 
+      args: <%inputs.body.default_return_val%> #coffee/js script for dyanmic evaluation. Wrapped in <% %>. Same as that used elsewhere in workflows for dynamic calculations and variable substitutions. For ex. as used in com.gs.transform and com.gs.return
   - id: step2
     fn: com.gs.transform
     args: | #coffee for dyanmic evaluation. Wrapped in <% %>
-        <coffee% { 
+        <coffee% {
           code: 200,
           data: outputs['1st']
-        } %>    
+        } %>
 ```
 
 ### 6.3 Location and fully qualified name (id) of workflows and functions
@@ -162,12 +162,12 @@ All the workflows and functions are to be kept in the `src/functions` folder. Th
   ![function_folder](/img/function_folder.jpeg)
 
 ### 6.4 Referencing a workflow within an event or another workflow
-A workflow task references and invokes other workflows written in either YAML or JS/TS, via the `fn` key. In future, other languages will also be supported. 
+A workflow task references and invokes other workflows written in either YAML or JS/TS, via the `fn` key. In future, other languages will also be supported.
 An [event definition](./events#example-spec-for-http-event) references the handler yaml workflows by their fully qualified name, via the same `fn` key.
 
 ### 6.5 Use of Coffee/JS for scripting
 
-The framework provides coffee/js for 
+The framework provides coffee/js for
 
 - Transformations in [`com.gs.transform`](#665-comgstransform) and [`com.gs.return`](#6611-comgsreturn)
 - Dynamic evaluation or workflow or task variables, event variables, datasource variables.
@@ -203,9 +203,9 @@ Global configuration for language is overridden by defining specific language in
         datasource: httpbin
         params:
         data: |
-          <js% { 
-            [inputs.body.entity_type + 'id']: inputs.body.entity_id, 
-            _.omit(inputs.body, ['entity_type', 'entity_id'])} 
+          <js% {
+            [inputs.body.entity_type + 'id']: inputs.body.entity_id,
+            _.omit(inputs.body, ['entity_type', 'entity_id'])}
           %>
 ```
 
@@ -230,7 +230,7 @@ tasks:
 
 ### 6.6 Inbuilt functions
 
-The framework provides the following inbuilt functions 
+The framework provides the following inbuilt functions
 
 #### 6.6.1 com.gs.http
 
@@ -252,7 +252,7 @@ Send HTTP events to other APIs in Axios compatible format.
           url : /v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
           method: post
 
-      retry: 
+      retry:
         max_attempts: 5
         type: constant
         interval: PT15M
@@ -272,7 +272,7 @@ Send HTTP events to other APIs in Axios compatible format.
                 status_code_error: outputs.step1.data.status_code_error,
                 event: outputs.step1.data.event
               }
-          }%> 
+          }%>
 ```
 **Example 2**
 ```yaml
@@ -286,9 +286,9 @@ Send HTTP events to other APIs in Axios compatible format.
         datasource: httpbin
         params:
         data: |
-          <js% { 
-            [inputs.body.entity_type + 'id']: inputs.body.entity_id, 
-            _.omit(inputs.body, ['entity_type', 'entity_id'])} 
+          <js% {
+            [inputs.body.entity_type + 'id']: inputs.body.entity_id,
+            _.omit(inputs.body, ['entity_type', 'entity_id'])}
           %>
         file_key: files
         files: <% inputs.files %>
@@ -329,11 +329,11 @@ Publish events on Kafka.
           topic: kyc_initiate_recieved
           group_id: kyc_domain
         data: # Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
-          value: <% inputs %> # Your message content. Evaluation of dynamic values happens via <% %>. The type of scripting is coffee. 
+          value: <% inputs %> # Your message content. Evaluation of dynamic values happens via <% %>. The type of scripting is coffee.
           key: # Optional - Used for partitioning.
-          partition: # Optional - Which partition to send the message to. 
-          timestamp: # Optional - The timestamp of when the message was created. 
-          headers: # Optional - Metadata to associate with your message. 
+          partition: # Optional - Which partition to send the message to.
+          timestamp: # Optional - The timestamp of when the message was created.
+          headers: # Optional - Metadata to associate with your message.
 ```
 > Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
 
@@ -349,8 +349,8 @@ tasks:
     fn: com.gs.datastore
     args:
       datasource: mongo # Which ds to use.
-      data: <% inputs.body + {extra_field: its_value} %> 
-      config: 
+      data: <% inputs.body + {extra_field: its_value} %>
+      config:
         method: <% inputs.params.entity_type %>.create
   - id: step2 # the response of this will be accessible within the parent step key, under the step1 sub key
     description: test again
@@ -374,7 +374,7 @@ tasks:
     fn: com.gs.elasticgraph
     args:
       datasource: elasticgraph1
-      data: 
+      data:
         index: <% inputs.params.entity_type + 's' %>
         type: '_doc'
         body: <% inputs.body %>
@@ -397,12 +397,12 @@ This function allows to transform data from one format to another using coffee/j
         - id: 1st
           fn: com.gs.return
           args: |
-            'parallel task1' 
-        
+            'parallel task1'
+
         - id: 2nd
           fn: com.gs.return
           args: |
-            'parallel task2'  
+            'parallel task2'
     - id: step2
       fn: com.gs.transform
       args:
@@ -412,7 +412,7 @@ This function allows to transform data from one format to another using coffee/j
 
 #### 6.6.6 com.gs.series
 :::tip control flow function
-Executes the tasks in series. 
+Executes the tasks in series.
 :::
 
 By default every top level workflow executes its task in series. But when invoking subworkflows if you need, you can explicitly use series workflow. Its syntax is same as parallel.
@@ -425,16 +425,16 @@ By default every top level workflow executes its task in series. But when invoki
         - id: 1st
           fn: com.gs.return
           args: |
-            'parallel task1' 
-        
+            'parallel task1'
+
         - id: 2nd
           fn: com.gs.return
           args: |
-            'parallel task2'  
+            'parallel task2'
     - id: step2
       fn: com.gs.transform
       args: |
-        <coffee% { 
+        <coffee% {
           code: 200,
           data: outputs['1st']
         } %>
@@ -456,13 +456,13 @@ Syntax is same as [com.gs.series](#666-comgsseries)
         - id: 1st
           fn: com.gs.return
           args: |
-            'parallel task1' 
-        
+            'parallel task1'
+
         - id: 2nd
           fn: com.gs.return
           args: |
-            'parallel task2'  
-        
+            'parallel task2'
+
         - id: 3rd
           fn: com.gs.return
           args: |
@@ -471,7 +471,7 @@ Syntax is same as [com.gs.series](#666-comgsseries)
     - id: step2
       fn: com.gs.transform
       args: |
-        <coffee% { 
+        <coffee% {
         code: 200,
         data: outputs['1st']
         } %>
@@ -522,12 +522,12 @@ The args is list of values in `value` field along with associated tasks. For eac
       args: <% outputs.each_sequential_step1 %>
 ```
 
-**on_error handling**  
-You can add on_error at task level as well as at each_sequential loop level. 
+**on_error handling**
+You can add on_error at task level as well as at each_sequential loop level.
 
-See the below example, 
+See the below example,
 - If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the loop else it continues the next tasks.
-- If no task is successful in loop then the control goes to on_error defined at loop level.   
+- If no task is successful in loop then the control goes to on_error defined at loop level.
 
 :::note
 on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
@@ -580,12 +580,12 @@ The args is list of values in `value` field along with associated tasks. For eac
       args: <% outputs.each_parallel_step1 %>
 ```
 
-**on_error handling**  
-You can add on_error at task level as well as at each_parallel loop level. 
+**on_error handling**
+You can add on_error at task level as well as at each_parallel loop level.
 
-See the below example, 
+See the below example,
 - If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the execution for the next tasks in `tasks` for current `task_value` in `value` list. For exmaple, in the below workflow, if `each_task1` step of task_value 1 gets failed then `each_task2` will not get executed on continue false.
-- If no task is successful in loop then the control goes to on_error defined at loop level.   
+- If no task is successful in loop then the control goes to on_error defined at loop level.
 
 :::note
 on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
@@ -667,13 +667,13 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 
 It executes the workflow whose name is dynamically returned as the output of its task list. The tasks of this function should return a string output which will be the name of the workflow to be executed.
 
-** Event DSL **  
+** Event DSL **
 ```yaml
 '/sum.http.get':
   fn: com.jfs.sum_dynamic
   summary: A workflow to sum x and y
   description: This workflow sums two integers
-  params: 
+  params:
     - name: x
       in: query
       required: true
@@ -744,6 +744,32 @@ tasks:
         method: putObject
 ```
 
+### 6.6.14 com.gs.redis
+Developer can read / write to redis datasource using standard redis client functions.
+
+```yaml
+summary: demonstration of redis functions
+id: accessing_redis
+tasks:
+  - id: store_value_to_key
+    description: Writing user info in redis with key user
+    fn: com.gs.redis
+    args:
+      config:
+        method: set
+      data:
+        key: user
+        value: Adam
+  - id: retrieve_user_set_in_previous_task
+    description: Retriving user from redis
+    fn: com.gs.redis
+    args:
+      config:
+        method: get
+      data:
+        key: user
+```
+
 ### 6.7 Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#63-location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
@@ -774,9 +800,9 @@ The framework provides file upload feature to upload files. Here is the sample e
   id: '/sendDocuments'
   summary: upload document
   description: upload document on httpbin
-  data: 
+  data:
     schema:
-      body: 
+      body:
         required: false
         content:
           multipart/form-data:
