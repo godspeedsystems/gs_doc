@@ -814,7 +814,7 @@ The framework provides file upload feature to upload files. Here is the sample e
                   format: binary
 ```
 
-**Workflow spec**
+**Workflow spec to upload files with same file keys**
 ```yaml
   summary: upload file
   id: upload_file
@@ -837,4 +837,25 @@ The framework provides file upload feature to upload files. Here is the sample e
         interval: PT15M
 ```
 
+:::tip Note
+If file_key is same for all the files then you can use above workflow DSL.   
+In case you have different file_keys for multiple files then refer below workflow DSL.
+:::
 
+**Workflow spec to upload multiple files with different file keys**
+```yaml
+summary: upload multiple documents
+tasks:
+    - id: upload_multiple_files_step1
+      description: upload multiple documents
+      fn: com.gs.http
+      args:
+        datasource: httpbin
+        data: <% inputs.body %>
+        files: 
+          file1: <% inputs.files[0] %>
+          file2: <% inputs.files[1] %>
+        config:
+          url : /anything
+          method: post
+```
