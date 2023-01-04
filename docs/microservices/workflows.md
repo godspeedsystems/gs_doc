@@ -814,7 +814,7 @@ The framework provides file upload feature to upload files. Here is the sample e
                   format: binary
 ```
 
-**Workflow spec to upload files with same file keys**
+**Workflow spec to upload files with same file key**
 ```yaml
   summary: upload file
   id: upload_file
@@ -838,8 +838,7 @@ The framework provides file upload feature to upload files. Here is the sample e
 ```
 
 :::tip Note
-If file_key is same for all the files then you can use above workflow DSL.   
-In case you have different file_keys for multiple files then refer below workflow DSL.
+If file_key is same for all the files then you can use above workflow DSL. In case you have different file_keys for multiple files then you can directly use `<% inputs.file_obj %>` as given in the below workflow DSL.
 :::
 
 **Workflow spec to upload multiple files with different file keys**
@@ -852,9 +851,7 @@ tasks:
       args:
         datasource: httpbin
         data: <% inputs.body %>
-        files: 
-          file1: <% inputs.files[0] %>
-          file2: <% inputs.files[1] %>
+        files: <% inputs.file_obj %>
         config:
           url : /anything
           method: post
