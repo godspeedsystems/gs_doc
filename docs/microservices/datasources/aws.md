@@ -33,3 +33,6 @@ services:
     S3:
         config: {}
 ```
+
+## 7.7.2 com.gs.aws workflow
+[Refer here](../workflows.md/#6614-comgsaws) for com.gs.aws workflow.

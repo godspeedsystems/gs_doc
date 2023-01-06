@@ -111,6 +111,7 @@ title: Table of Contents
 
 [7.7 AWS as datasource](./microservices/datasources/aws.md)
     [7.7.1 Example spec](./microservices/datasources/aws.md/#771-example-spec)
+    [7.7.2 com.gs.aws workflow](./microservices/datasources/aws.md/#772-comgsaws-workflow)
 
 [7.8 Redis as datasource](./microservices/datasources/redis.md)
     [7.8.1 Example spec](./microservices/datasources/redis.md/#781-example-spec)
