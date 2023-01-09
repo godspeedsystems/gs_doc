@@ -744,7 +744,7 @@ tasks:
         method: putObject
 ```
 
-### 6.6.14 com.gs.redis
+#### 6.6.15 com.gs.redis
 Developer can read / write to redis datasource using standard redis client functions.
 
 ```yaml
