@@ -19,12 +19,19 @@ A workflow has the following attributes
 - **summary** - the title
 - **description** - more details
 - **id** - Recommended for better logging visibility
+- **on_error** - Default error handling if any tasks fails. 
 - **tasks** - the tasks (workflows or sub-workflows) to be run in series (sequence, or one by one). The tasks invoke other workflows written in YAML or JS/TS. Other languages support is planned.
 
 ```yaml
 summary: Hello world
 description: Hello world example which invokes the com.gs.return workflow
 id: hello_world # needed for better logging visibility
+on_error:
+  continue: false
+  response:
+    success: false
+    code: 500
+    data: "Default error"
 tasks: # tasks to be run in sequence (default is sequence)
   - id: step1 ## id of this task. Its output will be accessible
   # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
@@ -768,6 +775,53 @@ tasks:
         method: get
       data:
         key: user
+```
+
+#### 6.6.16 com.gs.if, com.gs.elif, com.gs.else
+:::tip control flow function
+The classic if-else flow execution
+:::
+The args are `condition` and `tasks`. `condition` takes a coffee/js expression to be evaluated during runtime. The `tasks` can invoke another function or a workflow.
+```yaml
+summary: Returning hello world
+tasks:
+  - id: if
+    fn: com.gs.if
+    condition: <% inputs.query.status == 'Hello' %>
+    tasks:
+      - id: step1
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hello!'
+
+  - id: elif1
+    description: Return hello world
+    fn: com.gs.elif
+    condition: <% inputs.query.status == 'Hell' %>
+    tasks:
+      - id: step2
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hell!'
+
+  - id: elif2
+    description: Return hello world
+    fn: com.gs.elif
+    condition: <% inputs.query.status == 'Hel' %>
+    tasks:
+      - id: step3
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hel!'
+
+  - id: else
+    description: Return hello world
+    fn: com.gs.else
+    tasks:
+      - id: step4
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hi!'
 ```
 
 ### 6.7 Developer written functions
