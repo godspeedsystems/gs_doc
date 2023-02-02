@@ -72,9 +72,15 @@ title: Table of Contents
         [6.6.13 com.gs.dynamic_fn](./microservices/workflows.md/#6613-comgsdynamic_fn)   
         [6.6.14 com.gs.aws](./microservices/workflows.md/#6614-comgsaws)   
         [6.6.15 com.gs.redis](./microservices/workflows.md/#6615-comgsredis)   
-        [6.6.16 com.gs.if, com.gs.elif, com.gs.else](./microservices/workflows.md/#6616-comgsif-comgselif-comgselse)   
-    [6.8 Headers defined at workflow level](./microservices/workflows.md/#68-headers-defined-at-workflow-level)   
-    [6.9 File Upload feature](./microservices/workflows.md/#69-file-upload-feature)   
+        [6.6.16 com.gs.if, com.gs.elif, com.gs.else](./microservices/workflows.md/#6616-comgsif-comgselif-comgselse)     
+
+[6.7 Developer written functions](./microservices/workflows.md/#67-developer-written-functions)      
+[6.8 Headers defined at workflow level](./microservices/workflows.md/#68-headers-defined-at-workflow-level)      
+
+[6.9 File Upload feature](./microservices/workflows.md/#69-file-upload-feature)   
+        [6.9.1 Workflow spec to upload files with same file key](./microservices/workflows.md/#691-workflow-spec-to-upload-files-with-same-file-key)   
+        [6.9.2 Workflow spec to upload multiple files with different file keys](./microservices/workflows.md/#692-workflow-spec-to-upload-multiple-files-with-different-file-keys)   
+        [6.9.3 Workflow spec to upload file directly from URL](./microservices/workflows.md/#693-workflow-spec-to-upload-file-directly-from-url)   
 
 [7. Datasources](./microservices/datasources/intro.md)   
     [7.1 Introduction](./microservices/datasources/intro.md)   

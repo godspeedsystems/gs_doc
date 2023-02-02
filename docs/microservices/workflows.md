@@ -867,8 +867,7 @@ The framework provides file upload feature to upload files. Here is the sample e
                   type: string
                   format: binary
 ```
-
-**Workflow spec to upload files with same file key**
+#### 6.9.1 Workflow spec to upload files with same file key
 ```yaml
   summary: upload file
   id: upload_file
@@ -892,10 +891,10 @@ The framework provides file upload feature to upload files. Here is the sample e
 ```
 
 :::tip Note
-If file_key is same for all the files then you can use above workflow DSL. In case you have different file_keys for multiple files then you can directly use `<% inputs.file_obj %>` as given in the below workflow DSL.
+If file_key is same for all the files then you can use above workflow DSL. In case you have different file_keys for multiple files then you can directly use `<% inputs.file_obj %>` as given in the below section 6.9.2
 :::
 
-**Workflow spec to upload multiple files with different file keys**
+#### 6.9.2 Workflow spec to upload multiple files with different file keys
 ```yaml
 summary: upload multiple documents
 tasks:
@@ -909,4 +908,24 @@ tasks:
         config:
           url : /anything
           method: post
+```
+#### 6.9.3 Workflow spec to upload file directly from URL
+```yaml
+summary: upload document from url
+tasks:
+  - id: upload_url_step1
+    description: upload document from url
+    fn: com.gs.http
+    args:
+      datasource: httpbin
+      data: <% inputs.body %>
+      files:
+        file1:
+          url: https://s3.ap-south-1.amazonaws.com/sample.pdf
+          method: get
+      config:
+        url : /anything
+        method: post
+        headers: 
+          Content-Type: 'multipart/form-data'
 ```
