@@ -920,7 +920,7 @@ tasks:
       datasource: httpbin
       data: <% inputs.body %>
       files:
-        file1:
+        sample:
           url: https://s3.ap-south-1.amazonaws.com/sample.pdf
           method: get
       config:
