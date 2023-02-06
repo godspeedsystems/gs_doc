@@ -64,6 +64,25 @@ The minimum level set to log above this level. Please refer [Pino log levels](ht
 #### Log fields masking
 If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
 
+#### Log format in dev environment
+By default, logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/). If you want to change the logs format in dev environment for debugging pupose, then set the environment variable `NODE_ENV` to `dev` in your environment.   
+```
+export NODE_ENV=dev
+```
+
+Then the logs will start dumping as:
+```
+06/02/23, 11:28:26 am [INFO]     adding param schema for /helloworld.http.get
+06/02/23, 11:28:26 am [DEBUG]     param schema: {"type":"object","required":[],"properties":{"status":{"type":"string"}}}
+06/02/23, 11:28:26 am [INFO]     adding body schema for /anything.http.post
+06/02/23, 11:28:26 am [DEBUG]     content_schema {"type":"object","properties":{"Gender":{"type":"string"}},"required":["Gender"]}
+06/02/23, 11:28:26 am [INFO]     adding param schema for /anything.http.post
+06/02/23, 11:28:26 am [DEBUG]     param schema: {"type":"object","required":["bank_id"],"properties":{"bank_id":{"type":"string"}}}
+06/02/23, 11:28:26 am [INFO]     registering http handler /notify post
+06/02/23, 11:28:26 am [INFO]     registering http handler /validate post
+06/02/23, 11:28:26 am [INFO]     registering http handler /van/:id get
+```
+
 ## 11.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
