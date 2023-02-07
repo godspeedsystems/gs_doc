@@ -104,22 +104,22 @@ The only exception to this is [control functions](#666-comgsseries) like series,
     retry:
       max_attempts: 5
       type: constant
-      interval: PT15M
+      interval: PT15m
   ```
 
   ```yaml
     retry:
       max_attempts: 5
       type: exponential
-      interval: PT15S
+      interval: PT15s
   ```
 
   ```yaml
     retry:
       max_attempts: 5
       type: random
-      min_interval: PT5S
-      max_interval: PT10S
+      min_interval: PT5s
+      max_interval: PT10s
   ```
 
 #### Example of multiple task with arguments
