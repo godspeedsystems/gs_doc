@@ -191,7 +191,7 @@ logs:
         attributes: 
 ```
 
-The logs are dumped in OTEL format. Please refer to [OTEL Logging Data model](#https://opentelemetry.io/docs/reference/specification/logs/data-model/)
+The logs are dumped in OTEL format. Please refer to [OTEL Logging Data model](#https://opentelemetry.io/docs/reference/specification/logs/data-model/) for understanding of fields dumped in the logs.
 > `message` and `params` are part of `Body` field and `attributes` are part of `Attributes` field in the log.
 
 #### Example spec
@@ -230,6 +230,13 @@ tasks:
           url : /anything
           method: post
 ```
+
+** Sample Logs **  
+```
+{"Body":"Hello [{\"key1\":\"v1\",\"key2\":\"v2\"},\"v1\"]","Timestamp":"1676011973016000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"afde0bf5bb3533d932c1c04c30d91172","SpanId":"ad477b2cf81ca711","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9ce06d358ba7","process.pid":67228},"Attributes":{"request":{"status":"Hello"},"task_id":"if","workflow_name":"if_else"}}
+. . . . . . . . . . .
+{"Body":"World {\"key1\":\"v1\",\"key2\":\"v2\"}","Timestamp":"1676011973019000000","SeverityNumber":17,"SeverityText":"ERROR","TraceId":"afde0bf5bb3533d932c1c04c30d91172","SpanId":"ad477b2cf81ca711","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9ce06d358ba7","process.pid":67228},"Attributes":{"customer_name":"Hell!","task_id":"if","workflow_name":"if_else"}}
+``` 
 
 ## 11.5 Observability Stack
 The complete observability stack with K8s helm-charts will be made available soon.

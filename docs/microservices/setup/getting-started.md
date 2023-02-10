@@ -20,7 +20,7 @@ You can also refer to tutorial on [Getting Started with Godspeed](https://www.yo
 
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
-- Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
+- Visual Studio Code LTS, with the `Remote Containers` and `Run on Save` plugins installed. Refer [Run On Save](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave)
 - Docker-desktop should be up and running.
   > On Linux systems, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose version` command. Refer [Install Compose plugin](https://docs.docker.com/compose/install/linux/) for more information.
 - Git
@@ -43,7 +43,7 @@ Hard Disk: SSD
 npm install -g @mindgrep/godspeed
 ```
 
-#### Step 2: Create the project
+#### Step 2: Create a project on your local machine
 ```sh
 godspeed create my_test_project
 ```
@@ -51,7 +51,7 @@ During the setup, you will be asked which datastores you need. Also whether you 
 
 > By default, `latest` version is selected for gs_service. You should select either `latest` or any highest semantic version available in the list.
 
-#### Step3: CD to your project
+#### Step3: cd to your project
 ```sh
 cd my_test_project
 
