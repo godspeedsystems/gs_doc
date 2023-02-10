@@ -45,8 +45,8 @@ npm install -g @mindgrep/godspeed
 
 #### Step 2: Setting up a project on your local machine
 :::note
-- If you are creating a new project then follow [section 2.1](#21-create-a-new-project)
-OR
+- If you are creating a new project then follow [section 2.1](#21-create-a-new-project)   
+OR   
 - If you are setting up a project from any existing git repository then follow [section 2.2](#22-setting-up-a-project-from-an-existing-git-repository)
 :::
 
