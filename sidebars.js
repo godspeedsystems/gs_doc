@@ -54,11 +54,11 @@ const sidebars = {
           type: "category",
           label: "3.3 Configuration",
           items: [
+            "microservices/setup/configuration/intro",
             "microservices/setup/configuration/env-vars",
             "microservices/setup/configuration/static-vars",
           ],
         },
-        "microservices/setup/documentation",
         "microservices/setup/tests",
         "microservices/setup/auto-watch",
       ],
@@ -70,17 +70,22 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "5. Events",
+      label: "5. Swagger Specs",
+      id: "microservices/swagger-specs",
+    },
+    {
+      type: "doc",
+      label: "6. Events",
       id: "microservices/events",
     },
     {
       type: "doc",
-      label: "6. Workflows",
+      label: "7. Workflows",
       id: "microservices/workflows",
     },
     {
       type: "category",
-      label: "7. Datasources",
+      label: "8. Datasources",
       items: [
         "microservices/datasources/intro",
         "microservices/datasources/api",
@@ -94,17 +99,17 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "8. Mappings",
+      label: "9. Mappings",
       id: "microservices/mappings",
     },
     {
       type: "doc",
-      label: "9. Plugins",
+      label: "10. Plugins",
       id: "microservices/plugins",
     },
     {
       type: "doc",
-      label: "10. Authentication & Authorization",
+      label: "11. Authentication & Authorization",
       id: "microservices/authen-author",
     },
 
@@ -196,7 +201,7 @@ const sidebars = {
 
     {
       type: "doc",
-      label: "11. Telemetry",
+      label: "12. Telemetry",
       id: "telemetry/intro",
     },
 
@@ -220,13 +225,13 @@ const sidebars = {
 
     {
       type: "doc",
-      label: "12. Roadmap",
+      label: "13. Roadmap",
       id: "roadmap",
     },
 
     {
       type: "doc",
-      label: "13. FAQ",
+      label: "14. FAQ",
       id: "faq",
     },
 

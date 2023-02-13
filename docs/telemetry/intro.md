@@ -5,7 +5,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-## 11.1 Introduction
+## 12.1 Introduction
 
 For observability, the framework supports Application Performance Monitoring(APM) abd Business Performance Monitoring(BPM) out of the box. This includes distributed trace context propagation across sync and async channels, logging and basic metrics.
 
@@ -13,13 +13,13 @@ For the same, we are leveraging the [OpenTelemetry standard](http://opentelemetr
 
 > Not even a single request must go untracked!
 
-### 11.1.1 Architecture
+### 12.1.1 Architecture
 ![arch](/img/otel_arch.png)
 
 - Both **Traces** and **Metrics** are sent to OTEL Collector directly. **Tempo** is used as tracing backend for traces and **Prometheus** is used for metrics with **Mimir** as its backend.
 - For **Logs**, a fluent bit daemonset is running on node, which collects logs from various applications on the node. **Loki** is used as logs aggregation solution.
 
-## 11.2 Goals
+## 12.2 Goals
 
 ### Auto application performance monitoring
 
@@ -33,8 +33,8 @@ Numerous open source and commercial softwares for Observability support OpenTele
 
 Collect, correlate and debug signals across logs (events), traces and metrics, based on the request id and the attributes defined for the organization. For example, app version, function, DB query, K8s pod, domain, microservice etc.
 
-## 11.3 Configuration
-### 11.3.1 OTEL exporter endpoint
+## 12.3 Configuration
+### 12.3.1 OTEL exporter endpoint
 Specify the IP address of your OTEL collector as env variable. Refer [OTEL Exporter](https://opentelemetry.io/docs/reference/specification/protocol/exporter/#endpoint-urls-for-otlphttp) for more information.
 ```
 $ export OTEL_EXPORTER_OTLP_ENDPOINT=<IP of OTEL collector>:4317
@@ -44,7 +44,7 @@ For example,
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://172.17.0.1:4317
 ```
 
-### 11.3.2 OTEL service name
+### 12.3.2 OTEL service name
 Specify the service name by which you want to setup observability and set it as env variable. 
 ```
 $ export OTEL_SERVICE_NAME=sample_proj1
@@ -57,7 +57,7 @@ Let's assume you have setup SigNoz as the exporter then you will see something l
 
 > In case you have any questions, please reach out to us on our [Discord channel](https://discord.com/channels/983323669809999882/983323669809999885).
 
-### 11.3.3 Logging
+### 12.3.3 Logging
 #### Log level
 The minimum level set to log above this level. Please refer [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) for more information. Set `log_level` in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml)
 
@@ -83,10 +83,10 @@ Then the logs will start dumping as:
 06/02/23, 11:28:26 am [INFO]     registering http handler /van/:id get
 ```
 
-## 11.4 Custom metrics, traces and logs (BPM)
+## 12.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
-### 11.4.1 DSL spec for custom metrics
+### 12.4.1 DSL spec for custom metrics
 ```
 # refer https://github.com/siimon/prom-client
 metrics:
@@ -139,7 +139,7 @@ tasks:
           method: post
 ```
 
-### 11.4.2 DSL spec for custom trace
+### 12.4.2 DSL spec for custom trace
 ```
 trace:
     name: span_name
@@ -172,7 +172,7 @@ tasks:
           method: post
 ```
 
-### 11.4.3 DSL spec for custom logs
+### 12.4.3 DSL spec for custom logs
 ```
 logs:
     before:
@@ -238,9 +238,9 @@ tasks:
 {"Body":"World {\"key1\":\"v1\",\"key2\":\"v2\"}","Timestamp":"1676011973019000000","SeverityNumber":17,"SeverityText":"ERROR","TraceId":"afde0bf5bb3533d932c1c04c30d91172","SpanId":"ad477b2cf81ca711","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9ce06d358ba7","process.pid":67228},"Attributes":{"customer_name":"Hell!","task_id":"if","workflow_name":"if_else"}}
 ``` 
 
-## 11.5 Observability Stack
+## 12.5 Observability Stack
 The complete observability stack with K8s helm-charts will be made available soon.
 
-## 11.6 Recommended model for telemetry signals
+## 12.6 Recommended model for telemetry signals
 
 Please find the [draft documentation here](https://docs.google.com/document/d/12V0oaqj81G8nDuCeD46_mHovv6uwaguwd4kVpBC2J6Q/edit#heading=h.zerkjmn66eyq). This is compiled in one place from various references across the OpenTelemetry documentation. This may require works by the DevOps team as well e.g. K8s related attributes.

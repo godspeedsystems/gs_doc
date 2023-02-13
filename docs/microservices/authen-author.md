@@ -5,14 +5,14 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
-## 10.1 Authentication
+## 11.1 Authentication
 The framework provides [JWT authentication](https://jwt.io/introduction) for securely transmitting information among microservices. 
 The user agent should send the JWT in the Authorization header using the Bearer schema. The content of the header should look like the following:
 ```
 Authorization: Bearer <token>
 ```
 
-### 10.1.1 JWT Configuration
+### 11.1.1 JWT Configuration
 You can do JWT configuration in [configuration](./setup/configuration/static-vars.md/#defaultyaml). For example, this is the sample static configuration:
 ```
 jwt:
@@ -22,7 +22,7 @@ jwt:
 ```
 You can also configure the same in [environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml)
 
-#### 10.1.1.1 Access JWT payload in Workflow DSL
+#### 11.1.1.1 Access JWT payload in Workflow DSL
 You can access the complete JWT payload in `<% inputs.user %>` in workflow DSL as given below:
 ```yaml
 summary: Call an API and transform the 
@@ -39,7 +39,7 @@ tasks:
           method: post
 ```
 
-### 10.1.2 Event spec
+### 11.1.2 Event spec
 Add `authn: true` in the event DSL to enable authentication for any event.
 ```
 /v1/loan-application/:lender_loan_application_id/kyc/ckyc/initiate.http.post: 
@@ -82,7 +82,7 @@ Add `authn: true` in the event DSL to enable authentication for any event.
                 required: [application_id]
 ```
 
-### 10.1.3 Generate JWT
+### 11.1.3 Generate JWT
 Generally, you will get JWT from your authentication service. For testing purposes, you can generate JWT at [https://jwt.io/](https://jwt.io/) by providing the `iss`, `aud` and `secretOrKey` to verify signature. Use the encoded token as JWT authentication token. For example,
 ![JWT](/img/JWT.png)
 
@@ -91,7 +91,7 @@ In the above case, the Authorization header should look like:
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtcy5zYW1wbGUuY29tIiwiYXVkIjoic2FtcGxlLmNvbSJ9._1fpM6VYq1rfKdTEqi8BcPTm8KIm4cNP8VhX0kQOEts
 ```
 
-### 10.1.4 Datasource authentication
+### 11.1.4 Datasource authentication
 You can add authentication at datasource level on [API datasource](./datasources/api.md). You can define an authn workflow at datasource level which requests to any authentication service for token/authentication then this workflow can return headers, params or statusCodes to the main workflow. 
 
 Here is the sample spec:  
@@ -156,10 +156,10 @@ statusCodes: [401, 403, ....]
 The authentication workflow gets called when any request returns the specified `statusCodes`. 
 :::
 
-## 10.2 Authorization
+## 11.2 Authorization
 The framework provides authorization, to verify if any event/model is authorized to access specific information or is allowed to execute certain actions.
 
-### 10.2.1 Workflow DSL
+### 11.2.1 Workflow DSL
 You can add authorization workflow at the task level in any workflow. The authorization workflow should return allow/deny or json output to the main worklfow.
 
 ** Allow/Deny **  
@@ -227,7 +227,7 @@ data: true/false/JSON output
 > When data is returned as false i.e. deny then the framework will send `403 Unauthorized` response.
 
 
-### 10.2.2 Sample DB query call authorization
+### 11.2.2 Sample DB query call authorization
 In DB query call, authz workflow can return JSON output with where clause, include clause etc. which will be merged with the args of the main workflow which is doing DB query.
 
 Here is the sample spec:  

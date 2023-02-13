@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: 7.2 API datasource
+title: 8.2 API datasource
 ---
 
 # API datasource
@@ -10,7 +10,7 @@ The API datasource acts as a wrapper around third party APIs. It helps interact 
 - Validation of the input to the http method (must be compliant to the API spec)
 - Validation of the response from the API (must be compliant to the API spec)
 
-### 7.2.1 API datasource schema defined externally
+### 8.2.1 API datasource schema defined externally
 If the OpenAPI spec of the API to consume/connect with is available at a URL, then one can simply refer the url here itself.
 
 ```yaml
@@ -18,7 +18,7 @@ idfc:
   schema: https://raw.githubusercontent.com/Kong/swagger-ui-kong-theme/main/demo/public/specs/httpbin.yaml
 ```
 
-### 7.2.2 API datasource schema defined within the yaml file
+### 8.2.2 API datasource schema defined within the yaml file
 If there is no OpenAPI spec available for an API, then developer needs to provide details of the API schema in the .yaml file for that datasource.
 
 ```yaml
@@ -41,7 +41,7 @@ securitySchemes:
     name: Authorization
 ```
 
-### 7.2.3 Headers defined at datasource level
+### 8.2.3 Headers defined at datasource level
 Headers defined at datasource level are applicable for all the workflows, which are using this datasource. For example, in below datasource, headers 'name' and 'title' are sent in each workflow which is using this datasource.
 
 ```
@@ -53,8 +53,8 @@ headers:
   title: <% inputs.headers['title'] %>
 ```
 
-### 7.2.4 Headers defined at task level
+### 8.2.4 Headers defined at task level
 Headers defined at task level are applicable for a single task only. You can find the [example usage here](../workflows#62-the-tasks-within-workflows)
 
-### 7.2.5 Example usage
+### 8.2.5 Example usage
 You can find the [example usage here](../workflows#661-comgshttp)
