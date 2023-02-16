@@ -13,14 +13,15 @@ Authorization: Bearer <token>
 ```
 
 ### 11.1.1 JWT Configuration
-You can do JWT configuration in [configuration](./setup/configuration/static-vars.md/#defaultyaml). For example, this is the sample static configuration:
+You can do JWT configuration in [Configuration/Environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml). For example, this is the sample configuration:
 ```
 jwt:
-  issuer: ms.sample.com
-  audience: sample.com
-  secretOrKey: sampleKey
+  issuer: JWT_ISS
+  audience: JWT_AUD
+  secretOrKey: JWT_SECRET
 ```
-You can also configure the same in [environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml)
+
+You need to export these environment variables in your environment.
 
 #### 11.1.1.1 Access JWT payload in Workflow DSL
 You can access the complete JWT payload in `<% inputs.user %>` in workflow DSL as given below:

@@ -58,19 +58,28 @@ Let's assume you have setup SigNoz as the exporter then you will see something l
 > In case you have any questions, please reach out to us on our [Discord channel](https://discord.com/channels/983323669809999882/983323669809999885).
 
 ### 12.3.3 Logging
-#### Log level
+#### 12.3.3.1 Log level
 The minimum level set to log above this level. Please refer [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) for more information. Set `log_level` in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml)
 
-#### Log fields masking
+#### 12.3.3.2 Log fields masking
 If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
 
-#### Log format in dev environment
-By default, logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/). If you want to change the logs format in dev environment for debugging pupose, then set the environment variable `NODE_ENV` to `dev` in your environment.   
+#### 12.3.3.3 Log format in dev environment
+By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/) when you deploy your service anywhere (UAT, Prod, K8s, etc.) except inside the vscode remote containers/dev containers. 
 ```
-export NODE_ENV=dev
+{"Body":"adding body schema for /upload_doc.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"content_schema {\"type\":\"object\",\"properties\":{\"document_type\":{\"type\":\"string\"},\"document_category\":{\"type\":\"string\"},\"loan_code\":{\"type\":\"string\"}}}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"adding body schema for /upload_multiple_docs.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"content_schema {\"type\":\"object\",\"properties\":{\"document_type\":{\"type\":\"string\"},\"document_category\":{\"type\":\"string\"},\"loan_code\":{\"type\":\"string\"}}}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"adding body schema for /upload_s3.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"content_schema {\"type\":\"object\"}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"registering http handler /another_workflow post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"registering http handler /create/:entity_type post","Timestamp":"1676463125325000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"registering http handler /document post","Timestamp":"1676463125325000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
 ```
 
-Then the logs will start dumping as:
+Please note that the default logging format inside vscode dev container on your local machine is `dev format` as given in the below sample.
+  
 ```
 06/02/23, 11:28:26 am [INFO]     adding param schema for /helloworld.http.get
 06/02/23, 11:28:26 am [DEBUG]     param schema: {"type":"object","required":[],"properties":{"status":{"type":"string"}}}
@@ -82,6 +91,33 @@ Then the logs will start dumping as:
 06/02/23, 11:28:26 am [INFO]     registering http handler /validate post
 06/02/23, 11:28:26 am [INFO]     registering http handler /van/:id get
 ```
+:::note
+If you want to change the OTEL format to `dev format`, then set the environment variable `NODE_ENV` to `dev` in your environment.   
+:::
+
+```
+export NODE_ENV=dev
+```
+
+#### 12.3.3.4 Add custom identifiers in logs
+You can add any custom identifier in the logging whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers.   
+
+To enable this feature ,you need to specify two things:   
+- `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md)/[static variable](../microservices/setup/configuration/static-vars.md) which contains the list of identifiers.                
+
+For example, this is the sample static configuration:
+```
+log_attributes: ["query.mobileNumber", "params.id", "body.data?.lan"]
+```
+
+- location of the identifier in the request payload. As specified in the above example, 
+  - if mobileNumber is present in query params then specify `query.mobileNumber`.
+  - if id is present in path params then specify `params.id`.
+  - if lan is present in data field inside body then specify `body.data?.lan`.
+
+:::note
+Please make sure to add ? in case any nested field is optional like `body.data?.lan` so that it works well with undefined values. This will add lan in the logs if it is present else it will not get added.
+:::
 
 ## 12.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
