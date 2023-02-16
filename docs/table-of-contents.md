@@ -158,7 +158,7 @@ title: Table of Contents
 [12.3.3 Logging](./telemetry/intro.md/#1233-logging)   
         [12.3.3.1 Log level](./telemetry/intro.md/#12331-log-level)   
         [12.3.3.2 Log fields masking](./telemetry/intro.md/#12332-log-fields-masking)   
-        [12.3.3.3 Log format in dev environment](./telemetry/intro.md/#12333-log-format-in-dev-environment)   
+        [12.3.3.3 Log format](./telemetry/intro.md/#12333-log-format)   
         [12.3.3.4 Add custom identifiers in logs](./telemetry/intro.md/#12334-add-custom-identifiers-in-logs)   
 
 [12.4 Custom metrics, traces and logs (BPM)   ](./telemetry/intro.md/#124-custom-metrics-traces-and-logs-bpm)   

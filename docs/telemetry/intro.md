@@ -64,35 +64,43 @@ The minimum level set to log above this level. Please refer [Pino log levels](ht
 #### 12.3.3.2 Log fields masking
 If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
 
-#### 12.3.3.3 Log format in dev environment
+#### 12.3.3.3 Log format
 By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/) when you deploy your service anywhere (UAT, Prod, K8s, etc.) except inside the vscode remote containers/dev containers. 
 ```
-{"Body":"adding body schema for /upload_doc.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"content_schema {\"type\":\"object\",\"properties\":{\"document_type\":{\"type\":\"string\"},\"document_category\":{\"type\":\"string\"},\"loan_code\":{\"type\":\"string\"}}}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"adding body schema for /upload_multiple_docs.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"content_schema {\"type\":\"object\",\"properties\":{\"document_type\":{\"type\":\"string\"},\"document_category\":{\"type\":\"string\"},\"loan_code\":{\"type\":\"string\"}}}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"adding body schema for /upload_s3.http.post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"content_schema {\"type\":\"object\"}","Timestamp":"1676463125324000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"registering http handler /another_workflow post","Timestamp":"1676463125324000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"registering http handler /create/:entity_type post","Timestamp":"1676463125325000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
-{"Body":"registering http handler /document post","Timestamp":"1676463125325000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"a02c8d519aca","process.pid":6116},"Attributes":{}}
+{"Body":"adding body schema for /upload_doc.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
+{"Body":"adding body schema for /upload_multiple_docs.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
+{"Body":"adding body schema for /upload_s3.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
+{"Body":"registering http handler /another_workflow post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
+{"Body":"registering http handler /create/:entity_type post","Timestamp":"1676531763728000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
+. . . . . . . . . . . 
+{"Body":"args.retry {\"max_attempts\":3,\"type\":\"constant\",\"interval\":5000}","Timestamp":"1676531764656000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"a58ef2d7ff7725c39f1e058bf22fe724","SpanId":"751bc314bb6286b4","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":"test_step1"}}
+{"Body":"Result of _executeFn test_step1 {\"success\":true,\"code\":200,\"data\":{\"args\":{},\"data\":\"{\\\"data\\\":{\\\"lan\\\":\\\"12345\\\"}}\",\"files\":{},\"form\":{},\"headers\":{\"Accept\":\"application/json, text/plain, */*\",\"Content-Length\":\"24\",\"Content-Type\":\"application/json\",\"Host\":\"httpbin.org\",\"Traceparent\":\"00-a58ef2d7ff7725c39f1e058bf22fe724-2f13e28430d61bdb-01\",\"User-Agent\":\"axios/0.25.0\",\"X-Amzn-Trace-Id\":\"Root=1-63edd835-22cff8e60555fa522c8544cf\"},\"json\":{\"data\":{\"lan\":\"12345\"}},\"method\":\"POST\",\"origin\":\"180.188.224.177\",\"url\":\"https://httpbin.org/anything\"},\"message\":\"OK\",\"headers\":{\"date\":\"Thu, 16 Feb 2023 07:16:05 GMT\",\"content-type\":\"application/json\",\"content-length\":\"598\",\"connection\":\"close\",\"server\":\"gunicorn/19.9.0\",\"access-control-allow-origin\":\"*\",\"access-control-allow-credentials\":\"true\"}}","Timestamp":"1676531765810000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"a58ef2d7ff7725c39f1e058bf22fe724","SpanId":"751bc314bb6286b4","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":"test_step1"}}
+{"Body":"Validate Response JSON Schema Success","Timestamp":"1676531765811000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"a58ef2d7ff7725c39f1e058bf22fe724","SpanId":"751bc314bb6286b4","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":""}}
+```   
+   
+** Dev Format **
+The `dev format` is basically a transformation of OTEL log format to increase readability for developers.   
+Please note that the default logging format inside vscode dev container on your local machine is `dev format` as given below:
 ```
-
-Please note that the default logging format inside vscode dev container on your local machine is `dev format` as given in the below sample.
+datetime [SeverityText] TraceId SpanId {Attributes} Body
+```
   
+Sample Logs:
 ```
-06/02/23, 11:28:26 am [INFO]     adding param schema for /helloworld.http.get
-06/02/23, 11:28:26 am [DEBUG]     param schema: {"type":"object","required":[],"properties":{"status":{"type":"string"}}}
-06/02/23, 11:28:26 am [INFO]     adding body schema for /anything.http.post
-06/02/23, 11:28:26 am [DEBUG]     content_schema {"type":"object","properties":{"Gender":{"type":"string"}},"required":["Gender"]}
-06/02/23, 11:28:26 am [INFO]     adding param schema for /anything.http.post
-06/02/23, 11:28:26 am [DEBUG]     param schema: {"type":"object","required":["bank_id"],"properties":{"bank_id":{"type":"string"}}}
-06/02/23, 11:28:26 am [INFO]     registering http handler /notify post
-06/02/23, 11:28:26 am [INFO]     registering http handler /validate post
-06/02/23, 11:28:26 am [INFO]     registering http handler /van/:id get
+16/02/23, 12:44:42 pm [INFO]   {} adding body schema for /upload_doc.http.post
+16/02/23, 12:44:42 pm [INFO]   {} adding body schema for /upload_multiple_docs.http.post
+16/02/23, 12:44:42 pm [INFO]   {} adding body schema for /upload_s3.http.post
+16/02/23, 12:44:42 pm [INFO]   {} registering http handler /another_workflow post
+16/02/23, 12:44:42 pm [INFO]   {} registering http handler /create/:entity_type post
+16/02/23, 12:44:42 pm [INFO]   {} registering http handler /document post
+16/02/23, 12:44:42 pm [INFO]   {} registering http handler /fn_script post
+. . . . . . . . . . 
+16/02/23, 12:44:43 pm [INFO] f9f61d4940e3a8e5be8bc80faf6e36a2 96e746f5cbbee1ac {"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":"test_step1"} args.retry {"max_attempts":3,"type":"constant","interval":5000}
+16/02/23, 12:44:44 pm [INFO] f9f61d4940e3a8e5be8bc80faf6e36a2 96e746f5cbbee1ac {"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":"test_step1"} Result of _executeFn test_step1 {"success":true,"code":200,"data":{"args":{},"data":"{\"data\":{\"lan\":\"12345\"}}","files":{},"form":{},"headers":{"Accept":"application/json, text/plain, */*","Content-Length":"24","Content-Type":"application/json","Host":"httpbin.org","Traceparent":"00-f9f61d4940e3a8e5be8bc80faf6e36a2-f6c0a5ce67f5b07c-01","User-Agent":"axios/0.25.0","X-Amzn-Trace-Id":"Root=1-63edd7e4-0b8b6ba319833492520e6b0c"},"json":{"data":{"lan":"12345"}},"method":"POST","origin":"180.188.224.177","url":"https://httpbin.org/anything"},"message":"OK","headers":{"date":"Thu, 16 Feb 2023 07:14:44 GMT","content-type":"application/json","content-length":"598","connection":"close","server":"gunicorn/19.9.0","access-control-allow-origin":"*","access-control-allow-credentials":"true"}}
+16/02/23, 12:44:44 pm [INFO] f9f61d4940e3a8e5be8bc80faf6e36a2 96e746f5cbbee1ac {"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":""} Validate Response JSON Schema Success
 ```
 :::note
-If you want to change the OTEL format to `dev format`, then set the environment variable `NODE_ENV` to `dev` in your environment.   
+If you want to change the OTEL format to `dev format`, then set the environment variable `NODE_ENV` to `dev` in your environment as given below. The default value of `NODE_ENV` is `production`.  
 :::
 
 ```
