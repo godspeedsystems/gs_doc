@@ -111,11 +111,14 @@ export NODE_ENV=dev
 You can add any custom identifier in the logging whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers.   
 
 To enable this feature ,you need to specify two things:   
-- `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md)/[static variable](../microservices/setup/configuration/static-vars.md) which contains the list of identifiers.                
+- `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md)/[static variable](../microservices/setup/configuration/static-vars.md) which contains custom identifiers.
 
 For example, this is the sample static configuration:
 ```
-log_attributes: ["query.mobileNumber", "params.id", "body.data?.lan"]
+log_attributes: 
+  mobileNumber: "query.mobileNumber"
+  id: "params.id"
+  lan: "body.data?.lan"
 ```
 
 - location of the identifier in the request payload. As specified in the above example, 
