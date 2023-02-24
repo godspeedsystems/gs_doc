@@ -163,10 +163,10 @@ model User1 {
 ```
 
 ### 8.3.6.2 Configuration
-You can specify `prismaSecret` in [configuration](../setup/configuration/static-vars.md/#defaultyaml)   
-For example, this is the sample static configuration:
+You can specify `prisma_secret` in [environment configuration](../setup/configuration/env-vars.md/#custom-environment-variablesyaml)   
+For example, this is the sample configuration, set `PRISMA_SECRET` as env variable:
 ```yaml
-prismaSecret: test # secret used to generate hash of prisma fields
+prisma_secret: PRISMA_SECRET # secret used to generate hash of prisma fields
 ```
 
 export const Highlight = ({children, color}) => (

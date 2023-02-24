@@ -20,7 +20,10 @@ You can also refer to tutorial on [Getting Started with Godspeed](https://www.yo
 
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
-- Visual Studio Code LTS, with the `Remote Containers` and `Run on Save` plugins installed. Refer [Run On Save](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave)
+- Visual Studio Code LTS, with the following plugins installed:
+  1. `Remote Containers`
+  2. `Run on Save` Refer [Run On Save](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave)
+  3. `Godspeed Extension Pack`
 - Docker-desktop should be up and running.
   > On Linux systems, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose version` command. Refer [Install Compose plugin](https://docs.docker.com/compose/install/linux/) for more information.
 - Git
