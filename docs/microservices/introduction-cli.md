@@ -159,6 +159,10 @@ The update can be executed in the following cases:
 
 > Please note that the command should be executed from inside the project root directory.
 
+:::note
+Whenever you update your project using `godspeed update` and open the project in VScode dev container after update, then it is mandatory to do [`godspeed build`](#build) inside dev container for the first time.
+:::
+
 ```
 $ godspeed update
                       _                                   _ 
@@ -315,6 +319,18 @@ Options:
 You can run all the prisma commands in your project root directory inside the dev container. This command is useful for db migration and introspection. [Read more here](https://www.prisma.io/docs/concepts/components/prisma-cli). 
 ```
 $ godspeed prisma <prisma command with args>
+```
+
+### build
+You can build the complete project using this command. It is the first command which you need to run whenever you open your project in VScode Dev container. Refer [Open in Dev container](../microservices/setup/getting-started.md/#step-5-open-in-dev-container)
+```
+godspeed build
+```
+
+### dev
+You can run your project using dev command.
+```
+godspeed dev
 ```
 
 ### gen-api-docs
