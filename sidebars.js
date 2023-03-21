@@ -99,139 +99,38 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "9. Mappings",
+      label: "9. Caching",
+      id: "microservices/caching",
+    },
+    {
+      type: "doc",
+      label: "10. Mappings",
       id: "microservices/mappings",
     },
     {
       type: "doc",
-      label: "10. Plugins",
+      label: "11. Plugins",
       id: "microservices/plugins",
     },
     {
       type: "doc",
-      label: "11. Authentication & Authorization",
+      label: "12. Authentication & Authorization",
       id: "microservices/authen-author",
     },
-
-    // {
-    //   type: 'category',
-    //   label: 'Modern Microservices Framework',
-    //   items: [
-    //     {
-    //       type: 'category',
-    //       label: 'Setup',
-    //       items: [
-    //         'microservices/setup/getting-started',
-    //         'microservices/setup/introduction-cli',
-    //         'microservices/setup/scaffolding',
-    //         'microservices/setup/environment-variables'
-    //       ],
-    //     },
-    //     'microservices/intro',
-    //     'microservices/events',
-    //     'microservices/workflows',
-    //     {
-    //       type: 'category',
-    //       label: 'Datasources',
-    //       items: [
-    //         'microservices/datasources/intro',
-    //         'microservices/datasources/api',
-    //         'microservices/datasources/datastore'
-    //       ],
-    //     },
-    //     'microservices/authen-author',
-    //   ]// 'microservices/technology-used/intro'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Serverless Workflows',
-    //   items: [
-    //     'serverless workflows/intro',
-    //     'serverless workflows/technology-used/intro',
-    //   ],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Communication',
-    //   items: ['communication/intro']//, 'communication/technology-used/intro'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Data at Rest and Flow',
-    //   items: [
-    //     'data-at-flow-and-at-rest/CRUD/intro',
-    //     {
-    //       type: 'category',
-    //       label: 'CRUD',
-    //       items: [
-    //         'data-at-flow-and-at-rest/CRUD/CRUD API',
-    //         'data-at-flow-and-at-rest/CRUD/data-federation',
-    //         'data-at-flow-and-at-rest/model-setup',
-    //         'data-at-flow-and-at-rest/scaffolding',
-    //         'data-at-flow-and-at-rest/technology-used/intro',
-    //       ],
-    //     },
-    //   ],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Security',
-    //   items: ['security/intro']//, 'security/Auth/intro'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Risks',
-    //   items: ['risks/intro','risks/essential-7'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Writing Business Logic',
-    //   items: [
-    //     'writing-business-logic/intro',
-    //     'writing-business-logic/functions',
-    //     'writing-business-logic/events',
-    //   ],
-    // },
-
     {
       type: "doc",
-      label: "12. Telemetry",
+      label: "13. Telemetry",
       id: "telemetry/intro",
     },
-
-    // {
-    //   type: 'category',
-    //   label: 'Springboot Integration',
-    //   items: ['springboot-integration/intro'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Scaffolding',
-    //   items: ['scaffolding/intro', 'scaffolding/config-loading'],
-    // },
-
-    // {
-    //   type: 'doc',
-    //   label: 'Tech Stack',
-    //   id: 'tech-stack',
-    // },
-
     {
       type: "doc",
-      label: "13. Roadmap",
+      label: "14. Roadmap",
       id: "roadmap",
     },
 
     {
       type: "doc",
-      label: "14. FAQ",
+      label: "15. FAQ",
       id: "faq",
     },
 
