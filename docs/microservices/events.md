@@ -6,21 +6,21 @@ toc_max_heading_level: 4
 ---
 
 # Events
-
-A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes 
+A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes
 - The name/topic/URL of the event
 - The event source and other information for the source (for ex. group_id in case of Kafka events)
 - The event handler workflow
 - Validation (input and output)
 - Examples of input and output
 
-The response of the event is flexible for the developer to change as per the requirement. 
+The response of the event is flexible for the developer to change as per the requirement.
 
 ## 6.1 Event types
 
 **Currently supported**
 - http.{method_type} For example, post or get
 - Kafka
+- salesforce
 
 **Planned**
 - Webhook
@@ -39,7 +39,7 @@ The framework provides request and response schema validation out of the box.
 #### Request schema validation
 Sample spec for request schema.
 ```
-body: 
+body:
   content:
     application/json:
       schema:
@@ -61,10 +61,10 @@ responses: #Output data defined as per the OpenAPI spec
     description:
     content:
       application/json: # For ex. application/json application/xml
-        schema: 
+        schema:
           type: object
           properties:
-            application_id: 
+            application_id:
               type: string
           additionalProperties: false
           required: [application_id]
@@ -72,7 +72,7 @@ responses: #Output data defined as per the OpenAPI spec
           example1:
             summary:
             description:
-            value: 
+            value:
               application_id: PRM20478956N
             external_value:
 ```
@@ -80,10 +80,10 @@ If response schema validation fails, then status code 500 is returned.
 
 ### 6.2.2 HTTP event
 
-For an HTTP event, the headers, query, params and body data are captured in a standard format, and made available in the `inputs` object [for use in the workflows](#example-workflow-consuming-an-http-event). 
- 
+For an HTTP event, the headers, query, params and body data are captured in a standard format, and made available in the `inputs` object [for use in the workflows](#example-workflow-consuming-an-http-event).
+
  The inputs (event) object has following properties:
-  
+
     - query: `<%inputs.query.var_name%>` # present in case of http events
     - params: `<%inputs.params.path_param%>` # present in case of http events
     - headers: `<%inputs.headers.some_header_key%>` # present in case of http events
@@ -93,13 +93,13 @@ For an HTTP event, the headers, query, params and body data are captured in a st
 #### Example spec for HTTP event
 
 ``` yaml
- /v1/loan-application/:lender_loan_application_id/kyc/ckyc/initiate.http.post: #Adding .http.post after 
+ /v1/loan-application/:lender_loan_application_id/kyc/ckyc/initiate.http.post: #Adding .http.post after
   #the endpoint exposes the endpoint as REST via the POST method (in this example)
-  fn: com.biz.kyc.ckyc.ckyc_initiate #The event handler written in ckyc_initiate.yml, and 
+  fn: com.biz.kyc.ckyc.ckyc_initiate #The event handler written in ckyc_initiate.yml, and
   # kept in src/workflows/com/biz/kyc/ckyc folder (in this example)
   on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
   # kept in src/workflows/com/jfs/ folder (in this example)
-  body: 
+  body:
     required: true
     content:
       application/json:
@@ -111,7 +111,7 @@ For an HTTP event, the headers, query, params and body data are captured in a st
             meta:
               type: 'object'
 
-  params: 
+  params:
   - name: lender_loan_application_id
     in: params # same as open api spec: one of cookie, path, query, header
     required: true
@@ -124,10 +124,10 @@ For an HTTP event, the headers, query, params and body data are captured in a st
       required: # default value is false
       content:
         application/json: # For ex. application/json application/xml
-          schema: 
+          schema:
             type: object
             properties:
-              application_id: 
+              application_id:
                 type: string
             additionalProperties: false
             required: [application_id]
@@ -135,7 +135,7 @@ For an HTTP event, the headers, query, params and body data are captured in a st
             example1:
               summary:
               description:
-              value: 
+              value:
                 application_id: PRM20478956N
               external_value:
           encoding:
@@ -144,16 +144,16 @@ For an HTTP event, the headers, query, params and body data are captured in a st
       required: # default value is false
       content:
         application/json: # For ex. application/json application/xml
-          schema: 
+          schema:
             type: object
             properties:
-              lender_response_code: 
+              lender_response_code:
                 type: string
           examples: # <string, ExampleObject>
             example1:
               summary:
               description:
-              value: 
+              value:
                 lender_response_code: E001
               external_value:
           encoding:
@@ -164,9 +164,9 @@ For an HTTP event, the headers, query, params and body data are captured in a st
     summary: Simply returning query & body data of an http.post event
     id: some_unique_id
     tasks:
-      - id: step1 
+      - id: step1
         fn: com.gs.return
-        args: <%inputs.body%> # Evaluation of dynamic values happens via <% %>. The type of scripting can be coffee/js. 
+        args: <%inputs.body%> # Evaluation of dynamic values happens via <% %>. The type of scripting can be coffee/js.
         # Here we are returning the body of the HTTP post event.
   ```
 
@@ -175,15 +175,15 @@ For an HTTP event, the headers, query, params and body data are captured in a st
     summary: Handle json scehma validation error
     id: error_handler
     tasks:
-      - id: erorr_step1 
+      - id: erorr_step1
         fn: com.gs.kafka
-        args: 
+        args:
           datasource: kafka1
           data: # publish the event and validation error to kafka on a topic
-            value: 
+            value:
               event: <% inputs.event %>
               validation_error: <% inputs.validation_error %>
-          config: 
+          config:
             topic: kafka_error_handle
             method: publish
   ```
@@ -205,18 +205,18 @@ The datasources for kafka are defined in `src/datasources`. [Refer Kafka as data
 kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
   # a new message arrives on the topic_name
   id: /kafkaWebhook
-  fn: com.jfs.publish_kafka #The event handler written in publish_kafka.yml, and 
+  fn: com.jfs.publish_kafka #The event handler written in publish_kafka.yml, and
   # kept in src/workflows/com/jfs folder (in this example)
   on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
   # kept in src/workflows/com/jfs folder (in this example)
-  body: 
+  body:
     description: The body of the query
     content:
       application/json: # For ex. application/json application/xml
-        schema: 
+        schema:
           type: object
           properties:
-            name: 
+            name:
               type: string
           required: [name]
 ```
@@ -233,8 +233,8 @@ kafka-consumer1.kafka1.kafka_proj: # This event will be triggered whenever
         datasource: kafka1
         config:
           method: publish
-          topic: publish-producer1 
-        data: 
+          topic: publish-producer1
+        data:
           value: <% inputs %>
       # Here we are publishing an event data to another topic
 ```
@@ -256,3 +256,71 @@ export const Highlight = ({children, color}) => (
     {children}
   </span>
 );-->
+
+### Salesforce event
+> A salesforce event is specified as `{topic_name}.salesforce.{datasource_name}`
+
+`topic_name`is salaesforce event topic
+`datasource_name` is name of the `salesforce`datasource filename
+
+Prerequisite:
+1. For using `salesforce`, You need to enable `redis` datasource. You can enable `redis`while creating a new `godspeed` project or run `godspeed update` on an existing project.
+2. in `config/default.yaml`add a property as `caching: redis`. Where `redis` is datasource name. If your `redis` type datasource name is `redis1.yaml`, then `caching: redis1` will be the correct configuration.
+
+Example of `salesforce`datasource, eg: `src/datasources/salaeforce.yaml`
+```yaml
+type: salesforce
+connection:
+    # Please Check  https:#jsforce.github.io/document/
+
+    #1. Username and Password Login
+    # you can change loginUrl to connect to sandbox or prerelease env.
+    # loginUrl : 'https:#test.salesforce.com'
+
+    #2. Username and Password Login (OAuth2 Resource Owner Password Credential)
+    oauth2:
+        # you can change loginUrl to connect to sandbox or prerelease env.
+        # loginUrl : 'https:#test.salesforce.com',
+        clientId : '<your Salesforce OAuth2 client ID is here>'
+        clientSecret : '<your Salesforce OAuth2 client secret is here>'
+        redirectUri : '<callback URI is here>'
+
+    #3. Session ID
+    serverUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    sessionId : '<your Salesforce session ID is here>'
+
+    #4. Access Token
+    instanceUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    accessToken : '<your Salesforrce OAuth2 access token is here>'
+
+    #5. Access Token with Refresh Token
+    oauth2:
+        clientId : '<your Salesforce OAuth2 client ID is here>'
+        clientSecret : '<your Salesforce OAuth2 client secret is here>'
+        redirectUri : '<your Salesforce OAuth2 redirect URI is here>'
+    instanceUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    accessToken : '<your Salesforrce OAuth2 access token is here>'
+    refreshToken : '<your Salesforce OAuth2 refresh token is here>'
+
+username: <% config.salesforce_username %>
+password: <% config.salesforce_password %>
+```
+
+
+Example of `salesforce` event:
+```yaml
+{topic_name}.salesforce.{datasourceName}
+id: /salesforcetopic
+fn: com.jfs.handle_salesforce_events
+on_validation_error: com.jfs.handle_validation_error
+body:
+  description: The body of the query
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+        required: [name]
+```

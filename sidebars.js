@@ -29,16 +29,6 @@ const sidebars = {
       label: "1. Preface",
       id: "preface",
     },
-
-    // {
-    //   type: 'category',
-    //   label: 'Infra and System',
-    //   items: [
-    //     'infra-and-system/intro',
-    //     'infra-and-system/technology-used/intro',
-    //     //'infra-and-system/Application',
-    //   ],
-    // },
     {
       type: "doc",
       label: "2. Introduction",
@@ -133,24 +123,6 @@ const sidebars = {
       label: "15. FAQ",
       id: "faq",
     },
-
-    // {
-    //   type: 'doc',
-    //   label: 'Development Process',
-    //   id: 'development-process',
-    // },
-
-    // {
-    // type: 'category',
-    //label: 'Out of Box',
-    //  items: ['out-of-box/auto-export','out-of-box/auto-instrumentation','out-of-box/templates','out-of-box/hooks','out-of-box/dual-write'],
-    // },
-
-    // {
-    //   type: 'category',
-    //   label: 'Notification API Specification',
-    //   items: ['notification-api'],
-    // },
   ],
 };
 
