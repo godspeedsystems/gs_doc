@@ -1,12 +1,12 @@
 ---
 sidebar_position: 3
-title: 7.8 Redis as datasource
+title: 8.8 Redis as datasource
 ---
 
 # Introduction
 The framework supports Redis as a datasource. It helps to utilize redis in different ways.
 
-## 7.8.1 Example spec
+## 8.8.1 Example spec
 The datasources for Redis are defined in `src/datasources`. Here, Redis datasource is defined in `redis.yaml`.
 
 ```

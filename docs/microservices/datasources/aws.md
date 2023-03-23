@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: 7.7 AWS as datasource
+title: 8.7 AWS as datasource
 ---
 
 # Introduction
 
 The framework supports AWS as a datasource. It helps in interacting with AWS, to use various AWS services and methods. 
 
-## 7.7.1 Example spec
+## 8.7.1 Example spec
 The datasources for AWS are defined in `src/datasources`. Here, AWS datasource is defined in `aws_s3.yaml`.
 ```
 .
@@ -33,3 +33,6 @@ services:
     S3:
         config: {}
 ```
+
+## 8.7.2 com.gs.aws workflow
+[Refer here](../workflows.md/#6614-comgsaws) for com.gs.aws workflow.

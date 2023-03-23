@@ -44,11 +44,11 @@ const sidebars = {
           type: "category",
           label: "3.3 Configuration",
           items: [
+            "microservices/setup/configuration/intro",
             "microservices/setup/configuration/env-vars",
             "microservices/setup/configuration/static-vars",
           ],
         },
-        "microservices/setup/documentation",
         "microservices/setup/tests",
         "microservices/setup/auto-watch",
       ],
@@ -60,17 +60,22 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "5. Events",
+      label: "5. Swagger Specs",
+      id: "microservices/swagger-specs",
+    },
+    {
+      type: "doc",
+      label: "6. Events",
       id: "microservices/events",
     },
     {
       type: "doc",
-      label: "6. Workflows",
+      label: "7. Workflows",
       id: "microservices/workflows",
     },
     {
       type: "category",
-      label: "7. Datasources",
+      label: "8. Datasources",
       items: [
         "microservices/datasources/intro",
         "microservices/datasources/api",
@@ -84,33 +89,38 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "8. Mappings",
+      label: "9. Caching",
+      id: "microservices/caching",
+    },
+    {
+      type: "doc",
+      label: "10. Mappings",
       id: "microservices/mappings",
     },
     {
       type: "doc",
-      label: "9. Plugins",
+      label: "11. Plugins",
       id: "microservices/plugins",
     },
     {
       type: "doc",
-      label: "10. Authentication & Authorization",
+      label: "12. Authentication & Authorization",
       id: "microservices/authen-author",
     },
     {
       type: "doc",
-      label: "11. Telemetry",
+      label: "13. Telemetry",
       id: "telemetry/intro",
     },
     {
       type: "doc",
-      label: "12. Roadmap",
+      label: "14. Roadmap",
       id: "roadmap",
     },
 
     {
       type: "doc",
-      label: "13. FAQ",
+      label: "15. FAQ",
       id: "faq",
     },
   ],

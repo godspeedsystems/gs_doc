@@ -159,6 +159,10 @@ The update can be executed in the following cases:
 
 > Please note that the command should be executed from inside the project root directory.
 
+:::note
+Whenever you update your project using `godspeed update` and open the project in VScode dev container after update, then it is mandatory to do [`godspeed build`](#build) inside dev container for the first time.
+:::
+
 ```
 $ godspeed update
                       _                                   _ 
@@ -317,10 +321,22 @@ You can run all the prisma commands in your project root directory inside the de
 $ godspeed prisma <prisma command with args>
 ```
 
-### gen-apiDocs
+### build
+You can build the complete project using this command. It is the first command which you need to run whenever you open your project in VScode Dev container. Refer [Open in Dev container](../microservices/setup/getting-started.md/#step-5-open-in-dev-container)
+```
+godspeed build
+```
+
+### dev
+You can run your project using dev command.
+```
+godspeed dev
+```
+
+### gen-api-docs
 You can get OAS 3 documentation generated automatically by executing this command in your project root directory inside the dev container.
 ```
-$ godspeed gen-apiDocs
+$ godspeed gen-api-docs
                       _                                   _ 
    __ _    ___     __| |  ___   _ __     ___    ___    __| |
   / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
@@ -328,7 +344,7 @@ $ godspeed gen-apiDocs
   \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
   |___/                        |_|                          
 
-> proj_upd@1.0.0 gen-apiDocs
+> proj_upd@1.0.0 gen-api-docs
 > node ../gs_service/dist/api-specs/api-spec.js | pino-pretty
 
 [1657529346164] INFO (GS-logger/7684 on 4c20ee3c4c38): Loading events from /workspace/development/app/src/events
@@ -336,10 +352,10 @@ $ godspeed gen-apiDocs
 [1657529346289] INFO (GS-logger/7684 on 4c20ee3c4c38): /workspace/development/app/docs/api-doc.yaml file is saved!
 ```
 
-### gen-testSuite
+### gen-test-suite
 You can get test suite/postman collection generated automatically by executing this command in your project root directory inside the dev container. Now, you can import the collection in postman directly.
 ```
- godspeed gen-testSuite
+ godspeed gen-test-suite
                       _                                   _ 
    __ _    ___     __| |  ___   _ __     ___    ___    __| |
   / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
@@ -347,18 +363,18 @@ You can get test suite/postman collection generated automatically by executing t
   \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
   |___/                        |_|                          
 
-> proj_upd@1.0.0 gen-testSuite
-> npm run gen-apiDocs && mkdir -p tests && openapi2postmanv2 -s docs/api-doc.yaml -o tests/testSuite.json -p -O folderStrategy=Tags,includeAuthInfoInExample=false
+> proj_upd@1.0.0 gen-test-suite
+> npm run gen-api-docs && mkdir -p tests && openapi2postmanv2 -s docs/api-doc.yaml -o tests/test-suite.json -p -O folderStrategy=Tags,includeAuthInfoInExample=false
 
 
-> proj_upd@1.0.0 gen-apiDocs
+> proj_upd@1.0.0 gen-api-docs
 > node ../gs_service/dist/api-specs/api-spec.js | pino-pretty
 
 [1657529443249] INFO (GS-logger/8145 on 4c20ee3c4c38): Loading events from /workspace/development/app/src/events
 [1657529443273] DEBUG (GS-logger/8145 on 4c20ee3c4c38): parsing files: /workspace/development/app/src/events/call_another_workflow.yaml,/workspace/development/app/src/events/create_user_then_show_all.yaml,/workspace/development/app/src/events/cross_db_join.yaml,/workspace/development/app/src/events/document.yaml,/workspace/development/app/src/events/helloworld.yaml,/workspace/development/app/src/events/httpbin_anything_coffee.yaml,/workspace/development/app/src/events/httpbin_anything.yaml,/workspace/development/app/src/events/run_tasks_in_parallel.yaml,/workspace/development/app/src/events/sum.yaml,/workspace/development/app/src/events/switch_case.yaml
 [1657529443374] INFO (GS-logger/8145 on 4c20ee3c4c38): /workspace/development/app/docs/api-doc.yaml file is saved!
 Input file:  /workspace/development/app/docs/api-doc.yaml
-Writing to file:  true /workspace/development/app/tests/testSuite.json { result: true, output: [ { type: 'collection', data: [Object] } ] }
+Writing to file:  true /workspace/development/app/tests/test-suite.json { result: true, output: [ { type: 'collection', data: [Object] } ] }
 Conversion successful, collection written to file
 ```
 
@@ -399,7 +415,7 @@ You can run the test suite generated in above command from the following two way
   |___/                        |_|                          
 
 > proj_upd@1.0.0 test
-> newman run tests/testSuite.json
+> newman run tests/test-suite.json
 
 newman
 

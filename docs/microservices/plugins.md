@@ -7,7 +7,7 @@ title: Plugins
 
 Plugins are small js/ts functions to enhance the workflows capabilities. You can write any piece of code in the plugin and can access it inside your workflows at any time.
 
-## 9.1 Project structure
+## 11.1 Project structure
 Plugins are present in `src/plugins` directory. The default format is js/ts and you can store plugins in the nested directories also.
 ```
 .
@@ -17,7 +17,7 @@ Plugins are present in `src/plugins` directory. The default format is js/ts and 
         └── index.ts
 ```
 
-## 9.2 Sample plugins
+## 11.2 Sample plugins
 This is a sample plugins file which exports a plugin function named `randomInt`.
 ```
 export function randomInt(min: number, max: number) {

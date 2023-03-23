@@ -1,10 +1,13 @@
 ---
 sidebar_position: 7
-title: 3.6 Auto watch and build
+title: 3.5 Auto watch and build
 ---
 
 # Auto watch and build
-The framework provides auto watch/build feature to detect the changes in you project files. This feature is only applicable when you are working inside dev container.  
+The framework provides auto watch/build feature to detect the changes in you project files. This feature is only applicable when you are working inside dev container.   
+:::note
+Please make sure VS code 'Run On Save' plugin is installed in your dev container environment.
+:::
 Here is the list of files which are being watched inside the dev container.
 
 ```

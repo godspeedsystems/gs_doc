@@ -2,7 +2,7 @@
 sidebar_position: 3
 title: 3.1 Getting started
 toc_min_heading_level: 2
-toc_max_heading_level: 4
+toc_max_heading_level: 5
 ---
 
 # Getting started
@@ -20,7 +20,10 @@ You can also refer to tutorial on [Getting Started with Godspeed](https://www.yo
 
 Please ensure you have the following in your machine
 - NVM, with Node LTS installed (Currently 16+)
-- Visual Studio Code LTS, with the `Remote Containers` plugin installed. 
+- Visual Studio Code LTS, with the following plugins installed:
+  1. `Remote Containers`
+  2. `Run on Save` Refer [Run On Save](https://marketplace.visualstudio.com/items?itemName=emeraldwalk.RunOnSave)
+  3. `Godspeed Extension Pack`
 - Docker-desktop should be up and running.
   > On Linux systems, please ensure that docker compose plugin is installed. You can verify it by executing `docker compose version` command. Refer [Install Compose plugin](https://docs.docker.com/compose/install/linux/) for more information.
 - Git
@@ -43,7 +46,14 @@ Hard Disk: SSD
 npm install -g @mindgrep/godspeed
 ```
 
-#### Step 2: Create the project
+#### Step 2: Setting up a project on your local machine
+:::note
+- If you are creating a new project then follow [section 2.1](#21-create-a-new-project)   
+OR   
+- If you are setting up a project from any existing git repository then follow [section 2.2](#22-setting-up-a-project-from-an-existing-git-repository)
+:::
+
+##### 2.1 Create a new project
 ```sh
 godspeed create my_test_project
 ```
@@ -51,9 +61,19 @@ During the setup, you will be asked which datastores you need. Also whether you 
 
 > By default, `latest` version is selected for gs_service. You should select either `latest` or any highest semantic version available in the list.
 
-#### Step3: CD to your project
+##### 2.2 Setting up a project from an existing GIT repository
+Clone the git repository on your local machine. 
 ```sh
-cd my_test_project
+cd <your git repo>
+godspeed update
+```
+During the setup, you will be asked which datastores you need. Also whether you need Kafka. Say yes or no, depending on your requirements. 
+
+> By default, `latest` version is selected for gs_service. You should select either `latest` or any highest semantic version available in the list.
+
+#### Step3: cd to your project
+```sh
+cd <your project directory>
 
 ```
 

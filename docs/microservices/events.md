@@ -6,8 +6,7 @@ toc_max_heading_level: 4
 ---
 
 # Events
-
-A microservice can be configured to consume events from variety of [event sources](#51-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes
+A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes 
 - The name/topic/URL of the event
 - The event source and other information for the source (for ex. group_id in case of Kafka events)
 - The event handler workflow
@@ -16,7 +15,7 @@ A microservice can be configured to consume events from variety of [event source
 
 The response of the event is flexible for the developer to change as per the requirement.
 
-## 5.1 Event types
+## 6.1 Event types
 
 **Currently supported**
 - http.{method_type} For example, post or get
@@ -30,11 +29,11 @@ The response of the event is flexible for the developer to change as per the req
 - GraphQL
 - Websocket
 
-## 5.2 Event schema & examples for supported sources
+## 6.2 Event schema & examples for supported sources
 
 > All event declarations are stored in the src/events folder, in YAML files.
 
-### 5.2.1 JSON schema validation
+### 6.2.1 JSON schema validation
 The framework provides request and response schema validation out of the box.
 
 #### Request schema validation
@@ -79,7 +78,7 @@ responses: #Output data defined as per the OpenAPI spec
 ```
 If response schema validation fails, then status code 500 is returned.
 
-### 5.2.2 HTTP event
+### 6.2.2 HTTP event
 
 For an HTTP event, the headers, query, params and body data are captured in a standard format, and made available in the `inputs` object [for use in the workflows](#example-workflow-consuming-an-http-event).
 
@@ -189,7 +188,7 @@ For an HTTP event, the headers, query, params and body data are captured in a st
             method: publish
   ```
 
-### 5.2.3 Kafka event
+### 6.2.3 Kafka event
 
 > A kafka event is specified as `{topic_name}.{datasourceName}.{group_id}` in [the kafka event specification](#example-spec-for-kafka-event).
 

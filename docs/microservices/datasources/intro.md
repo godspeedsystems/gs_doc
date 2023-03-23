@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: 7.1 Introduction
+title: 8.1 Introduction
 ---
 
 # Datasources
@@ -8,7 +8,7 @@ Any kind of entity which provides read and write mechanism for data is considere
 
 ![datasources](/img/datasources_folder.png)
 
-### 7.1.1 Datasource types
+### 8.1.1 Datasource types
 
 **Currently supported types**
 - [API](./api)

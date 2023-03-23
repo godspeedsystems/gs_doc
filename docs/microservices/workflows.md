@@ -13,18 +13,25 @@ Workflows is where the actual computation and flow orchestration happens. The fr
 
 > Default language for transformations (coffee/js) can be configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
-### 6.1 The structure of workflows
+### 7.1 The structure of workflows
 
 A workflow has the following attributes
 - **summary** - the title
 - **description** - more details
 - **id** - Recommended for better logging visibility
+- **on_error** - Default error handling if any tasks fails. 
 - **tasks** - the tasks (workflows or sub-workflows) to be run in series (sequence, or one by one). The tasks invoke other workflows written in YAML or JS/TS. Other languages support is planned.
 
 ```yaml
 summary: Hello world
 description: Hello world example which invokes the com.gs.return workflow
 id: hello_world # needed for better logging visibility
+on_error:
+  continue: false
+  response:
+    success: false
+    code: 500
+    data: "Default error"
 tasks: # tasks to be run in sequence (default is sequence)
   - id: step1 ## id of this task. Its output will be accessible
   # to subsequent tasks at `outputs.step1_switch` location. Like in step2 below.
@@ -32,7 +39,7 @@ tasks: # tasks to be run in sequence (default is sequence)
     args: 'Hello World!' # com.gs.return takes its return value as `args`. Hence the args key.
 ```
 
-### 6.2 The tasks within workflows
+### 7.2 The tasks within workflows
 A workflow has one or more tasks associated with it.
 A task has the following attributes
 - **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#define-language-at-workflow-level).
@@ -97,22 +104,22 @@ The only exception to this is [control functions](#666-comgsseries) like series,
     retry:
       max_attempts: 5
       type: constant
-      interval: PT15M
+      interval: PT15m
   ```
 
   ```yaml
     retry:
       max_attempts: 5
       type: exponential
-      interval: PT15S
+      interval: PT15s
   ```
 
   ```yaml
     retry:
       max_attempts: 5
       type: random
-      min_interval: PT5S
-      max_interval: PT10S
+      min_interval: PT5s
+      max_interval: PT10s
   ```
 
 #### Example of multiple task with arguments
@@ -154,18 +161,18 @@ tasks: # tasks to be run in sequence (default is sequence)
         } %>
 ```
 
-### 6.3 Location and fully qualified name (id) of workflows and functions
+### 7.3 Location and fully qualified name (id) of workflows and functions
 All the workflows and functions are to be kept in the `src/functions` folder. Their directory tree path, followed by the file name becomes the workflow's fully qualified name or id, by which it can be referenced in the events or within other workflows.
 
 > The JS function shown below will be available in workflows under the F.Q.N. `com.biz.custom_function`. Similarly, `com.biz.create_hdfc_account`, `com.biz.create_parallel` etc. are accessible as handlers from within other [workflow tasks](#62-the-tasks-within-workflows) or events.
 
   ![function_folder](/img/function_folder.jpeg)
 
-### 6.4 Referencing a workflow within an event or another workflow
+### 7.4 Referencing a workflow within an event or another workflow
 A workflow task references and invokes other workflows written in either YAML or JS/TS, via the `fn` key. In future, other languages will also be supported.
 An [event definition](./events#example-spec-for-http-event) references the handler yaml workflows by their fully qualified name, via the same `fn` key.
 
-### 6.5 Use of Coffee/JS for scripting
+### 7.5 Use of Coffee/JS for scripting
 
 The framework provides coffee/js for
 
@@ -175,7 +182,7 @@ The framework provides coffee/js for
 You will find its code in <% %> within various examples in this page below.
 
 #### Define language at global level
-Default language for transformations (coffee/js) is configured in [configuration](./setup/configuration/static-vars.md/#defaultyaml)
+Default language for transformations (coffee/js) is configured in [static configuration](./setup/configuration/static-vars.md/#defaultyaml)
 
 #### Define language at workflow level
 Global configuration for language is overridden by defining specific language inside <coffee/js% %>. For example,
@@ -228,11 +235,11 @@ tasks:
         method: putObject
 ```
 
-### 6.6 Inbuilt functions
+### 7.6 Inbuilt functions
 
 The framework provides the following inbuilt functions
 
-#### 6.6.1 com.gs.http
+#### 7.6.1 com.gs.http
 
 Send HTTP events to other APIs in Axios compatible format.
 
@@ -311,7 +318,7 @@ Send HTTP events to other APIs in Axios compatible format.
 
 ```
 
-#### 6.6.2 com.gs.kafka
+#### 7.6.2 com.gs.kafka
 
 Publish events on Kafka.
 
@@ -337,7 +344,7 @@ Publish events on Kafka.
 ```
 > Refer https://kafka.js.org/docs/producing#message-structure for information on data attributes.
 
-#### 6.6.3 com.gs.datastore
+#### 7.6.3 com.gs.datastore
 
 The datastore function allows CRUD access to any supported [datastore](./datasources/datastore) in a format extending [Prisma API](http://prisma.io).
 
@@ -362,7 +369,7 @@ tasks:
 
 ```
 
-#### 6.6.4 com.gs.elasticgraph
+#### 7.6.4 com.gs.elasticgraph
 
 The elasticgraph function allows CRUD access to elasticsearch [datastore](./datasources/elasticgraph).
 
@@ -384,7 +391,7 @@ tasks:
       continue: false
 ```
 
-#### 6.6.5 com.gs.transform
+#### 7.6.5 com.gs.transform
 
 This function allows to transform data from one format to another using coffee/js scripting.
 
@@ -410,7 +417,7 @@ This function allows to transform data from one format to another using coffee/j
         data: <% outputs.step1_switch.data %>
 ```
 
-#### 6.6.6 com.gs.series
+#### 7.6.6 com.gs.series
 :::tip control flow function
 Executes the tasks in series.
 :::
@@ -440,7 +447,7 @@ By default every top level workflow executes its task in series. But when invoki
         } %>
 ```
 
-#### 6.6.7 com.gs.parallel
+#### 7.6.7 com.gs.parallel
 :::tip control flow function
 Executes the child tasks in parallel.
 :::
@@ -477,7 +484,7 @@ Syntax is same as [com.gs.series](#666-comgsseries)
         } %>
 ```
 
-#### 6.6.8 com.gs.switch
+#### 7.6.8 com.gs.switch
 :::tip control flow function
 The classic switch-case flow execution
 :::
@@ -497,7 +504,7 @@ The args of switch-flow are `value` and `cases`. `value` takes a coffee/js expre
 
 ```
 
-#### 6.6.9 com.gs.each_sequential
+#### 7.6.9 com.gs.each_sequential
 
 :::tip control flow function
 The classic for-each flow execution
@@ -558,7 +565,7 @@ on_error at loop level only gets executed when no task is successful. If even on
 ```
 
 
-#### 6.6.10 com.gs.each_parallel
+#### 7.6.10 com.gs.each_parallel
 
 The args is list of values in `value` field along with associated tasks. For each value in `value` tasks are executed in parallel. The final output each_parallel is the array of status of the last executed task of each iteration.
 
@@ -618,7 +625,7 @@ on_error at loop level only gets executed when no task is successful. If even on
       args: <% outputs.each_parallel_step1 %>
 ```
 
-#### 6.6.11 com.gs.return
+#### 7.6.11 com.gs.return
 
 :::tip return statement
 The classic return statement
@@ -636,7 +643,7 @@ It returns from the current function to the function caller. The function stops 
         <coffee% 'Hello ' + inputs.query.name %>
 ```
 
-#### 6.6.12 com.gs.log
+#### 7.6.12 com.gs.log
 
 It logs the intermediate inputs/outputs during the workflow execution in pino logging format. The args are `level` and `data`. `level` takes any value from the [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) and `data` takes a coffee/js expression to be evaluated during runtime or anything (like string, number, etc.) which you want to get logged during the workflow execution.
 
@@ -663,7 +670,7 @@ It logs the intermediate inputs/outputs during the workflow execution in pino lo
 ```
 
 
-#### 6.6.13 com.gs.dynamic_fn
+#### 7.6.13 com.gs.dynamic_fn
 
 It executes the workflow whose name is dynamically returned as the output of its task list. The tasks of this function should return a string output which will be the name of the workflow to be executed.
 
@@ -721,7 +728,7 @@ tasks:
      %>
 ```
 
-#### 6.6.14 com.gs.aws
+#### 7.6.14 com.gs.aws
 
 Interacts with AWS to use its various services and methods. `params` is the list of params to the AWS service methods. We are using AWS v3 style services.
 
@@ -744,7 +751,7 @@ tasks:
         method: putObject
 ```
 
-### 6.6.14 com.gs.redis
+#### 7.6.15 com.gs.redis
 Developer can read / write to redis datasource using standard redis client functions.
 
 ```yaml
@@ -770,7 +777,54 @@ tasks:
         key: user
 ```
 
-### 6.7 Developer written functions
+#### 7.6.16 com.gs.if, com.gs.elif, com.gs.else
+:::tip control flow function
+The classic if-else flow execution
+:::
+The args are `condition` and `tasks`. `condition` takes a coffee/js expression to be evaluated during runtime. The `tasks` can invoke another function or a workflow.
+```yaml
+summary: Returning hello world
+tasks:
+  - id: if
+    fn: com.gs.if
+    condition: <% inputs.query.status == 'Hello' %>
+    tasks:
+      - id: step1
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hello!'
+
+  - id: elif1
+    description: Return hello world
+    fn: com.gs.elif
+    condition: <% inputs.query.status == 'Hell' %>
+    tasks:
+      - id: step2
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hell!'
+
+  - id: elif2
+    description: Return hello world
+    fn: com.gs.elif
+    condition: <% inputs.query.status == 'Hel' %>
+    tasks:
+      - id: step3
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hel!'
+
+  - id: else
+    description: Return hello world
+    fn: com.gs.else
+    tasks:
+      - id: step4
+        description: Return hello world
+        fn: com.gs.return
+        args: 'Hi!'
+```
+
+### 7.7 Developer written functions
 Developer can write functions in JS/TS and [kept in src/functions folder](#63-location-and-fully-qualified-name-id-of-workflows-and-functions) at a path, which becomes its fully qualified name. Other languages support is planned. Once it is written, the function can be invoked from within any workflow or sub-workflow, with its fully qualified name and argument structure.
 
 ![function_folder](/img/function_folder.jpeg)
@@ -787,10 +841,10 @@ Developer can write functions in JS/TS and [kept in src/functions folder](#63-lo
         arg2: 'hello again'
 ```
 
-### 6.8 Headers defined at workflow level
+### 7.8 Headers defined at workflow level
 Headers defined at workflow level are applicable for a single workflow only. You can find the [example usage here](workflows.md#62-the-tasks-within-workflows)
 
-### 6.9 File Upload feature
+### 7.9 File Upload feature
 The framework provides file upload feature to upload files. Here is the sample event and workflow spec to upload any file.
 
 **Event Spec**
@@ -813,8 +867,7 @@ The framework provides file upload feature to upload files. Here is the sample e
                   type: string
                   format: binary
 ```
-
-**Workflow spec**
+#### 7.9.1 Workflow spec to upload files with same file key
 ```yaml
   summary: upload file
   id: upload_file
@@ -837,4 +890,42 @@ The framework provides file upload feature to upload files. Here is the sample e
         interval: PT15M
 ```
 
+:::tip Note
+If file_key is same for all the files then you can use above workflow DSL. In case you have different file_keys for multiple files then you can directly use `<% inputs.file_obj %>` as given in the below section 6.9.2
+:::
 
+#### 7.9.2 Workflow spec to upload multiple files with different file keys
+```yaml
+summary: upload multiple documents
+tasks:
+    - id: upload_multiple_files_step1
+      description: upload multiple documents
+      fn: com.gs.http
+      args:
+        datasource: httpbin
+        data: <% inputs.body %>
+        files: <% inputs.file_obj %>
+        config:
+          url : /anything
+          method: post
+```
+#### 7.9.3 Workflow spec to upload file directly from URL
+```yaml
+summary: upload document from url
+tasks:
+  - id: upload_url_step1
+    description: upload document from url
+    fn: com.gs.http
+    args:
+      datasource: httpbin
+      data: <% inputs.body %>
+      files:
+        sample:
+          url: https://s3.ap-south-1.amazonaws.com/sample.pdf
+          method: get
+      config:
+        url : /anything
+        method: post
+        headers: 
+          Content-Type: 'multipart/form-data'
+```

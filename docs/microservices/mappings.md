@@ -7,7 +7,7 @@ title: Mappings
 
 Mappings is a global object which will be available in your microservice. You can define anything in the mappings i.e. key/value pair map, array, etc. You can access these mappings inside your workflows at any time.
 
-## 8.1 Project structure
+## 10.1 Project structure
 Mappings are present in `src/mappings` directory. The default format is yaml and you can store mappings in the nested directories also. The nested directories are also accessible in the same `mappings` object.
 ```
 .
@@ -17,7 +17,7 @@ Mappings are present in `src/mappings` directory. The default format is yaml and
         └── index.yaml
 ```
 
-## 8.2 Sample mappings
+## 10.2 Sample mappings
 This is a sample mapping which is accessible in the workflows inside mappings object using `mappings.Gender`.
 ```
 Gender:
