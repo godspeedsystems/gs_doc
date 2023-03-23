@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 ---
 
 # Events
-A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes 
+A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes
 - The name/topic/URL of the event
 - The event source and other information for the source (for ex. group_id in case of Kafka events)
 - The event handler workflow
@@ -265,15 +265,45 @@ export const Highlight = ({children, color}) => (
 
 Prerequisite:
 1. For using `salesforce`, You need to enable `redis` datasource. You can enable `redis`while creating a new `godspeed` project or run `godspeed update` on an existing project.
-2. in `config/default.yaml`add a property as `caching: redis`.
+2. in `config/default.yaml`add a property as `caching: redis`. Where `redis` is datasource name. If your `redis` type datasource name is `redis1.yaml`, then `caching: redis1` will be the correct configuration.
 
 Example of `salesforce`datasource, eg: `src/datasources/salaeforce.yaml`
 ```yaml
 type: salesforce
-username: <username>
-password: <password>
 connection:
-  loginUrl: <login url>
+    # Please Check  https:#jsforce.github.io/document/
+
+    #1. Username and Password Login
+    # you can change loginUrl to connect to sandbox or prerelease env.
+    # loginUrl : 'https:#test.salesforce.com'
+
+    #2. Username and Password Login (OAuth2 Resource Owner Password Credential)
+    oauth2:
+        # you can change loginUrl to connect to sandbox or prerelease env.
+        # loginUrl : 'https:#test.salesforce.com',
+        clientId : '<your Salesforce OAuth2 client ID is here>'
+        clientSecret : '<your Salesforce OAuth2 client secret is here>'
+        redirectUri : '<callback URI is here>'
+
+    #3. Session ID
+    serverUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    sessionId : '<your Salesforce session ID is here>'
+
+    #4. Access Token
+    instanceUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    accessToken : '<your Salesforrce OAuth2 access token is here>'
+
+    #5. Access Token with Refresh Token
+    oauth2:
+        clientId : '<your Salesforce OAuth2 client ID is here>'
+        clientSecret : '<your Salesforce OAuth2 client secret is here>'
+        redirectUri : '<your Salesforce OAuth2 redirect URI is here>'
+    instanceUrl : '<your Salesforce server URL (e.g. https:#na1.salesforce.com) is here>'
+    accessToken : '<your Salesforrce OAuth2 access token is here>'
+    refreshToken : '<your Salesforce OAuth2 refresh token is here>'
+
+username: <% config.salesforce_username %>
+password: <% config.salesforce_password %>
 ```
 
 
