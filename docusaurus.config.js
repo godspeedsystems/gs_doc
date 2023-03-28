@@ -23,6 +23,15 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js')
         },
+        blog: {
+          path: 'blog',
+          blogTitle: 'Learning Modules',
+          blogSidebarTitle: 'Learning Modules',
+          blogSidebarCount: 'ALL',
+          routeBasePath: 'tutorial',
+          include: ['**/*.{md,mdx}'],
+          sortPosts: 'ascending'
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css')
         }
@@ -41,6 +50,7 @@ const config = {
             position: 'left',
             label: 'Documentation'
           },
+          { to: 'tutorial', label: 'Learning Modules', position: 'left' },
         ],
       },
       footer: {
