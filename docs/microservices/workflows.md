@@ -534,10 +534,10 @@ You can add on_error at task level as well as at each_sequential loop level.
 
 See the below example,
 - If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the loop else it continues the next tasks.
-- If no task is successful in loop then the control goes to on_error defined at loop level.
+- If all the tasks are failed in loop then the control goes to on_error defined at loop level.
 
 :::note
-on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
+on_error at loop level only gets executed when all the tasks are failed. If even one task gets successful then it won't get executed.
 :::
 
 ```yaml
@@ -591,11 +591,11 @@ The args is list of values in `value` field along with associated tasks. For eac
 You can add on_error at task level as well as at each_parallel loop level.
 
 See the below example,
-- If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the execution for the next tasks in `tasks` for current `task_value` in `value` list. For exmaple, in the below workflow, if `each_task1` step of task_value 1 gets failed then `each_task2` will not get executed on continue false.
-- If no task is successful in loop then the control goes to on_error defined at loop level.
+- If a task gets failed for any task_value then control goes to on_error defined at task level. On continue false, it breaks the execution for the next tasks in `tasks` for current `task_value` in `value` list. For example, in the below workflow, if `each_task1` step of task_value 1 gets failed then `each_task2` will not get executed on continue false.
+- If all the tasks are failed in loop then the control goes to on_error defined at loop level.
 
 :::note
-on_error at loop level only gets executed when no task is successful. If even one task gets successful then it won't get executed.
+on_error at loop level only gets executed when all the tasks are failed. If even one task gets successful then it won't get executed.
 :::
 
 ```yaml
