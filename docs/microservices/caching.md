@@ -31,7 +31,7 @@ Here is the caching spec to write in the workflow.
 ```yaml
 caching:
     key: <key name which is used to cache result in redis>
-    invalidate: <key name which we want to delete/remove from cache e.g. this field can be used to invalidate the cache of some other task>
+    invalidate: <used to invalidate the cache of some other task. Key name which we want to delete/remove from cache e.g. this field can be used in CRUD types task. While delete operation, invalidate the cache of read or update task>
     cache_on_failure: <true|false, whether you want to cache the failure result or not. By default, it is false>
     expires: <timer in seconds, until the cached result is valid>
     force: <true|false, force flag to specify not to use cache, always trigger task's function. Set it to true if you don't want to use cache>
