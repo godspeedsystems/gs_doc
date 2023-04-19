@@ -136,6 +136,7 @@ title: Table of Contents
 [10. Mappings](./microservices/mappings.md)   
     [10.1 Project structure](./microservices/mappings.md/#101-project-structure)   
     [10.2 Sample mappings](./microservices/mappings.md/#102-sample-mappings)   
+    [10.3 Use mappings constants in other mapping files](./microservices/mappings.md/#103-use-mappings-constants-in-other-mapping-files)   
 
 [11. Plugins](./microservices/plugins.md)   
     [11.1 Project structure](./microservices/plugins.md/#111-project-structure)   

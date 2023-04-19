@@ -15,18 +15,29 @@ Mappings are present in `src/mappings` directory. The default format is yaml and
 └── src
     └── mappings
         └── index.yaml
+        └── generate.yaml
 ```
 
 ## 10.2 Sample mappings
-This is a sample mapping which is accessible in the workflows inside mappings object using `mappings.Gender`.
-```
+This is a sample mapping which is accessible in the workflows inside mappings object using `mappings.Gender` and `mappings.generate.genId`   
+File `index.yaml`:
+```yaml
 Gender:
   Male: M
   Female: F
   Others: O
 ```
 
-You can use `mappings.Gender` in your workflows as given below:
+File `generate.yaml`:
+```yaml
+genId: 12345
+```
+:::tip Note
+If the file name is index.yaml then its content is available directly at global level i.e. you don't need to write index explicitly while accessing the mappings object like `mappings.Gender`.    
+However, for other file names you need to mention the file name while accessing the mappings object like `mappings.generate.genId`
+:::
+
+Smaple workflow accessing mappings object:
 ```
   - id: httpbinCof_step1
     description: Hit http bin with some dummy data. It will send back same as response
@@ -37,7 +48,36 @@ You can use `mappings.Gender` in your workflows as given below:
       data:
         personal_email_id: 'ala.eforwich@email.com'
         gender: <% mappings.Gender[inputs.body.Gender] %>
+        id:  <% mappings.generate.genId %>
       config:
         url : /anything
         method: post
+```
+
+## 10.3 Use mappings constants in other mapping files
+You can use mapping constants in other mapping files using coffee/js scripting.
+
+For example, you have mapping files `index.yaml`, `relations.json` and `reference.yaml`. Use the mappings from first two files as reference in the third file as follows:   
+ 
+File `index.yaml`:
+```yaml
+Gender:
+  Male: M
+  Female: F
+  Others: O
+```
+
+File `relations.json`:
+```json
+{
+    "id": 1,
+    "title": "Hello World",
+    "completed": false
+}
+```
+
+File `reference.yaml`:
+```yaml
+NewGender: <% mappings.Gender.Others %>
+title:  <% mappings.relations.title %>
 ```
