@@ -134,7 +134,7 @@ godspeed gen-crud-api
 ```
 
 ## 8.3.5 Sample datastore CRUD task
-Please find an [example here](../workflows#663-comgsdatastore)
+Please find an [example here](../workflows#763-comgsdatastore)
 
 ## 8.3.6 Prisma encryption of fields
 You can apply encryption on `String` type fields in Prisma. Be default, the encryption algorithm used is AES-GCM with 256 bit keys.  
