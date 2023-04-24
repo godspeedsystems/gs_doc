@@ -114,13 +114,18 @@ const sidebars = {
     },
     {
       type: "doc",
-      label: "14. Roadmap",
+      label: "14. Custom Middleware",
+      id: "microservices/custom-middleware",
+    },
+    {
+      type: "doc",
+      label: "15. Roadmap",
       id: "roadmap",
     },
 
     {
       type: "doc",
-      label: "15. FAQ",
+      label: "16. FAQ",
       id: "faq",
     },
   ],
