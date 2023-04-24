@@ -13,7 +13,7 @@ title: About Godspeed
 **Godspeed is aimed at empowering teams to develop, maintain and observe microservices based backends, with high velocity, scalability, quality and performance.
 ** We want development (and hence also QA) teams to bypass all the repeatable and reusable work involved in building modern distributed backends with domain driven design, multi-tenancy, microservices and serverless functions. We want the developers to be able to speedily develop microservices in days, instead of months.
 
-For the same, we are trying to provide everything that a team needs to create and operate modern microservices. It will be configuration/templating driven, plug & play, extensible by nature and cloud independent. There will be no vendor lock-in, either with Mindgrep or any vendor used. It will give developers choice and control over the kind of tools, DBs and cloud providers they wish to use, while following standards and unified interfaces.
+For the same, we are trying to provide everything that a team needs to create and operate modern microservices. It will be configuration/templating driven, plug & play, extensible by nature and cloud independent. There will be no vendor lock-in, either with Godspeed or any vendor used. It will give developers choice and control over the kind of tools, DBs and cloud providers they wish to use, while following standards and unified interfaces.
 
 This framework is being systematically developed by Mindgrep over the last years, across various projects by extracting abstractions and reusable components. It is actively being customized/expanded/improved with new adaptations.
 

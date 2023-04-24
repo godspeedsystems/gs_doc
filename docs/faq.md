@@ -3,7 +3,7 @@ sidebar_position: 2
 title: COMMON FAQs
 ---
 
-<!-- # MINDGREP
+<!-- # GODSPEED
 
 #### CONSULTING AND GODSPEED TECH LANDSCAPE -->
 
@@ -39,7 +39,7 @@ Code and image vulnerability scans are also followed to ensure security within t
 
 ## 16.3 How can we adopt new versions of used technology easily and fast? For example, the new Postgres release.
 
-- Many times, the upgrades work with a simple update in package.json and [updating the project](./microservices/introduction-cli.md/#update). 
+- Many times, the upgrades work with a simple update in package.json and [updating the project](./microservices/introduction-cli.md/#update).
 
 - If at all a core framework update is needed, it is done as per the SLA. Security patches, fixes or feature inclusion will be part of the SLA itself.
 
@@ -111,7 +111,7 @@ It shall be done in two ways.
 
 ## 16.11 How can we start adopting the Godspeed framework?
 
-- Start by creating a new microservice in [10 minutes](./microservices/setup/getting-started.md), referring our docs. 
+- Start by creating a new microservice in [10 minutes](./microservices/setup/getting-started.md), referring our docs.
 - Migration of existing microservices or monoliths:
     - Generate CRUD APIs and workflows out of the box, by introspecting the database of an existing app, via the CLI. Then start customizing and using it as per your need.
     - If you have existing Open API spec for a service, then you can generate the Godspeed event schema out of the box. (Coming soon)
@@ -120,9 +120,9 @@ It shall be done in two ways.
 
 ## 16.12 How to move out of the Godspeed framework? Can we have a two door exit? I.e. Can we move out of technology and data both?
 
-It is possible to opt out of the Godspeed framework without any kind of lock-in in which case all the microservices specific to the client can be developed using some other technology stack. The DBs can be self managed. 
+It is possible to opt out of the Godspeed framework without any kind of lock-in in which case all the microservices specific to the client can be developed using some other technology stack. The DBs can be self managed.
 
-The data will anyway be hosted on the client’s premise/cloud or its vendor’s cloud. The control of the data is subject to the client’s agreement with their respective cloud vendor, whose hosted database services are being used. But if the client uses self managed DBs, then they are fully in control of their data. This has got nothing to do with Godspeed. The framework comes with no lock-in of any kind and will never do so, as part of our philosophy. 
+The data will anyway be hosted on the client’s premise/cloud or its vendor’s cloud. The control of the data is subject to the client’s agreement with their respective cloud vendor, whose hosted database services are being used. But if the client uses self managed DBs, then they are fully in control of their data. This has got nothing to do with Godspeed. The framework comes with no lock-in of any kind and will never do so, as part of our philosophy.
 
 ---
 

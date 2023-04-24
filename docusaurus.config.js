@@ -55,7 +55,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} Mindgrep Technologies Pvt Ltd.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Godspeed Pte Ltd.`,
       },
       prism: {
         theme: lightCodeTheme,

@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Tech Stack
 ---
 
-# Mindgrep
+# Godspeed
 
 <!-- <style>
 .heatMap {

@@ -11,7 +11,7 @@ The developer will need to provide abstracted, templated configurations for all 
 
 - Crossplane
 - ArgoCD (delivery)
-- Linkerd (service mesh) 
+- Linkerd (service mesh)
 - OpenTelemetry (for standardized tracing and monitoring via Jaeger and Prometheus)
 - Elasticsearch/Kibana /Fluentd (Log collection, transformation, dashboard, alerts)
 - Jaeger/Elasticsearch (Tracing)
@@ -22,7 +22,7 @@ The developer will need to provide abstracted, templated configurations for all 
 
 - ### Infrastructure as code
 
-We will use declarative YAML configuration for Crossplane. for seamless integration with CI/CD pipelines to have a single source for infra configuration. 
+We will use declarative YAML configuration for Crossplane. for seamless integration with CI/CD pipelines to have a single source for infra configuration.
 
 - ### Cloud federation & vendor independence
 
@@ -54,7 +54,7 @@ The stack for observability will be provided out of the box, with certain functi
 
    4. #### Alerting
 
-    Grafana can be used to configure alerts based on the monitored metrics. 
+    Grafana can be used to configure alerts based on the monitored metrics.
 
 - ### Authentication
 
@@ -72,8 +72,8 @@ Follwoing dashboards will be available:
  - ### Service & function dashboard:
    All the services will be managed using OpenFAAS which provides an infra agnostic way of deploying services and functions using Docker over Kubernetes.
 
- - ### Data dashboard: 
-  It will allow the admins or team to search, view and edit data in the DB of any microservice. 
+ - ### Data dashboard:
+  It will allow the admins or team to search, view and edit data in the DB of any microservice.
 
  - ### Monitoring dashboard:
    It will be used to monitor the state of the live production environment. We plan to use Grafana for the same.
@@ -82,7 +82,7 @@ Follwoing dashboards will be available:
    Monitor the workflows running or erroring out in the system. For example, ETLs, CI/CD, scheduled jobs, triggered workflows. This will be provided by the tool used underneath.For example, ARGO workflow.
 
  - ### Analytics dashboard:
-   A dashboard to view & download statistics, graphs and reports will be available. Also other dashboards available in open source can be adopted to work with the same data. 
+   A dashboard to view & download statistics, graphs and reports will be available. Also other dashboards available in open source can be adopted to work with the same data.
 
 
 
@@ -96,7 +96,7 @@ Follwoing dashboards will be available:
 ## A SAMPLE SETUP
 
 
-IMPORTANT NOTE - While Mindgrep is providing some standard tools as part of the platform, developers can integrate other tools to cover the same functionality as per the defined API contracts. Because we are using standard protocols like CloudEvents, OpenTelemetry, unified CRUD API, they can integrate any database, cache, message bus, APM/BPM tools, as long as the same API contract is maintained. Most of the tools mentioned below are replaceable as a platform goal. The only exceptions will be tools like Crossplane & Nodejs which are very fundamental to our platform and microservice framework respectively.
+IMPORTANT NOTE - While Godspeed is providing some standard tools as part of the platform, developers can integrate other tools to cover the same functionality as per the defined API contracts. Because we are using standard protocols like CloudEvents, OpenTelemetry, unified CRUD API, they can integrate any database, cache, message bus, APM/BPM tools, as long as the same API contract is maintained. Most of the tools mentioned below are replaceable as a platform goal. The only exceptions will be tools like Crossplane & Nodejs which are very fundamental to our platform and microservice framework respectively.
 
 ![snowburg](/img/es1.PNG)
 
