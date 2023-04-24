@@ -1,9 +1,9 @@
 ---
 sidebar_position: 3
 title: Custom Middleware
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
-
-# Custom Middleware
 
 Godspeed provides usage of application level middleware functions. You can add any custom middleware functions which will have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle.
 

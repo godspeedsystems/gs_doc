@@ -176,7 +176,7 @@ title: Table of Contents
 [13.5 Observability Stack](./telemetry/intro.md/#135-observability-stack)   
 [13.6 Recommended model for telemetry signals](./telemetry/intro.md/#136-recommended-model-for-telemetry-signals)   
 
-[14. Custom Middleware](./microservices/custom-middleware.md/#custom-middleware)   
+[14. Custom Middleware](./microservices/custom-middleware.md/)   
     [14.1 How to add custom middleware in Godspeed](./microservices/custom-middleware.md/#141-how-to-add-custom-middleware-in-godspeed)   
 
 [15. Roadmap](roadmap.md)   
