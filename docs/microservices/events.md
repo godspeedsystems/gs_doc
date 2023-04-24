@@ -21,6 +21,7 @@ The response of the event is flexible for the developer to change as per the req
 - http.{method_type} For example, post or get
 - Kafka
 - salesforce
+- cron
 
 **Planned**
 - Webhook
@@ -257,7 +258,7 @@ export const Highlight = ({children, color}) => (
   </span>
 );-->
 
-### Salesforce event
+### 6.2.4 Salesforce event
 > A salesforce event is specified as `{topic_name}.salesforce.{datasource_name}`
 
 `topic_name`is salaesforce event topic
@@ -268,6 +269,7 @@ Prerequisite:
 2. in `config/default.yaml`add a property as `caching: redis`. Where `redis` is datasource name. If your `redis` type datasource name is `redis1.yaml`, then `caching: redis1` will be the correct configuration.
 
 Example of `salesforce`datasource, eg: `src/datasources/salaeforce.yaml`
+
 ```yaml
 type: salesforce
 connection:
@@ -311,7 +313,7 @@ Example of `salesforce` event:
 ```yaml
 {topic_name}.salesforce.{datasourceName}
 id: /salesforcetopic
-fn: com.jfs.handle_salesforce_events
+fn: com.jfs.handle_title_events
 on_validation_error: com.jfs.handle_validation_error
 body:
   description: The body of the query
@@ -324,3 +326,29 @@ body:
             type: string
         required: [name]
 ```
+
+### 6.2.5 CRON event
+> A CRON event will allow you to run events at scheduled time / interval. A CRON event is specified as `{schedule_expression.cron.timezone}`
+
+ - `schedule_expression` You can refer [crontab](https://crontab.guru/) to generate schedule.
+ - `timezone` Refer [this wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) to get the timezone format.
+
+ Here is an example of a CRON event which run every minute.
+
+ ```yaml title="every_minute_cron.yaml"
+ "* * * * *.cron.Asia/Kolkata":
+  fn: com.every_minute
+ ```
+
+ and corresponding function is
+
+ ```yaml title="com/every_minute.yaml"
+ summary: this workflow will be running every minute
+tasks:
+  - id: print
+    description: print every
+    fn: com.gs.log
+    args:
+      level: info
+      data: HELLO from CRON
+ ```
