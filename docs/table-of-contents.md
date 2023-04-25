@@ -141,6 +141,7 @@ title: Table of Contents
 [11. Plugins](./microservices/plugins.md)   
     [11.1 Project structure](./microservices/plugins.md/#111-project-structure)   
     [11.2 Sample plugins](./microservices/plugins.md/#112-sample-plugins)   
+    [11.3 Sample workflow using plugins](./microservices/plugins.md/#113-sample-workflow-using-plugins)   
 
 [12. Authentication & Authorization](./microservices/authen-author.md)   
     [12.1 Authentication](./microservices/authen-author.md/#121-authentication)   

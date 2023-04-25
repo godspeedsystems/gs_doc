@@ -20,16 +20,14 @@ Mappings are present in `src/mappings` directory. The default format is yaml and
 
 ## 10.2 Sample mappings
 This is a sample mapping which is accessible in the workflows inside mappings object using `mappings.Gender` and `mappings.generate.genId`   
-File `index.yaml`:
-```yaml
+```yaml title="index.yaml"
 Gender:
   Male: M
   Female: F
   Others: O
 ```
 
-File `generate.yaml`:
-```yaml
+```yaml title="generate.yaml"
 genId: 12345
 ```
 :::tip Note
@@ -59,16 +57,14 @@ You can use mapping constants in other mapping files using coffee/js scripting.
 
 For example, you have mapping files `index.yaml`, `relations.json` and `reference.yaml`. Use the mappings from first two files as reference in the third file as follows:   
  
-File `index.yaml`:
-```yaml
+```yaml title="index.yaml"
 Gender:
   Male: M
   Female: F
   Others: O
 ```
 
-File `relations.json`:
-```json
+```json title="relations.json"
 {
     "id": 1,
     "title": "Hello World",
@@ -76,8 +72,7 @@ File `relations.json`:
 }
 ```
 
-File `reference.yaml`:
-```yaml
+```yaml title="reference.yaml"
 NewGender: <% mappings.Gender.Others %>
 title:  <% mappings.relations.title %>
 ```
