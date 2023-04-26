@@ -343,12 +343,12 @@ body:
  and corresponding function is
 
  ```yaml title="com/every_minute.yaml"
- summary: this workflow will be running every minute
-tasks:
-  - id: print
-    description: print every
-    fn: com.gs.log
-    args:
-      level: info
-      data: HELLO from CRON
+  summary: this workflow will be running every minute
+  tasks:
+    - id: print
+      description: print every
+      fn: com.gs.log
+      args:
+        level: info
+        data: HELLO from CRON
  ```
