@@ -121,6 +121,17 @@ The only exception to this is [control functions](#666-comgsseries) like series,
       min_interval: PT5s
       max_interval: PT10s
   ```
+### The output of task & external function
+The output of every task and function can be expected in the following format within other task
+- **success**: true/false. Default value is `true`
+- **code**:  standard HTTP response codes[1xx, 2xx, 3xx, 4xx, 5xx] Default value is 200
+- **message**: any string explaining the response. Optional
+- **data**: the actual data returned from the task/function. Optional
+
+Note
+- If a task or external JS function returns a value which is not in this JSON structure then framework assumes the output is the data itself & wraps it in this JSON structure with default values.
+- The output of any previously executed task is accesible in following manner `outputs.step1.code`
+
 
 #### Example of multiple task with arguments
 
@@ -156,7 +167,7 @@ tasks: # tasks to be run in sequence (default is sequence)
     fn: com.gs.transform
     args: | #coffee for dyanmic evaluation. Wrapped in <% %>
         <coffee% {
-          code: 200,
+          code: 200,    
           data: outputs['1st']
         } %>
 ```

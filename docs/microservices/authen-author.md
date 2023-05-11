@@ -16,8 +16,8 @@ Authorization: Bearer <token>
 You can do JWT configuration in [Configuration/Environment variables](./setup/configuration/env-vars.md/#custom-environment-variablesyaml). For example, this is the sample configuration:
 ```
 jwt:
-  issuer: JWT_ISS
-  audience: JWT_AUD
+  iss: JWT_ISS #issuer
+  aud: JWT_AUD #audience
   secretOrKey: JWT_SECRET
 ```
 
