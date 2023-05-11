@@ -10,7 +10,7 @@ title: Roadmap
 ### Features [Core Framework]
 
 1. Generative AI based microservice code generation [In progress - Q1]
-2. Generative AI based app generation [Q-2]issuer
+2. Generative AI based app generation [Q-2]
 3. Support to define and handle custom event sources [Done - Q1]  
 4. Adding capability for defining reusable modules and use them in projects [Q-2]
 5. Support for Java, Golang, Python{on prioritisation by partners} [Q-2]
