@@ -123,11 +123,11 @@ const sidebars = {
       id: "roadmap",
     },
 
-    {
-      type: "doc",
-      label: "16. FAQ",
-      id: "faq",
-    },
+    // {
+    //   type: "doc",
+    //   label: "16. FAQ",
+    //   id: "faq",
+    // },
   ],
 };
 
