@@ -62,10 +62,37 @@ Let's assume you have setup SigNoz as the exporter then you will see something l
 The minimum level set to log above this level. Please refer [Pino log levels](https://github.com/pinojs/pino/blob/master/docs/api.md#options) for more information. Set `log_level` in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml)
 
 #### 13.3.3.2 Log fields masking
-If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
+If you want to hide sensitive information in logs then define the fields which need to be hidden in `redact` feature in [Static variables](../microservices/setup/configuration/static-vars.md#defaultyaml). Redaction path syntax is standard JSON object lookup.   
+For example, 
+```yaml title="config/default.yaml"
+redact: ['a.b.c', 'a.b.*', 'req.headers']
+```
+By specifying the above redaction paths, the objects which have these properties will be masked in the logs.
+
+:::note
+Please refer [Pino redaction paths](https://github.com/pinojs/pino/blob/master/docs/redaction.md#paths) for more information.
+:::
+
+** Generic convention **   
+If you want to mask any field in the objects in all deep nesting levels then you can use `**.<field_name>` convention instead of specifying each path explicitly.
+For example, 
+```yaml title="config/default.yaml"
+redact: ['**.mobileNumber'] 
+```
+By specifying the above redaction path, `mobileNumber` field will be redacted in logs in all nesting levels.   
+   
+Sample masked logs:
+```
+{"Body":"args after evaluation: step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387896000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
+{"Body":"Executing handler step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387896000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
+{"Body":"Result of _executeFn step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387897000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
+{"Body":"Result of _executeFn add_mobileNumber_transformation_step2 {\"request_data\":{\"payload\":{\"data\":{\"body\":{\"mobileNumber\":\"*****\"}}}}}","Timestamp":"1684221387897000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"add_mobileNumber_transformation_step2"}}
+{"Body":"this.id: hello_world, output: {\"request_data\":{\"payload\":{\"data\":{\"body\":{\"mobileNumber\":\"*****\"}}}}}","Timestamp":"1684221387898000000","SeverityNumber":5,"SeverityText":"DEBUG","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"hello_world"}}
+```
+
 
 #### 13.3.3.3 Log format
-By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/) when you deploy your service anywhere (UAT, Prod, K8s, etc.) except inside the vscode remote containers/dev containers. 
+By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/) when you deploy your service 
 ```
 {"Body":"adding body schema for /upload_doc.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
 {"Body":"adding body schema for /upload_multiple_docs.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
@@ -79,8 +106,12 @@ By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.i
 ```   
    
 ** Dev Format **
-The `dev format` is basically a transformation of OTEL log format to increase readability for developers.   
-Please note that the default logging format inside vscode dev container on your local machine is `dev format` as given below:
+The `dev format` is basically a transformation of OTEL log format to increase readability for developers. To set the `dev format` logs, you need to set NODE_ENV value as `dev` inside your environment.
+```
+export NODE_ENV=dev
+```
+
+The format is as below:
 ```
 datetime [SeverityText] TraceId SpanId {Attributes} Body
 ```
@@ -100,12 +131,9 @@ Sample Logs:
 16/02/23, 12:44:44 pm [INFO] f9f61d4940e3a8e5be8bc80faf6e36a2 96e746f5cbbee1ac {"event":"/test/:id.http.post","workflow_name":"com.jfs.test","task_id":""} Validate Response JSON Schema Success
 ```
 :::note
-If you want to change the OTEL format to `dev format`, then set the environment variable `NODE_ENV` to `dev` in your environment as given below. The default value of `NODE_ENV` is `production`.  
+If you set any other value in NODE_ENV then the logs are dumped in OTEL format by default.
 :::
 
-```
-export NODE_ENV=dev
-```
 
 #### 13.3.3.4 Add custom identifiers in logs
 You can add any custom identifier in the logging whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers.   
