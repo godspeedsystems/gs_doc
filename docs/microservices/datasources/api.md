@@ -14,8 +14,8 @@ The API datasource acts as a wrapper around third party APIs. It helps interact 
 If the OpenAPI spec of the API to consume/connect with is available at a URL, then one can simply refer the url here itself.
 
 ```yaml
-idfc:
-  schema: https://raw.githubusercontent.com/Kong/swagger-ui-kong-theme/main/demo/public/specs/httpbin.yaml
+type: api
+schema: https://raw.githubusercontent.com/Kong/swagger-ui-kong-theme/main/demo/public/specs/httpbin.yaml
 ```
 
 ### 8.2.2 API datasource schema defined within the yaml file
