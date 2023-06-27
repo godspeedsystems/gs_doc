@@ -352,16 +352,10 @@ $ godspeed gen-api-docs
 [1657529346289] INFO (GS-logger/7684 on 4c20ee3c4c38): /workspace/development/app/docs/api-doc.yaml file is saved!
 ```
 ### Postman collection
-step1: After executing $ godspeed gen-api-docs download the generated file.
-
-![Screenshot from 2023-06-27 14-32-27](https://github.com/godspeedsystems/gs_doc/assets/137773937/b0b57c5f-5a80-4e43-ad7c-0b9a606b4fc7)
-
-right click on api-doc.yaml file and download it
+step1: After executing $ godspeed gen-api-docs
+go to docs under app and right click on api-doc.yaml file and download it
 
 step2: In postman import the downloaded file in collection(collection->import->files->*select-file.yaml*-> import ) and test your api
-
-
-
 
 
 ### gen-test-suite
