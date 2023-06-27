@@ -22,7 +22,7 @@ You can define your datasource in yaml file inside `src/datasources` directory. 
     └── mappings
 ```
 
-> The three keys in yaml `type`, `loadFn` and `executeFn` are mandatory to define any new datasource which is not provided by the framework as core datasources. You can define other key/vaue pairs as per your need.
+> The three keys in yaml `type`, `loadFn` and `executeFn` are mandatory to define any new datasource which is not provided by the framework as core datasources. You can define other key/value pairs as per your need.
 
 Below is a sample of newDatasource.yaml
 ```
