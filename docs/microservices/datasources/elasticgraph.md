@@ -227,6 +227,12 @@ DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/
 ```
 above command is specifically designed for the initial mapping creation and may lead to data loss if applied to an existing index.
 
+**Configuration: Switching to OpenSearch in Elasticgraph**
+Elasticgraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure Elasticgraph to use OpenSearch instead of Elasticsearch, add the following line to `.env` file:
+
+```bash
+ds=aws
+```
 
 
 #### Run
