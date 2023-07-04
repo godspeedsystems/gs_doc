@@ -200,23 +200,34 @@ $ ln -s ../../elasticgraph elasticgraph
 
 _Note_: `../../elasticgraph` is the path to where you have cloned `elasticgraph` repository, so please make change accordingly.
 
-**Creating the schema in Elasticsearch**
+**Creating the mapping in Elasticsearch**
 
-Run the following command from shell
-
-```bash
-$ cd <path-to-elasticgraph-repo>
- DEBUG=*,-elasticsearch node lib/mappingGenerator/esMappingGenerator.js ../sample_project/config/backend
-```
-
-**Warning**: If you do not pass any types, then a fresh empty index will be created for all the entities in your model
-
-Run the following comand
+To create the mapping for the first time, run the following command:
 
 ```bash
 $ cd <path-to-elasticgraph-repo>
- DEBUG=*,-elasticsearch node lib/mappingGenerator/esMappingGenerator.js ../sample_project/config/backend
+
+ DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all init
+
 ```
+
+**Reindexing after Mapping Changes**
+
+If we have made any changes to the mapping, such as adding new fields, we will need to reindex our data to apply the changes to the existing documents. To reindex in Elasticsearch,run the following command:
+```bash
+$ cd <path-to-elasticgraph-repo>
+DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all
+
+```
+**Warning**: 
+
+If there are existing data indexed in Elasticsearch and we want to make changes to the mapping, such as adding new fields, it is not recommended to use the command used for creating the mapping for the first time
+```bash
+DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all init
+```
+above command is specifically designed for the initial mapping creation and may lead to data loss if applied to an existing index.
+
+
 
 #### Run
 
