@@ -57,8 +57,8 @@ Sample strucutre of config files under `schema_backend` path.
 │       ├── aggregation.toml
 │       ├── dependencies.toml
 │       ├── entities
-│       │   ├── credit_card.toml
-│       │   └── user.toml
+│       │   ├── reconciled.toml
+│       │   └── auth_user.toml
 │       ├── entitiesInfo.toml
 │       ├── relationships.txt
 │       ├── suggestions.toml
@@ -75,8 +75,8 @@ Sample strucutre of config files under `schema_backend` path.
         ├── aggregation.toml
         ├── dependencies.toml
         ├── entities
-        │   ├── credit_card.toml
-        │   └── user.toml
+        │   ├── reconciled.toml
+        │   └── auth_user.toml
         ├── entitiesInfo.toml
         ├── relationships.txt
         ├── suggestions.toml
@@ -199,7 +199,9 @@ $ ln -s ../../elasticgraph elasticgraph
 ```
 
 _Note_: `../../elasticgraph` is the path to where you have cloned `elasticgraph` repository, so please make change accordingly.
+**Note**
 
+To run these commands, you will need to have the ElasticGraph source code. Navigate to the root directory of ElasticGraph and execute the following command.
 **Creating the mapping in Elasticsearch**
 
 To create the mapping for the first time, run the following command:
@@ -229,12 +231,76 @@ above command is specifically designed for the initial mapping creation and may 
 
 **Configuration: Switching to OpenSearch in Elasticgraph**
 
-Elasticgraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure Elasticgraph to use OpenSearch instead of Elasticsearch, add the following line to `.env` file:
+ElasticGraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure ElasticGraph to use OpenSearch instead of Elasticsearch, add the following line to the .env file in the ElasticGraph folder or in the elasticsearch.toml file in your project's configuration:
 
 ```bash
 ds=aws
 ```
+```
+sample_project
+└── config
+      ├── backend
+           └── elasticsearch.toml
+```
+**elasticsearch.toml**
 
+```yaml
+
+maxConnections = 200
+apiVersion = '7.4'
+requestTimeout = 90000
+node = 'http://localhost:9200'
+sniffOnStart = true
+ds = 'aws'
+```
+**Custom Elasticsearch Mapping**
+
+If you want to override an existing mapping, add a specific mapping, or add new fields then custom mapping overrides the existing mapping.
+
+```
+sample_project
+  └── config
+      ├── backend
+           └── ds
+                └──es 
+                    └──custom-mapping.yaml   
+```
+
+```yaml
+reconciled:
+  mappings:
+    dynamic_templates:
+    - full_name:
+        path_match: charge_params.*
+        mapping:
+          type: float
+    properties:
+      charge_params:
+        properties:
+          fee (Fee):
+            type: float
+          fee (Phí dịch vụ):
+            type: float
+```
+in the above, the existing mapping of Reconciled will be overridden.
+
+**Field Encryption and Search in ElasticGraph**
+
+Protecting sensitive data is crucial in any application. ElasticGraph offers a powerful feature that allows encryption of specific fields mentioned in the TOML file of the schema. This ensures the confidentiality and integrity of sensitive information stored in your database.
+
+Furthermore, ElasticGraph enables search functionality on encrypted fields in their plaintext form. To achieve this, ElasticGraph utilizes the robust SHA-256 algorithm for deterministic encryption. 
+
+For example, if you want to encrypt a mobile number field, you can easily achieve this by simply adding the line "encrypted = true" in the corresponding TOML file.
+
+```yaml
+
+[mobileNumber]
+type ="String"
+isRequired = false
+sort = true
+encrypted = true
+
+```
 
 #### Run
 
