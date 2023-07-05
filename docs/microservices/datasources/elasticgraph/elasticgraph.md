@@ -231,11 +231,15 @@ above command is specifically designed for the initial mapping creation and may 
 
 **Configuration: Switching to OpenSearch in Elasticgraph**
 
-ElasticGraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure ElasticGraph to use OpenSearch instead of Elasticsearch, add the following line to the .env file in the ElasticGraph folder or in the elasticsearch.toml file in your project's configuration:
+ElasticGraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure ElasticGraph to use OpenSearch instead of Elasticsearch, add the following either in an environment variable or in the elasticsearch.toml file in your project's configuration:
+
+**Way 1: Add the following line to the .env file:**
 
 ```bash
 ds=aws
 ```
+
+**Way 2: Add the following line to the elasticsearch.toml file:**
 ```
 sample_project
 └── config
@@ -267,7 +271,7 @@ sample_project
 ```
 
 ```yaml
-reconciled:
+reconciled: #The type of entity
   mappings:
     dynamic_templates:
     - full_name:
