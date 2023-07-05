@@ -82,7 +82,7 @@ redact: ['**.mobileNumber']
 By specifying the above redaction path, `mobileNumber` field will be redacted in logs in all nesting levels.   
    
 Sample masked logs:
-```
+```json
 {"Body":"args after evaluation: step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387896000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
 {"Body":"Executing handler step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387896000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
 {"Body":"Result of _executeFn step1 {\"name\":\"ABC\",\"gender\":\"M\",\"age\":25,\"mobileNumber\":\"*****\"}","Timestamp":"1684221387897000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"4030f41a75cb","process.pid":3593},"Attributes":{"event":"/helloworld.http.get","workflow_name":"helloworld","task_id":"step1"}}
@@ -93,7 +93,7 @@ Sample masked logs:
 
 #### 13.3.3.3 Log format
 By default, the logs are dumped in [OTEL Logging format](https://opentelemetry.io/docs/reference/specification/logs/data-model/) when you deploy your service 
-```
+```json
 {"Body":"adding body schema for /upload_doc.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
 {"Body":"adding body schema for /upload_multiple_docs.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
 {"Body":"adding body schema for /upload_s3.http.post","Timestamp":"1676531763727000000","SeverityNumber":9,"SeverityText":"INFO","Resource":{"service.name":"unknown_service:node","host.hostname":"9537a882ae58","process.pid":61741},"Attributes":{}}
@@ -145,7 +145,7 @@ You can add any custom attribute in the OTEL logs whenever any event is triggere
 - `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md) or [static variable](../microservices/setup/configuration/static-vars.md) which contains custom identifiers.
 
 For example, this is the sample static configuration:
-```
+```yaml
 log_attributes: 
   mobileNumber: "query?.mobileNumber"
   id: "params?.id"
@@ -169,7 +169,7 @@ Please make sure to add ? in case any field is optional like `body?.data?.lan` s
 21/02/23, 11:54:06 am [INFO] 48c894ed7d65caa236e8cc0664ee4e5e 5af2d3d564e86fb6 {"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"} event body and eventSpec exist
 ```
 - OTEL format
-```
+```json
 {"Body":"Processing event /test/:id.http.post","Timestamp":"1676960742403000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"3b66e6f8ec6624f6467af1226503a39e","SpanId":"eb6e7d89ac381e9f","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"5252603e08be","process.pid":828},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"}}
 {"Body":"event inputs {\"baseUrl\":\"\",\"body\":{\"data\":{\"lan\":\"12345\"}},\"fresh\":false,\"hostname\":\"localhost\",\"ip\":\"::ffff:172.22.0.1\",\"ips\":[],\"method\":\"POST\",\"originalUrl\":\"/test/12?mobileNumber=9878987898\",\"params\":{\"id\":\"12\"},\"path\":\"/test/12\",\"protocol\":\"http\",\"query\":{\"mobileNumber\":\"9878987898\"},\"route\":{\"path\":\"/test/:id\",\"stack\":[{\"name\":\"<anonymous>\",\"keys\":[],\"regexp\":{\"fast_star\":false,\"fast_slash\":false},\"method\":\"post\"},{\"name\":\"<anonymous>\",\"keys\":[],\"regexp\":{\"fast_star\":false,\"fast_slash\":false},\"method\":\"post\"}],\"methods\":{\"post\":true}},\"secure\":false,\"stale\":true,\"subdomains\":[],\"xhr\":false,\"headers\":{\"content-type\":\"application/json\",\"user-agent\":\"PostmanRuntime/7.29.2\",\"accept\":\"*/*\",\"postman-token\":\"9e57df7d-0a75-48b6-bc52-921bd5c045b7\",\"host\":\"localhost:4000\",\"accept-encoding\":\"gzip, deflate, br\",\"connection\":\"keep-alive\",\"content-length\":\"46\"},\"files\":[]}","Timestamp":"1676960742403000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"3b66e6f8ec6624f6467af1226503a39e","SpanId":"eb6e7d89ac381e9f","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"5252603e08be","process.pid":828},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"}}
 {"Body":"event body and eventSpec exist","Timestamp":"1676960742404000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"3b66e6f8ec6624f6467af1226503a39e","SpanId":"eb6e7d89ac381e9f","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"5252603e08be","process.pid":828},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"}}
@@ -188,7 +188,7 @@ To enable this feature ,you need to specify:
 - `log_attributes` on event level which contains custom identifiers
 
 For example, this is the sample static configuration:
-```
+```yaml
 log_attributes: 
   msgparameter:
     fruit: apple
@@ -233,10 +233,10 @@ summary: add custom error logs on workflow
 id: validation_error
 tasks:
     - id: error_transform
-      fn: com.biz.generic_error_transform
+      fn: com.biz.error_log
 on_error:
     log_attributes:
-        error_type: <% inputs.validation_error.error %>
+        error_type: "enter your custom error type here"
         error_message: "xyz value is required"
 ```
 
@@ -264,7 +264,7 @@ on_error:
       },
       "task_id": "",
       "error": {
-        "error_type": "must have required property 'mobilenumber' in header",
+        "error_type": "enter your custom error type here",
         "error_message": "xyz value is required"
       }
     }}
@@ -294,7 +294,8 @@ metrics:
 In the following example, we are using two custom metrics: 
 - httpbin_calls_total: counter type metric, counter is incremented by 1.
 - httpbin_calls_duration: histogram type metric, timer is set to true to record duration.
-```
+
+```yaml
 summary: Call an API and transform the 
 tasks:
     - id: httpbin_step1 # the response of this will be accessible within the parent step key, under the step1 sub key
@@ -337,7 +338,7 @@ trace:
 #### Example spec
 In the following example, we are creating a new span named `httpbin_trace` with span attributes `request` and `param`. This span gets created when the task starts and ended when the task completes its execution.
 
-```
+```yaml
 summary: Call an API and transform the 
 tasks:
     - id: httpbin_step1 # the response of this will be accessible within the parent step key, under the step1 sub key
@@ -359,7 +360,10 @@ tasks:
 ```
 
 ### 13.4.3 DSL spec for custom logs
-```
+
+If you want generate a log before or after a task.
+
+```yaml
 logs:
     before:
         level: fatal|error|warn|info|debug|trace # refer pino for levels
@@ -383,7 +387,7 @@ The logs are dumped in OTEL format. Please refer to [OTEL Logging Data model](#h
 #### Example spec
 In the following example, we are two additional logs before and after the task execution. 
 
-```
+```yaml
 summary: Call an API and transform the 
 tasks:
     - id: httpbin_step1 # the response of this will be accessible within the parent step key, under the step1 sub key

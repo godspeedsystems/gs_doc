@@ -39,10 +39,10 @@ securitySchemes:
     type: apiKey
     in: header
     name: Authorization
-    
+#    
 before_method_hook: com.jfs.before_method_hook_workflow
-
-after_method_hook: com.jfs.after_method_hook_workflow
+#
+after_method_hook: com.jfs.after_method_hook_workflow 
 ```
 
 ### 8.2.3 Headers defined at datasource level
