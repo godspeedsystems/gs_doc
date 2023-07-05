@@ -135,11 +135,14 @@ If you set any other value in NODE_ENV then the logs are dumped in OTEL format b
 :::
 
 
-#### 13.3.3.4 Add custom identifiers in logs
-You can add any custom identifier in the logging whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers.   
+#### 13.3.3.4 Loggin for events
+You can add any custom attribute in the OTEL logs whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers.   
 
-To enable this feature ,you need to specify two things:   
-- `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md)/[static variable](../microservices/setup/configuration/static-vars.md) which contains custom identifiers.
+#### 13.3.3.4.1 Custom log attributes for all events
+
+** To enable this feature for common logging attributes across all events ,you need to specify two things: **
+
+- `log_attributes` variable as [environment variable](../microservices/setup/configuration/env-vars.md) or [static variable](../microservices/setup/configuration/static-vars.md) which contains custom identifiers.
 
 For example, this is the sample static configuration:
 ```
@@ -172,11 +175,105 @@ Please make sure to add ? in case any field is optional like `body?.data?.lan` s
 {"Body":"event body and eventSpec exist","Timestamp":"1676960742404000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"3b66e6f8ec6624f6467af1226503a39e","SpanId":"eb6e7d89ac381e9f","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"5252603e08be","process.pid":828},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"}}
 ```
 
+#### 13.3.3.4.2 Custom log attributes at event level
+
+You can override log attributes at event level also. You can specify customized log attributes for specific event.
+
+:::note
+This will override default custom attributes as defined above [13.3.3.4.1](../telemetry/intro#133341-custom-log-attributes-for-all-events).
+:::
+
+To enable this feature ,you need to specify:
+
+- `log_attributes` on event level which contains custom identifiers
+
+For example, this is the sample static configuration:
+```
+log_attributes: 
+  msgparameter:
+    fruit: apple
+  identifier: 1
+```
+** Sample Logs **
+
+- OTEL Format
+
+```json
+{ Body: "return value [] 200 %o"
+    Timestamp: "1688565778237000000"
+    SeverityNumber: 9
+    SeverityText: "INFO"
+    TraceId: "3fba9b9bd5d10d00b1b730b74c8eba51"
+    SpanId: "985e8a8d6a18568b"
+    TraceFlags: "01"
+    Resource: {
+      "service.name": "unknown_service:node",
+      "host.hostname": "6295f63d9181",
+      "process.pid": 13956
+    }
+    Attributes: {
+      "event": "/postgres/user/search.http.post",
+      "workflow_name": "com.biz.postgres.user.search",
+      "file_name": "com.biz.postgres.user.search",
+      "msgparameter": {
+        "fruit": "apple"
+      },
+      "identifier": 1,
+      "task_id": ""
+    }}
+```
+#### 13.3.3.4.3 Custom on_error logging in workflow/tasks
+
+In case you want to log specific attributes when an error happens in a task, set those values in `on_error.log_attributes` of that task.
+
+For ex.
+
+```yaml
+summary: add custom error logs on workflow
+id: validation_error
+tasks:
+    - id: error_transform
+      fn: com.biz.generic_error_transform
+on_error:
+    log_attributes:
+        error_type: <% inputs.validation_error.error %>
+        error_message: "xyz value is required"
+```
+
+** Sample logs **
+
+- OTEL format
+```json
+    {Timestamp: "1688563866502000000"
+    SeverityNumber: 17
+    SeverityText: "ERROR"
+    TraceId: "7563f0bd1e6c6508e58a4d1de1464635"
+    SpanId: "c4c65132ef79982f"
+    TraceFlags: "01"
+    Resource: {
+      "service.name": "unknown_service:node",
+      "host.hostname": "6295f63d9181",
+      "process.pid": 8455
+    }
+    Attributes: {
+      "event": "/postgres/user/search.http.post",
+      "workflow_name": "com.biz.postgres.user.search",
+      "file_name": "com.biz.postgres.user.search",
+      "msgparameter": {
+        "fruit": "apple"
+      },
+      "task_id": "",
+      "error": {
+        "error_type": "must have required property 'mobilenumber' in header",
+        "error_message": "xyz value is required"
+      }
+    }}
+```
 ## 13.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
 ### 13.4.1 DSL spec for custom metrics
-```
+
 # refer https://github.com/siimon/prom-client
 metrics:
 -   name: metric_name
