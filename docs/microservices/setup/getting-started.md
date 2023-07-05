@@ -97,7 +97,13 @@ Godspeed framework relies on [Prisma ORM](https://www.prisma.io/) to interact wi
 > To verify if prisma client is generated od not, Look for `generated-client` folder in `src/datasources`. If it is not there. Run below command.
 
 ```sh
- godspeed prism-push
+  godspeed prisma generate --schema=<path/to/prisma/schema>
+```
+
+> In order to sync your models to the db, run the command below
+
+```sh
+  godspeed prisma push --schema=<path/to/prisma/schema>
 ```
 
 #### Step 8: Start the service for local development in watch mode
@@ -111,9 +117,7 @@ You can use `godspeed gen-crud-api` to autogenerate CRUD apis for your prisma fi
 :::
 
 :::tip
-
 With the dev container running, we have auto watch and auto build enabled when you make changes to your project files. You don't need to run build manually everytime you make changes.
-
 :::
 
 ### 3.1.4 Time to start the development
