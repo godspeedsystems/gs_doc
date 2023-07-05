@@ -80,11 +80,11 @@ Sample strucutre of config files under `schema_backend` path.
         ├── entitiesInfo.toml
         ├── relationships.txt
         ├── suggestions.toml
-        └── union.toml        
+        └── union.toml
 ```
 
 ### 8.5.4 Elasticgraph Setup
-The framework has [inbuilt feature](../setup/auto-watch.md/#auto-watch-and-build) of setting up elasticgraph model automatically whenever a new configuration is added in `src/datasources/eg_config/` directory. In case, you are getting any error in the setup, then you can refer execute below step for manual setup: 
+The framework has [inbuilt feature](../../setup/auto-watch.md/#auto-watch-and-build) of setting up elasticgraph model automatically whenever a new configuration is added in `src/datasources/eg_config/` directory. In case, you are getting any error in the setup, then you can refer execute below step for manual setup:
 
 > During the project setup, if you have not selected elasticsearch, then you will have to execute `godspeed update` in project root directory, outside the dev container. This will add elasticsearch in the dev container environment.
 
@@ -92,12 +92,12 @@ The framework has [inbuilt feature](../setup/auto-watch.md/#auto-watch-and-build
 #### Step 1: godspeed eg-push
 ```
 $ godspeed eg-push
-                      _                                   _ 
+                      _                                   _
    __ _    ___     __| |  ___   _ __     ___    ___    __| |
   / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
  | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
   \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
-  |___/                        |_|                          
+  |___/                        |_|
 
 > eg_test@1.0.0 eg-push
 > for f in src/datasources/eg_config/*; do echo ${f}; node ../gs_service/elasticgraph/lib/mappingGenerator/reIndexer.js ${f} all; done
@@ -112,12 +112,12 @@ Developer can generate CRUD APIs for all the entities in `src/datasources/eg_con
 
 ```
 $ godspeed gen-crud-api
-                      _                                   _ 
+                      _                                   _
    __ _    ___     __| |  ___   _ __     ___    ___    __| |
   / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
  | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
   \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
-  |___/                        |_|                          
+  |___/                        |_|
 
 > eg_test@1.0.0 gen-crud-api
 > npx godspeed-crud-api-generator
@@ -142,7 +142,7 @@ Events and Workflows are generated for elasticgraph.yaml
   **backend:** One for backend model and other backend settings
 
   **frontend:** Second for admin dashboard UI
-  
+
 ## 8.5.6.2 Setup
 ### step1: To begin, we will create an empty directory named elastichGrapSetup
 
@@ -221,7 +221,7 @@ $ cd <path-to-elasticgraph-repo>
 DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all
 
 ```
-**Warning**: 
+**Warning**:
 
 If there are existing data indexed in Elasticsearch and we want to make changes to the mapping, such as adding new fields, it is not recommended to use the command used for creating the mapping for the first time
 ```bash
@@ -266,8 +266,8 @@ sample_project
   └── config
       ├── backend
            └── ds
-                └──es 
-                    └──custom-mapping.yaml   
+                └──es
+                    └──custom-mapping.yaml
 ```
 
 ```yaml
@@ -292,7 +292,7 @@ in the above, the existing mapping of Reconciled will be overridden.
 
 Protecting sensitive data is crucial in any application. ElasticGraph offers a powerful feature that allows encryption of specific fields mentioned in the TOML file of the schema. This ensures the confidentiality and integrity of sensitive information stored in your database.
 
-Furthermore, ElasticGraph enables search functionality on encrypted fields in their plaintext form. To achieve this, ElasticGraph utilizes the robust SHA-256 algorithm for deterministic encryption. 
+Furthermore, ElasticGraph enables search functionality on encrypted fields in their plaintext form. To achieve this, ElasticGraph utilizes the robust SHA-256 algorithm for deterministic encryption.
 
 For example, if you want to encrypt a mobile number field, you can easily achieve this by simply adding the line "encrypted = true" in the corresponding TOML file.
 

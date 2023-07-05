@@ -81,7 +81,7 @@ const sidebars = {
         "microservices/datasources/api",
         "microservices/datasources/datastore",
         "microservices/datasources/kafka",
-        "microservices/datasources/elasticgraph",
+        "microservices/datasources/elasticgraph/elasticgraph",
         "microservices/datasources/extensible-datasources",
         "microservices/datasources/aws",
         "microservices/datasources/redis",
