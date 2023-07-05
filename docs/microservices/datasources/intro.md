@@ -17,7 +17,7 @@ Any kind of entity which provides read and write mechanism for data is considere
   - Mysql
   - Mongodb
 - [Kafka](./kafka.md)
-- [Elasticsearch](./elasticgraph.md)
+- [Elasticsearch](./elasticgraph/elasticgraph.md)
 
 **Upcoming**
 - S3

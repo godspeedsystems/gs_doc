@@ -9,7 +9,7 @@
 
 ### Video demo
 You can see a demo and explanation of the whole ElasticGraph stack [here](https://www.youtube.com/watch?v=xZTcSrbQW14)
- 
+
 
 ### Profiling against Mongoose
 A comparison with Mongoose in different scenarios, for a use case of users living in a city belonging to a state. We profiled with create time performance and search/aggregation time performance.
@@ -42,24 +42,24 @@ The node module internally uses **intelligent query batching and in memory cachi
 	* Sometimes the value of some field of an entity depends on the value of another field in (possibly) another entity related to it.
 	* Example unions and copy values. More on it below.
 	* Here you can configure such dependencies through configuration.
-* Dependency management between data of related entities (rows). 
+* Dependency management between data of related entities (rows).
 * Multi lingual storage and read operations
     * You can store, retrieve and search text fields in any languages
 	* Any new language support can be added though a simple configuration
 * Easy SQL
-	* English like (or easy) query language is a custom DSL built to richly express queries in a very small and handy syntax, easily human readable. 
+	* English like (or easy) query language is a custom DSL built to richly express queries in a very small and handy syntax, easily human readable.
 	* Write complex database operation logic in "very few lines"
 	* You (almost) don't need to be a developer to grasp it :-)
 * Performance features
 	* Query batching
-		* EG collects and executes, multiple queries from different places in your application logic, as one bulk query to your datastores. 
+		* EG collects and executes, multiple queries from different places in your application logic, as one bulk query to your datastores.
 		* Saves N -1 round trips to the database for every N queries.
 		* Saves typical throughput time in high load scenario
 		* Reduces the load on the datastores, microservice and network as well.
 		* Reduces the load on the datastores, microservice and network as well.
 		* Gives tremendous performance and speed boost to heavy operations
 * In memory caching
-	* Check and store queries and entities in an in-memory cache. This cache is internally populated and used during execution of EG’s deep API. 
+	* Check and store queries and entities in an in-memory cache. This cache is internally populated and used during execution of EG’s deep API.
 	* Developers can use this feature via EG’s npm module, to keep alive and share a cache object as long as they want for performance optimisation.
 	* Coming soon: Configurable, out of the box external Cache support (like Redis)
 
@@ -70,7 +70,7 @@ ElasticGraph can be used as the NodeJS module (the heart of it). A sync & async 
 ### As a NodeJS module
 ~~~
 const ElasticGraph = require(‘elasticgraph’)
-const eg = new ElasticGraph(‘path/to/config/folder’)  
+const eg = new ElasticGraph(‘path/to/config/folder’)
 ~~~
 
 You will need to configure your data model and setup details in the EG configuration folder.
@@ -126,7 +126,7 @@ Corresponding document of an Event, when returned from the API will look like sh
     }
   }
 }
-~~~  
+~~~
 
 The data model you set is used to generate the appropriate mappings for ES and schema/migration in PG. This way, EG can be used to automatically create schema in ES or Postgres.
 
@@ -158,7 +158,7 @@ relationNameFromAToB <> relationNameFromBToA
 entityTypeA <> entityTypeB //One to one
 relationNameFromAToB <> relationNameFromBToA
 [entityTypeA] <> entityTypeB //Many to one
-relationNameFromAToBs <> relationNameFromBToA  
+relationNameFromAToBs <> relationNameFromBToA
 entityTypeA <> [entityTypeB] //One to many
 relationNameFromAsToBs <> relationNameFromBsToAs
 [entityTypeA] <> [entityTypeB] //many to many
@@ -190,7 +190,7 @@ es.deep.link({
 	},
 	e1ToE2Relation: ‘sessions’
 })
-.then(console.log)  
+.then(console.log)
 ~~~
 
 ## **Graph Search and Graph analytics**
@@ -208,7 +208,7 @@ And, you wish to do the following two queries.
 
 *With ElasticGraph you can denormalize based on simple rule setting and achieve the same result with a single hit to the database. *
 
-By denormalizing (always ensuring latest copy of) the speaker.person.name information within the event object, *during index, update, link or unlink calls*. 
+By denormalizing (always ensuring latest copy of) the speaker.person.name information within the event object, *during index, update, link or unlink calls*.
 
 
 
@@ -225,7 +225,7 @@ speakers.person{name}
 ~~~
 
 Based on your configuration ElasticGraph works to automatically maintain the denormalised storage of speaker and session data in the event entities. Y
-** You only need to link or unlink two entities by a relationship. Everything else is taken care by ElasticGraph. **  
+** You only need to link or unlink two entities by a relationship. Everything else is taken care by ElasticGraph. **
 
 #### Maintenance of the denormalised graph state
 
@@ -405,7 +405,7 @@ Sample API calls
 ~~~
 deep.get({_id:1, _type: ‘event’ , joins: ‘read’});
 deep.get({
-	_id:1, 
+	_id:1,
 	_type: ‘event’ , joins: {
 	"name": 1,
 	"city.name": 1,
@@ -413,9 +413,9 @@ deep.get({
 	}}
 );
 deep.search({
-	_id:1, 
-	_type: ‘event’ , 
-	query: {"match": {“speakers.person.english.name”: “Dalai Lama”}}, 
+	_id:1,
+	_type: ‘event’ ,
+	query: {"match": {“speakers.person.english.name”: “Dalai Lama”}},
 	joins: ‘search’
 })
 ~~~
@@ -537,7 +537,7 @@ To execute a whole script you call eg.dsl.runScripts(script)
 const fillSpeakersTranslatorsAndLinkWithEvent = [
 	'iterate over old-contents where {$exist: event_id} as old-content. Get 25 at a time. Flush every 5 cycles. Wait for 100 millis',
 	[
-		'get event *old-content.event_id',  
+		'get event *old-content.event_id',
 		'if *event is empty, display "empty event", *old-content.event_id',
 		'if *event is empty, stop here',
 		'search old-content-to-audio-channel where {content_id: *old-content._id} as cac',
@@ -611,7 +611,7 @@ This feature allows you to save this overhead to achieve greater system speed an
 > Sample settings in configFolder/collect.toml
 
 ~~~
-[batchSizes] 
+[batchSizes]
 msearch = 200
 index = 200
 mget = 200
@@ -642,7 +642,7 @@ For ex. es.get.collect({_id:..,_type:..}).then()
 In the deep EG operations, a cache is used like a temporary EG index in memory. Hit to ES for each get/search query is done only once. After that each retrieved entity or document, and search result, is kept in the in memory store. Further, the graph update operations are also done in memory. Once the time to flush the updated graph to ES has come, one can call cache.flush()
 All the in-memory-updated entities will be written to ES indices, and all cache data will be cleared.
 
-## **Limitations**  
+## **Limitations**
 
 Currently it does not support transactions or authorization (as of today. But coming soon with Postgres)
 
@@ -657,13 +657,7 @@ When using EG for denormalisation and dependency management, one has to be OK wi
 
 ### **Configuration**
 
-
-
-There is a config folder, which can have these two folders:
-* backend: One for backend model and other backend settings
-* frontend: Second for admin dashboard UI (optional, if you want it)
-
-Some details can be found in [README-setup](/README-SETUP.md)
+Some details can be found in [setup](./elasticgraph.md)
 
 ## **Deep API**
 
@@ -696,7 +690,7 @@ For now you can see the API by going through the lib/search,get,create,update,li
 
 ## **Summing it up**
 
-This project started with the .collect() feature sometime in 2015, from there it has evolved to include the deep API, denormalization, esql and other features. And now it is expanding to become a very powerful full fledged Microservice Platform. We have catered to four clients so far, and also built our own admin panel using the same. 
+This project started with the .collect() feature sometime in 2015, from there it has evolved to include the deep API, denormalization, esql and other features. And now it is expanding to become a very powerful full fledged Microservice Platform. We have catered to four clients so far, and also built our own admin panel using the same.
 
 Built with deep thought from the Himalayas. <3
 
