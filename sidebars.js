@@ -81,7 +81,14 @@ const sidebars = {
         "microservices/datasources/api",
         "microservices/datasources/datastore",
         "microservices/datasources/kafka",
-        "microservices/datasources/elasticgraph/elasticgraph",
+        {
+          type: "category",
+          label: "8.5 Elasticgraph",
+          items: [
+            "microservices/datasources/elasticgraph/elasticgraph",
+            "microservices/datasources/elasticgraph/feature-set-of-elasticgraph",
+          ],
+        },
         "microservices/datasources/extensible-datasources",
         "microservices/datasources/aws",
         "microservices/datasources/redis",

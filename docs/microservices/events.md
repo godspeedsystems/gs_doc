@@ -6,7 +6,7 @@ toc_max_heading_level: 4
 ---
 
 # Events
-A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, gRpc, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes
+A microservice can be configured to consume events from variety of [event sources](#61-event-types), like HTTP, GraphQl, S3 etc. The event schema, for each event source, closely follows the OpenAPI specification. It includes
 - The name/topic/URL of the event
 - The event source and other information for the source (for ex. group_id in case of Kafka events)
 - The event handler workflow
@@ -20,15 +20,10 @@ The response of the event is flexible for the developer to change as per the req
 **Currently supported**
 - http.{method_type} For example, post or get
 - Kafka
-- salesforce
+- Salesforce
 - cron
-
-**Planned**
 - Webhook
 - S3
-- gRPC
-- GraphQL
-- Websocket
 
 ## 6.2 Event schema & examples for supported sources
 
