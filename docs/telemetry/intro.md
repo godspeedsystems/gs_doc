@@ -172,6 +172,37 @@ Please make sure to add ? in case any field is optional like `body?.data?.lan` s
 {"Body":"event body and eventSpec exist","Timestamp":"1676960742404000000","SeverityNumber":9,"SeverityText":"INFO","TraceId":"3b66e6f8ec6624f6467af1226503a39e","SpanId":"eb6e7d89ac381e9f","TraceFlags":"01","Resource":{"service.name":"unknown_service:node","host.hostname":"5252603e08be","process.pid":828},"Attributes":{"event":"/test/:id.http.post","workflow_name":"com.jfs.test","mobileNumber":"9878987898","id":"12","lan":"12345"}}
 ```
 
+#### 13.3.3.4.1 Add custom identifiers in logs at event level
+You can add(override) any custom identifier in the logging whenever any event is triggered on your service. The value for the custom identifier will be picked up from event body, params, query, or headers. 
+  
+:::note
+Please make sure to add the custom identifier in default(environment variable), to override its value at event level. rest implementation works same as [13.3.3.4](../telemetry/intro#13334-add-custom-identifiers-in-logs).
+:::
+
+For example, this is the sample static configuration:
+```
+log_attributes: 
+  msgparameter: "query?.mobileNumber"
+  identifier: "params?.id"
+```
+
+To log custom error on workflows:
+
+- error_type - will be `type` that you can pass inside error object of args.
+- error_message - will be `message`. 
+
+```
+summary: Handling schema validation error
+id: transform_validation_error
+tasks:
+    - id: error_transform
+      fn: com.biz.generic_error_transform
+      args: 
+        error:
+          httpCode: 400
+          message: <% inputs.validation_error.error %>
+          type: <% mappings.ErrorType.ValidationError %>
+```
 ## 13.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
