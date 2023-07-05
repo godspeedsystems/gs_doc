@@ -57,8 +57,8 @@ Sample strucutre of config files under `schema_backend` path.
 │       ├── aggregation.toml
 │       ├── dependencies.toml
 │       ├── entities
-│       │   ├── credit_card.toml
-│       │   └── user.toml
+│       │   ├── reconciled.toml
+│       │   └── auth_user.toml
 │       ├── entitiesInfo.toml
 │       ├── relationships.txt
 │       ├── suggestions.toml
@@ -75,8 +75,8 @@ Sample strucutre of config files under `schema_backend` path.
         ├── aggregation.toml
         ├── dependencies.toml
         ├── entities
-        │   ├── credit_card.toml
-        │   └── user.toml
+        │   ├── reconciled.toml
+        │   └── auth_user.toml
         ├── entitiesInfo.toml
         ├── relationships.txt
         ├── suggestions.toml
@@ -199,23 +199,111 @@ $ ln -s ../../elasticgraph elasticgraph
 ```
 
 _Note_: `../../elasticgraph` is the path to where you have cloned `elasticgraph` repository, so please make change accordingly.
+**Note**
 
-**Creating the schema in Elasticsearch**
+To run these commands, you will need to have the ElasticGraph source code. Navigate to the root directory of ElasticGraph and execute the following command.
+**Creating the mapping in Elasticsearch**
 
-Run the following command from shell
+To create the mapping for the first time, run the following command:
 
 ```bash
 $ cd <path-to-elasticgraph-repo>
- DEBUG=*,-elasticsearch node lib/mappingGenerator/esMappingGenerator.js ../sample_project/config/backend
+
+ DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all init
+
 ```
 
-**Warning**: If you do not pass any types, then a fresh empty index will be created for all the entities in your model
+**Reindexing after Mapping Changes**
 
-Run the following comand
-
+If we have made any changes to the mapping, such as adding new fields, we will need to reindex our data to apply the changes to the existing documents. To reindex in Elasticsearch,run the following command:
 ```bash
 $ cd <path-to-elasticgraph-repo>
- DEBUG=*,-elasticsearch node lib/mappingGenerator/esMappingGenerator.js ../sample_project/config/backend
+DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all
+
+```
+**Warning**: 
+
+If there are existing data indexed in Elasticsearch and we want to make changes to the mapping, such as adding new fields, it is not recommended to use the command used for creating the mapping for the first time
+```bash
+DEBUG=*,-elasticsearch node lib/mappingGenerator/reIndexer.js ../sample_project/config/backend all init
+```
+above command is specifically designed for the initial mapping creation and may lead to data loss if applied to an existing index.
+
+**Configuration: Switching to OpenSearch in Elasticgraph**
+
+ElasticGraph supports both Elasticsearch and OpenSearch as underlying data stores. By default, Elasticsearch is used. To configure ElasticGraph to use OpenSearch instead of Elasticsearch, add the following either in an environment variable or in the elasticsearch.toml file in your project's configuration:
+
+**Way 1: Add the following line to the .env file:**
+
+```bash
+ds=aws
+```
+
+**Way 2: Add the following line to the elasticsearch.toml file:**
+```
+sample_project
+└── config
+      ├── backend
+           └── elasticsearch.toml
+```
+**elasticsearch.toml**
+
+```yaml
+
+maxConnections = 200
+apiVersion = '7.4'
+requestTimeout = 90000
+node = 'http://localhost:9200'
+sniffOnStart = true
+ds = 'aws'
+```
+**Custom Elasticsearch Mapping**
+
+If you want to override an existing mapping, add a specific mapping, or add new fields then custom mapping overrides the existing mapping.
+
+```
+sample_project
+  └── config
+      ├── backend
+           └── ds
+                └──es 
+                    └──custom-mapping.yaml   
+```
+
+```yaml
+reconciled: #The type of entity
+  mappings:
+    dynamic_templates:
+    - full_name:
+        path_match: charge_params.*
+        mapping:
+          type: float
+    properties:
+      charge_params:
+        properties:
+          fee (Fee):
+            type: float
+          fee (Phí dịch vụ):
+            type: float
+```
+in the above, the existing mapping of Reconciled will be overridden.
+
+**Field Encryption and Search in ElasticGraph**
+
+Protecting sensitive data is crucial in any application. ElasticGraph offers a powerful feature that allows encryption of specific fields mentioned in the TOML file of the schema. This ensures the confidentiality and integrity of sensitive information stored in your database.
+
+Furthermore, ElasticGraph enables search functionality on encrypted fields in their plaintext form. To achieve this, ElasticGraph utilizes the robust SHA-256 algorithm for deterministic encryption. 
+
+For example, if you want to encrypt a mobile number field, you can easily achieve this by simply adding the line "encrypted = true" in the corresponding TOML file.
+
+```yaml
+
+[mobileNumber]
+type ="String"
+isRequired = false
+sort = true
+encrypted = true
+
 ```
 
 #### Run
