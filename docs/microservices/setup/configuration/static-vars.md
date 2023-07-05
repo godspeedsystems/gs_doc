@@ -36,4 +36,5 @@ The available values are 'coffee' or 'js'. Refer [Coffee/JS scripting](../../wor
 **server_url** is the custom server url which you want to use as `Servers` in swagger specs/auto generated documentation. Refer [Custom Server URL](../../swagger-specs.md/#52-custom-server-url)
 
 **request_body_limit** This variable sets the limit for the request body size. It checks if config.request_body_limit is defined in the application's configuration. If it is, the value from the configuration is used; otherwise, it defaults to 50* 1024 * 1024 bytes (50 megabytes).
+
 **file_size_limit** This variable sets the limit for the file size. Similar to request_body_limit, it checks if config.file_size_limit is defined in the configuration. If it is, the value from the configuration is used; otherwise, it defaults to 50 * 1024 * 1024 bytes (50 megabytes).
