@@ -78,6 +78,7 @@ const sidebars = {
       label: "8. Datasources",
       items: [
         "microservices/datasources/intro",
+        "microservices/datasources/before-and-after-hooks",
         "microservices/datasources/api",
         "microservices/datasources/datastore",
         "microservices/datasources/kafka",
