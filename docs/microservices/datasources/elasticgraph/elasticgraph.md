@@ -6,7 +6,7 @@ title: Elasticgraph as datasource
 # Introduction
 The framework supports Elasticgraph as a datasource. It supports elasticsearch as datastore. In addition, you can use various features of Elasticgraph like deep graph search algorithms, de-normalization, joins, aggregations, multi-lingual support.
 
-### 8.5.1 Folder Structure
+### 8.6.1 Folder Structure
 The datasources for Elasticgraph are defined in `src/datasources`. Here, `elasticgraph1.yaml` and `elasticgraph2.yaml` are defined in datasources.
 ```
 .
@@ -21,7 +21,7 @@ The datasources for Elasticgraph are defined in `src/datasources`. Here, `elasti
     └── mappings
 ```
 
-### 8.5.2 Datasource DSL
+### 8.6.2 Datasource DSL
 **elasticgraph1.yaml**
 ```yaml
   type: elasticgraph
@@ -38,7 +38,7 @@ collect: true # collect feature of elasticsearch
 ```
 
 
-### 8.5.3 Configuration files of Elasticgraph
+### 8.6.3 Configuration files of Elasticgraph
 All the configuration files of Elasticgraph datasources should be defined in `src/datasources/eg_config/` directory.
 
 Sample strucutre of config files.
@@ -84,7 +84,7 @@ Sample strucutre of config files.
         └── union.toml
 ```
 
-### 8.5.4 Elasticgraph Setup
+### 8.6.4 Elasticgraph Setup
 The framework has [inbuilt feature](../../setup/auto-watch.md/#auto-watch-and-build) of setting up Elasticgraph model automatically whenever a new configuration is added in `src/datasources/eg_config/` directory. In case, you are getting any error in the setup, then you can refer execute below step for manual setup:
 
 > During the project setup, if you have not selected elasticsearch, then you will have to execute `godspeed update` in project root directory, outside the dev container. This will add elasticsearch in the dev container environment.
@@ -106,7 +106,7 @@ $ godspeed eg-push
 src/datasources/eg_config/eg1
 ```
 
-## 8.5.5 Auto generating CRUD APIs for Elasticgraph
+## 8.6.5 Auto generating CRUD APIs for Elasticgraph
 Developer can generate CRUD APIs for all the entities in `src/datasources/eg_config/` directory. `Events` and `Workflows` will be auto generated for `Create`, `Read`, `Update` and `Delete` operations for each entity in respective datastore.
 
  Auto-generated events and workflows will be stored in `/events/{datasourceName}/{entityName}` and `/functions/com/gs/eg/{datasourceName}/{entityName}` folders respectively.
@@ -127,7 +127,7 @@ Select datasource / schema to generate CRUD APIs
 Events and Workflows are generated for elasticgraph.yaml
 ```
 
-# 8.5.6 Elasticgraph setup
+# 8.6.6 Elasticgraph setup
 
 ## Creating the mapping in Elasticsearch for first time
 
