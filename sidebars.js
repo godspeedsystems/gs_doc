@@ -84,7 +84,7 @@ const sidebars = {
         "microservices/datasources/kafka",
         {
           type: "category",
-          label: "8.5 Elasticgraph",
+          label: "8.6 Elasticgraph",
           items: [
             "microservices/datasources/elasticgraph/elasticgraph",
             "microservices/datasources/elasticgraph/feature-set-of-elasticgraph",
