@@ -60,5 +60,33 @@ headers:
 ### 8.2.4 Headers defined at task level
 Headers defined at task level are applicable for a single task only. You can find the [example usage here](../workflows#62-the-tasks-within-workflows)
 
-### 8.2.5 Example usage
+### 8.2.5 Datasource extensibility with before and after method hooks
+
+`before_method_hook` and `after_method_hook` defined at datasource level are applicable for all the workflows, which are using this datasource.
+
+You can leverage `before_method_hook` and `after_method_hook` method hooks to trigger another workflow as per your use case.
+
+for ex. You want to make an audit log for a third party api. 
+
+- `before_method_hook` this workflow will be triggered before executing the workflow where the datasource is defined.  
+
+src/datasource/test_datasource.yaml
+```yaml
+type: api
+schema:
+base_url: <% config.httpbin.base_url %>    
+before_method_hook: com.jfs.audit_log_workflow
+```
+
+- `after_method_hook` this workflow will be triggered after executing the workflow where the datasource is defined. 
+src/datasource/test_datasource.yaml
+
+```yaml
+type: api
+schema:
+base_url: <% config.httpbin.base_url %>    
+after_method_hook: com.jfs.audit_log_workflow
+```
+
+### 8.2.6 Example usage
 You can find the [example usage here](../workflows#661-comgshttp)

@@ -28,6 +28,9 @@ description: Hello world example which invokes the com.gs.return workflow
 id: hello_world # needed for better logging visibility
 on_error:
   continue: false
+  log_attributes:  # You can add specific log attributes when an error happens in a task.
+        error_message: <% outputs.transform_error.message %>
+        error_type: 'your custom error type'
   response:
     success: false
     code: 500
@@ -84,6 +87,9 @@ A task has the following attributes
     on_error: #You can find sample usage of this in the examples below. Just search on_error in this page.
       continue: false # Whether the next task should be executed, in case this task fails. by default continue is true.
       response: <%Coffee/JS expression%> | String # If specified, the output of `response` is returned as the output of this task. If not specified, the error output is the default output of the failed task.
+      log_attributes:  # You can add specific log attributes when an error happens in a task.
+        error_message: <% outputs.transform_error.message %>
+        error_type: 'your custom error type' 
       tasks: # If specified, the tasks are executed in series/sequence. The output of the last task in these tasks is the default output of the failed task.
         - id: transform_error
           fn: com.gs.transform
