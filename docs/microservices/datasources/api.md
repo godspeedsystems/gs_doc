@@ -66,7 +66,7 @@ Headers defined at task level are applicable for a single task only. You can fin
 
 You can leverage `before_method_hook` and `after_method_hook` method hooks to trigger another workflow as per your use case.
 
-for ex. You want to make an audit log for a third party api. 
+for ex. You want to make an audit log for a third party api call. 
 
 - `before_method_hook` this workflow will be triggered before executing the workflow where the datasource is defined.  
 
