@@ -24,8 +24,8 @@ redact: [] # fields to hide. Sample: ['ns', 'req.headers']
 server_url: https://api.example.com:8443/v1/api
 httpbin: # sample api datasource url
   base_url: https://httpbin.org
-request_body_limit:  50 * 1024 * 1024
-file_size_limit : 50 * 1024 * 1024
+request_body_limit: 50mb
+file_size_limit : 50mb
 ```
 
 **log_level** is the minimum log level to log. Log messages with a lower limit will not get logged. The default value is 'info'.   
