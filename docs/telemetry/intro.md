@@ -274,20 +274,21 @@ Custom metrics, traces and logs can be added in the workflow DSL at each task le
 
 ### 13.4.1 DSL spec for custom metrics
 
-# refer https://github.com/siimon/prom-client
+#### refer https://github.com/siimon/prom-client
+```yaml
 metrics:
--   name: metric_name
-    type: counter|gauge|histogram|summary
-    labels: 
-      label1: val1
-      label2: val2
-            
-    # followng functions depending on the metric type and all of them could be scripts, can use inputs/outputs
-    inc: 10
-    dec: 10
-    set: 100
-    observe: 2000
-    timer: true|false(boolean) starts at the beginning of workflow/task and ends at the end of workflow/task
+- name: metric_name
+  type: counter|gauge|histogram|summary
+  labels: 
+    label1: val1
+    label2: val2
+          
+  # following functions depending on the metric type and all of them could be scripts, can use inputs/outputs
+  inc: 10
+  dec: 10
+  set: 100
+  observe: 2000
+  timer: true|false(boolean) starts at the beginning of workflow/task and ends at the end of workflow/task
 ```
 
 #### Example spec
