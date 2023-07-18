@@ -25,6 +25,7 @@ Options which can be passed for jwt config are:
 ![jwt_config_options](/img/jwtconfig_options.png) 
 
 When configuring jwt config, if you dont not provide `secretOrKeyProvider` or `secretOrKey` property from the above config [options](https://www.passportjs.org/packages/passport-jwt/) it will throw an error. 
+
 If you pass an issuer or audience value in config and the token values are set differently than the config payload, the response will be `Unauthorised`.
 
 
