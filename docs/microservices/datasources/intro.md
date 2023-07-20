@@ -24,24 +24,24 @@ Any kind of entity which provides read and write mechanism for data is considere
 - File system
 
 
-# Connecting to a database and accessing them  using AdminUI
+### 8.1.2 Connecting to a database and accessing them  using AdminUI
 
-### If a developer wants to connect to MongoDB or any other database using admin panel then he can read the necessary values in the docker compose such as host, port, username, password, database.
+If a developer wants to connect to MongoDB or any other database using admin panel then he can read the necessary values in the docker compose such as host, port, username, password, database.
 
-### Below are the few examples of URL format patterns for some databases
+Below are the few examples of URL format patterns for some databases.
 
-## MongoDB
-- Connection URL format: `mongodb://username:password@host:port/database`
-- Example connection URL: `mongodb://admin:mindgrep@localhost:27017/test`
-
-
-## MySQL
-- Connection URL format: `mysql://username:password@host:port/database`
-- Example connection URL: `mysql://root:root@localhost:3306/test`
+**MongoDB**
+  - Connection URL format: `mongodb://username:password@host:port/database`
+  - Example connection URL: `mongodb://admin:mindgrep@localhost:27017/test`
 
 
-## PostgreSQL
-- Connection URL format: `postgresql://username:password@host:port/database`
-- Example connection URL: `postgresql://postgres:postgres@localhost:5432/test`
+**MySQL**
+  - Connection URL format: `mysql://username:password@host:port/database`
+  - Example connection URL: `mysql://root:root@localhost:3306/test`
+
+
+**PostgreSQL**
+  - Connection URL format: `postgresql://username:password@host:port/database`
+  - Example connection URL: `postgresql://postgres:postgres@localhost:5432/test`
 
 
