@@ -269,6 +269,18 @@ on_error:
       }
     }}
 ```
+#### 13.3.3.4.4 Usage of Logger Instance in Custom JS/TS Functions
+
+** Sample code **
+```
+module.exports = function(args, {childLogger, promClient, tracer}) {
+    for (let i = 0; i < 1000; i++) {
+        childLogger.error("print log i: %s", i);
+    }
+    return "OK"
+}
+
+```
 ## 13.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
