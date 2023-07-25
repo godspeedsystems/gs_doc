@@ -47,6 +47,8 @@ const sidebars = {
             "microservices/setup/configuration/intro",
             "microservices/setup/configuration/env-vars",
             "microservices/setup/configuration/static-vars",
+            "microservices/setup/configuration/custom-swagger-spec-docs"
+
           ],
         },
         "microservices/setup/tests",
