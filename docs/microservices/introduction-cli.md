@@ -434,3 +434,30 @@ Godspeed: Sample Microservice
 
 ### help
 The help command displays help and usage for any command. [Click here to know more](#help)
+
+## 4.6 Generating Elasticgraph model from prisma schema 
+### generate-elasticgraph-model
+
+**You can convert the prisma schema to elasticgraph model by executing this commmand in your project root directory inside the dev container.**
+
+```
+$ godspeed generate-elasticgraph-model
+                      _                                   _ 
+   __ _    ___     __| |  ___   _ __     ___    ___    __| |
+  / _` |  / _ \   / _` | / __| | '_ \   / _ \  / _ \  / _` |
+ | (_| | | (_) | | (_| | \__ \ | |_) | |  __/ |  __/ | (_| |
+  \__, |  \___/   \__,_| |___/ | .__/   \___|  \___|  \__,_|
+  |___/                        |_|                          
+Usage: godspeed generate-elasticgraph-model [egClientName]
+Enter the input path  : 
+Enter the output path :
+
+Elasticgraph model generated
+```
+
+:::note
+- [egClientName] (optional): Specifies the name of the Elasticgraph client to be generated. If not provided, the default name `eg-model` will be used.
+- If the specified input path does not exist, the CLI will display an error message.
+- If the specified output path does not exist, the folder will be generated with [egClientName].
+:::
+
