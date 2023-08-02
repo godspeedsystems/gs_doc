@@ -150,12 +150,17 @@ log_attributes:
   mobileNumber: "query?.mobileNumber"
   id: "params?.id"
   lan: "body?.data?.lan"
+  name: "headers?.name"
+  gender: <% mappings.Gender %>
 ```
 
 - location of the identifier in the request payload. As specified in the above example, 
   - if mobileNumber is present in query params then specify `query?.mobileNumber`.
   - if id is present in path params then specify `params?.id`.
   - if lan is present in data field inside body then specify `body?.data?.lan`.
+  - if name is present in headers then specify `headers?.name`.
+  - if gender is present in data field inside mappings then specify `<% mappings.Gender %>`.
+
 
 :::note
 Please make sure to add ? in case any field is optional like `body?.data?.lan` so that it works well with undefined values. This will add lan in the logs if it is present else it will not get added.

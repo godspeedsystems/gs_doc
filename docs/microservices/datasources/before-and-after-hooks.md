@@ -27,3 +27,32 @@ schema:
 base_url: <% config.httpbin.base_url %>    
 after_method_hook: com.jfs.audit_log_workflow
 ```
+
+- To access datasource context in the workflows of the `before_method_hook` and `after_method_hook` use `<% config.context %>` script.
+ 
+for eg.
+
+ ```yaml
+summary: 'hook workflow for testing'
+id: logging_input_output
+tasks: 
+  - id: audit_log
+    fn: com.gs.transform
+    args:
+      request: <% config.context %>
+      response: <% outputs %>
+ ```
+
+context of datasource type: api
+
+```json
+{
+  "type": "api",
+  "base_url": "https://dummyjson.com",
+  "gsName": "testdatasource",
+  "url": "/products/1",
+  "method": "post",
+  "body": {
+    "test": "key"
+  }
+}```
