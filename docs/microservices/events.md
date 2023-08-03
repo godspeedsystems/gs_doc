@@ -24,6 +24,7 @@ The response of the event is flexible for the developer to change as per the req
 - cron
 - Webhook
 - S3
+- RabbitMQ
 
 ## 6.2 Event schema & examples for supported sources
 
@@ -347,3 +348,54 @@ body:
         level: info
         data: HELLO from CRON
  ```
+
+ ### 6.2.3 RabbitMQ event
+
+> A RabbitMQ event is specified as `{queue_name}.{datasourceName}` in [the RabbitMQ event specification](#example-spec-for-RabbitMQ-event).
+
+
+
+The message body of a RabbitMQ event is captured and represented as `inputs.body` for [consumption in the handler workflow](#example-workflow-consuming-a-kafka-event).
+
+#### Datasource for RabbitMQ
+The datasources for kafka are defined in `src/datasources`. [Refer RabbitMQ as datasource](./datasources/rabbitmq.md/#741-example-spec) for more information.
+
+#### Example spec for RabbitMQ event
+
+``` yaml
+queue_name.rabbitmq: # This event will be triggered whenever
+  # a new message arrives on the queue_name
+  id: /rabbitmqEvent
+  fn: com.jfs.publish_rabbitmq #The event handler written in publish_kafka.yml, and
+  # kept in src/workflows/com/jfs folder (in this example)
+  on_validation_error: com.jfs.handle_validation_error # The validation error handler if event's json schema validation gets failed and
+  # kept in src/workflows/com/jfs folder (in this example)
+  body:
+    description: The body of the query
+    content:
+      application/json: # For ex. application/json application/xml
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+          required: [name]
+```
+
+#### Example workflow consuming a RabbitMQ event
+```yaml
+  summary: Handle RabbitMQ event
+  id: some_unique_id
+  tasks:
+    - id: step1
+      summary: Publish an event with this data
+      fn: com.gs.rabbitmq.publish
+      args: # similar to Axios format
+        datasource: rabbitmq
+        config:
+          method: rabbitmq
+          topic: publish-producer1
+        data:
+          value: <% inputs %>
+      # Here we are publishing an event data to another topic
+```
