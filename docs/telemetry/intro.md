@@ -274,6 +274,26 @@ on_error:
       }
     }}
 ```
+#### 13.3.3.4.4 Usage of Logger Instance in Custom JS/TS Functions
+This feature enables developers to utilize a Logger Instance in custom JS or TS functions. The Logger Instance assists in logging information, warnings, and errors during the execution of the function. The feature ensures robust logging capabilities and facilitates debugging and monitoring of the application.
+
+** Sample code **
+```
+module.exports = function(args, {childLogger, promClient, tracer}) {
+    for (let i = 0; i < 1000; i++) {
+        childLogger.error("print log i: %s", i);
+    }
+    return "OK"
+}
+```
+** Function Parameters: **
+
+- ** args: ** Represents the arguments passed to the custom JS/TS function. Developers can use this parameter to accept input data and perform necessary computations within the function.
+- ** {childLogger, promClient, tracer}: ** This object contains three properties, which are as follows:
+  - ** childLogger: ** A Logger Instance that developers can use to log messages, errors, and other relevant information during the function's execution.
+  - ** promClient: ** A library that provides a Prometheus client for collecting metrics and exposing them to Prometheus monitoring system.
+  - **tracer: ** A library used for distributed tracing, which can be beneficial in identifying and resolving issues across microservices.
+
 ## 13.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
 
