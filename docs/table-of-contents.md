@@ -130,6 +130,10 @@ title: Table of Contents
 [8.9 Redis as datasource](./microservices/datasources/redis.md)
     [8.9.1 Example spec](./microservices/datasources/redis.md/#881-example-spec)
 
+
+[8.10 RabbitMQ as datasource](./microservices/datasources/rabbitmq.md)
+    [8.10.1 Example spec](./microservices/datasources/rabbitmq#8101-example-spec)
+
 [9. **Caching**](./microservices/caching.md)
     [9.1 Specifications](./microservices/caching.md/#91-specifications)
     [9.1.1 Datasource spec for redis](./microservices/caching.md/#911-datasource-spec-for-redis)

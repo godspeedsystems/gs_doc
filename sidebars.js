@@ -47,8 +47,7 @@ const sidebars = {
             "microservices/setup/configuration/intro",
             "microservices/setup/configuration/env-vars",
             "microservices/setup/configuration/static-vars",
-            "microservices/setup/configuration/custom-swagger-spec-docs"
-
+            "microservices/setup/configuration/custom-swagger-spec-docs",
           ],
         },
         "microservices/setup/tests",
@@ -95,6 +94,7 @@ const sidebars = {
         "microservices/datasources/extensible-datasources",
         "microservices/datasources/aws",
         "microservices/datasources/redis",
+        "microservices/datasources/rabbitmq",
       ],
     },
     {
