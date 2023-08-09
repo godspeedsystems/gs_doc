@@ -285,9 +285,9 @@ module.exports = function(args, {childLogger, promClient, tracer}) {
 
 - ** args: ** Represents the arguments passed to the custom JS/TS function. Developers can use this parameter to accept input data and perform necessary computations within the function.
 - ** {childLogger, promClient, tracer}: ** This object contains three properties, which are as follows:
-- ** childLogger: ** A Logger Instance that developers can use to log messages, errors, and other relevant information during the function's execution.
-- ** promClient: ** A library that provides a Prometheus client for collecting metrics and exposing them to Prometheus monitoring system.
-- **tracer: ** A library used for distributed tracing, which can be beneficial in identifying and resolving issues across microservices.
+  - ** childLogger: ** A Logger Instance that developers can use to log messages, errors, and other relevant information during the function's execution.
+  - ** promClient: ** A library that provides a Prometheus client for collecting metrics and exposing them to Prometheus monitoring system.
+  - **tracer: ** A library used for distributed tracing, which can be beneficial in identifying and resolving issues across microservices.
 
 ## 13.4 Custom metrics, traces and logs (BPM)
 Custom metrics, traces and logs can be added in the workflow DSL at each task level then these will be available out of the box along with APM.
