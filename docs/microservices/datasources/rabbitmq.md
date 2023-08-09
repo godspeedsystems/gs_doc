@@ -27,8 +27,9 @@ Sample configuration in `rabbitmq.yaml`
 type: rabbitmq
 config:
    connectionString: amqp://guest:guest@host.docker.internal:5672 
+   exchange: TestOne
+   routingKey: TestQueueOne_key
 retryCount: 3
 loadFn: com.gs.rabbitmq.loader
 executeFn: com.gs.rabbitmq.publish
-
 ```
