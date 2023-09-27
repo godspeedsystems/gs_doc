@@ -20,7 +20,7 @@ A workflow has the following attributes
 - **description** - more details
 - **id** - Recommended for better logging visibility
 - **on_error** - Default error handling if any tasks fails. 
-- **tasks** - the tasks (workflows or sub-workflows) to be run in series (sequence, or one by one). The tasks invoke other workflows written in YAML or JS/TS. Other languages support is planned.
+- **tasks** - the tasks (workflows or sub-workflows) to be run in sequential (or one by one). The tasks invoke other workflows written in YAML or JS/TS. Other languages support is planned.
 
 ```yaml
 summary: Hello world
@@ -48,7 +48,7 @@ A task has the following attributes
 - **id** - Needed for better logging visibility. _It is compulsory for a task._ Importantly, this is also used to access the output of this task in subsequent tasks in the `outputs.{task_id}` path, as shown in [example below](#define-language-at-workflow-level).
 - **summary** - the title
 - **description** - more details
-- **fn** - The handler to be run in this task. It can be one of the [framework functions](#66-inbuilt-functions), [control functions](#666-comgsseries) (like parallel, sequential, switch), [developer written functions](#67-developer-written-functions), or another workflow.
+- **fn** - The handler to be run in this task. It can be one of the [framework functions](#66-inbuilt-functions), [control functions](#666-comgssequential) (like parallel, sequential, switch), [developer written functions](#67-developer-written-functions), or another workflow.
 > You can also use scripting in dynamic evaluation of a function name as given in below example. Refer [Coffee/JS scripting](#65-use-of-coffeejs-for-scripting) for more information.
   ```yaml
   summary: Call an API and transform the
@@ -90,7 +90,7 @@ A task has the following attributes
       log_attributes:  # You can add specific log attributes when an error happens in a task.
         error_message: <% outputs.transform_error.message %>
         error_type: 'your custom error type' 
-      tasks: # If specified, the tasks are executed in series/sequence. The output of the last task in these tasks is the default output of the failed task.
+      tasks: # If specified, the tasks are executed in sequence. The output of the last task in these tasks is the default output of the failed task.
         - id: transform_error
           fn: com.gs.transform
           args: <% outputs.httpbin_step1 %>
@@ -104,7 +104,7 @@ A task has the following attributes
             config:
               topic: publish-producer1
   ```
-The only exception to this is [control functions](#666-comgsseries) like series, parallel, switch, which don't take the `args`, for the sake of more readability.
+The only exception to this is [control functions](#666-comgssequential) like sequential, parallel, switch, which don't take the `args`, for the sake of more readability.
 - **retry** - Retry logic helps to handle transient failures, internal server errors, and network errors with support for constant, exponential and random types. Currently applied only for `com.gs.http` workflow.
   ```yaml
     retry:
@@ -145,7 +145,7 @@ Note
 summary: Workflow with switch-case and transform task
 id: example_switch_functionality_id
 description: |
-  Run two tasks in series. Both take different arguments. First one is switch case task.
+  Run two tasks in sequential. Both take different arguments. First one is switch case task.
   Second is transform task which consumes the output of step1 and shapes the final output of this workflow.
 tasks: # tasks to be run in sequence (default is sequence)
   - id: step1_switch ## id of this switch task. Its output will be accessible
@@ -434,17 +434,17 @@ This function allows to transform data from one format to another using coffee/j
         data: <% outputs.step1_switch.data %>
 ```
 
-#### 7.6.6 com.gs.series
+#### 7.6.6 com.gs.sequential
 :::tip control flow function
-Executes the tasks in series.
+Executes the tasks in sequential.
 :::
 
-By default every top level workflow executes its task in series. But when invoking subworkflows if you need, you can explicitly use series workflow. Its syntax is same as parallel.
+By default every top level workflow executes its task in sequential. But when invoking subworkflows if you need, you can explicitly use sequential workflow. Its syntax is same as parallel.
 ```yaml
   summary: Parallel Multiplexing create loan for hdfc api calls
   tasks:
     - id: parallel
-      fn: com.gs.series
+      fn: com.gs.sequential
       tasks:
         - id: 1st
           fn: com.gs.return
@@ -469,7 +469,7 @@ By default every top level workflow executes its task in series. But when invoki
 Executes the child tasks in parallel.
 :::
 
-Syntax is same as [com.gs.series](#666-comgsseries)
+Syntax is same as [com.gs.sequential](#666-comgssequential)
 
 ```yaml
   summary: Parallel Multiplexing create loan for hdfc api calls
@@ -903,6 +903,7 @@ The framework provides file upload feature to upload files. Here is the sample e
 
       retry:
         max_attempts: 5
+        
         type: constant
         interval: PT15M
 ```
