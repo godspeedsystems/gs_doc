@@ -14,7 +14,7 @@ For the same, we are leveraging the [OpenTelemetry standard](http://opentelemetr
 > Not even a single request must go untracked!
 
 ### 13.1.1 Architecture
-![arch](/img/otel_arch.png)
+![arch](/img/observibility.png)
 
 - Both **Traces** and **Metrics** are sent to OTEL Collector directly. **Tempo** is used as tracing backend for traces and **Prometheus** is used for metrics with **Mimir** as its backend.
 - For **Logs**, a fluent bit daemonset is running on node, which collects logs from various applications on the node. **Loki** is used as logs aggregation solution.
